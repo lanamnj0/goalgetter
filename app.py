@@ -12,3 +12,6 @@
  Hi, my name is Neha
  One of my hobbies is road cycling 🚴‍♀️. Though it can be really, really hilly at times, and it can sometimes feel like a never-ending climb ⛰️😅 The social chats, brief coffee stops, and lovely nature is a great way to break up city life. Really recommend giving it a go, I love it!
 """
+# Heyy, my name is Shalesa! I enjoy travelling, I've just come back from Bali and went to Brazil for carnval last year. 
+# I also enjoy live music (festivals, concerts) 
+# I go to the gym twice a week and try to stick to a semi strict diet including tuna, eggs, salmon and chocolate (ha)
