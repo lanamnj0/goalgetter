@@ -18,3 +18,6 @@
 
 # Hey hey, my name is Adeyosola 🌸
 # I love baking (favourite thing to bake are cookies) because it's really therapeutic for me and I love witnessing the process from start to finish.
+
+# Hi, Im Thelma 👋🏾
+# I enjoy cooking and trying new recipes from different cuisines, especially Asian cuisine 🍽. I also love going on walks and just being in nature 🌳.
