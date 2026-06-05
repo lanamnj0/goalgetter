@@ -15,3 +15,6 @@
 # Heyy, my name is Shalesa! I enjoy travelling, I've just come back from Bali and went to Brazil for carnval last year. 
 # I also enjoy live music (festivals, concerts) 
 # I go to the gym twice a week and try to stick to a semi strict diet including tuna, eggs, salmon and chocolate (ha)
+
+#Hey hey, my name is Adeyosola.
+#I love baking (favourite thing to bake are cookies) because it's really therapeutic for me and I love witnessing the process from start to finish.
