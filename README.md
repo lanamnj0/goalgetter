@@ -26,6 +26,14 @@ Track meals and calroie intake
 - Jira
 ExerciseDB API
 
+## Database Setup
+
+1. Install MySQL and DBeaver
+2. Open DBeaver and connect to your local MySQL server
+3. Open goalgetter_schema.sql
+4. Run the script to create the Goalgetter databse and tables
+5. Refresh the database navigator to verify the tables were created successfully
+
 ## Database Schema
 
 The database stores information relating to users, workouts, exercises, goals and meals.
