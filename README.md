@@ -8,10 +8,13 @@ The application aims to provide a simple and organised way to manage halth and f
 
 ## Featues
 
-- Wrokout logging
-- Exercise tracking
-- Goal setting
-- Meal tracking
+- Create and manage a user profile
+- Log workouts and track exercise activity
+- Search for exercises using ExerciseDB
+- St and moitor fitness goals
+Track meals and calroie intake
+- View workout history
+- Store fitness data for future reference
 
 ## Technologies Used
 
@@ -29,4 +32,18 @@ The database stores information relating to users, workouts, exercises, goals an
 
 Relationships between tables are managed using primar and foreign keys
 
-## P
+## Group Members
+
+- Tosin
+- Shalesa
+- Lana
+- Adeyosola
+- Neha
+- Thelma
+
+## Future Improvements
+
+- Progress charts and analytics
+- Improved meal planning features
+- Additonal fitness APIs
+- Mobile application support
