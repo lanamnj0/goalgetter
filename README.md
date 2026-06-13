@@ -24,7 +24,7 @@ Track meals and calroie intake
 - Git
 - GitHub
 - Jira
-ExerciseDB API
+- ExerciseDB API
 
 ## Database Setup
 
