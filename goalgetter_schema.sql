@@ -1,8 +1,8 @@
-CREATE DATABASE goalgetter;
+CREATE DATABASE IF NOT EXISTS goalgetter;
 
 USE goalgetter;
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     email VARCHAR(80) NOT NULL UNIQUE,
@@ -10,7 +10,7 @@ CREATE TABLE users (
     current_weight_kg DECIMAL (5,2)
 );
 
-CREATE TABLE workouts (
+CREATE TABLE IF NOT EXISTS workouts (
     workout_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     workout_date DATE NOT NULL,
@@ -19,25 +19,25 @@ CREATE TABLE workouts (
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
-CREATE TABLE exercises (
+CREATE TABLE IF NOT EXISTS exercises (
     exercise_id INT AUTO_INCREMENT PRIMARY KEY,
     exercise_name VARCHAR(100) NOT NULL,
     muscle_group VARCHAR(50),
     calories_burned INT
 );
 
-CREATE TABLE workout_exercises (
+CREATE TABLE IF NOT EXISTS workout_exercises (
     id INT AUTO_INCREMENT PRIMARY KEY,
     workout_id INT NOT NULL,
     exercise_id INT NOT NULL,
-    sets INT,
+    set_count INT,
     reps INT,
     weight_kg DECIMAL(5,2),
     FOREIGN KEY (workout_id) REFERENCES workouts(workout_id),
     FOREIGN KEY (exercise_id) REFERENCES exercises(exercise_id)
 );
 
-CREATE TABLE meals (
+CREATE TABLE IF NOT EXISTS meals (
     meal_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     meal_name VARCHAR(100) NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE meals (
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
-CREATE TABLE goals (
+CREATE TABLE IF NOT EXISTS goals (
     goal_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     goal_type VARCHAR(50) NOT NULL,
