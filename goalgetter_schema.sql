@@ -1,6 +1,6 @@
-CREATE DATABASE fitflow;
+CREATE DATABASE goalgetter;
 
-USE fitflow;
+USE goalgetter;
 
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
