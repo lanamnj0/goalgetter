@@ -1,3 +1,6 @@
+-- GoalGetter Moc Data
+-- This script populates the database with mock data for testing and development 
+
 USE goalgetter;
 
 -- USERS SAMPLE MOCK DATA
