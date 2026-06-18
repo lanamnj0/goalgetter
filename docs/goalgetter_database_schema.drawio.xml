@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="ze1ZHh1U28xTYQrAfr7F">
+    <mxGraphModel dx="1217" dy="631" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="NyP-TXietBwxDvst_5QZ-14" edge="1" parent="1" source="NyP-TXietBwxDvst_5QZ-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="NyP-TXietBwxDvst_5QZ-6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NyP-TXietBwxDvst_5QZ-15" edge="1" parent="1" source="NyP-TXietBwxDvst_5QZ-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="NyP-TXietBwxDvst_5QZ-10" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NyP-TXietBwxDvst_5QZ-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&amp;nbsp;USERS&lt;div&gt;&amp;nbsp;-----------------------------&lt;/div&gt;&lt;div&gt;&amp;nbsp;PK user_id&amp;nbsp;&lt;/div&gt;&lt;div&gt;&amp;nbsp;username&lt;/div&gt;&lt;div&gt;&amp;nbsp;email&lt;/div&gt;&lt;div&gt;&amp;nbsp;password_hash&lt;/div&gt;&lt;div&gt;&amp;nbsp;current_weight_kg&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="220" x="10" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="NyP-TXietBwxDvst_5QZ-16" edge="1" parent="1" source="NyP-TXietBwxDvst_5QZ-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="NyP-TXietBwxDvst_5QZ-9" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NyP-TXietBwxDvst_5QZ-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&amp;nbsp;WORKOUTS&lt;br&gt;&lt;div&gt;&amp;nbsp;-----------------------------&lt;/div&gt;&lt;div&gt;&amp;nbsp;PK workout_id&amp;nbsp;&lt;/div&gt;&lt;div&gt;&amp;nbsp;FK user_id&lt;/div&gt;&lt;div&gt;&amp;nbsp;workout_date&lt;/div&gt;&lt;div&gt;&amp;nbsp;duration_minutes&lt;/div&gt;&lt;div&gt;&amp;nbsp;calories_burned&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="180" x="30" y="395" as="geometry" />
+        </mxCell>
+        <mxCell id="NyP-TXietBwxDvst_5QZ-17" edge="1" parent="1" source="NyP-TXietBwxDvst_5QZ-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="NyP-TXietBwxDvst_5QZ-11" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NyP-TXietBwxDvst_5QZ-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&amp;nbsp;WORKOUT_EXERCISES&lt;br&gt;&lt;div&gt;&amp;nbsp;-----------------------------&lt;/div&gt;&lt;div&gt;&amp;nbsp;PK id&amp;nbsp;&lt;/div&gt;&lt;div&gt;&amp;nbsp;FK workout_id&lt;/div&gt;&lt;div&gt;&amp;nbsp;FK exercise_id&lt;/div&gt;&lt;div&gt;&amp;nbsp;sets&lt;/div&gt;&lt;div&gt;&amp;nbsp;reps&lt;/div&gt;&lt;div&gt;&amp;nbsp;weight_kg&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="200" x="330" y="385" as="geometry" />
+        </mxCell>
+        <mxCell id="NyP-TXietBwxDvst_5QZ-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;MEALS&lt;/span&gt;&lt;/div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;-----------------------------&lt;/span&gt;&lt;div&gt;&amp;nbsp;PK meal_id&amp;nbsp;&lt;/div&gt;&lt;div&gt;&amp;nbsp;FK user_id&lt;/div&gt;&lt;div&gt;&amp;nbsp;meal_name&lt;/div&gt;&lt;div&gt;&amp;nbsp;calories&lt;/div&gt;&lt;div&gt;&amp;nbsp;meal_date&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="130" width="130" x="520" y="15" as="geometry" />
+        </mxCell>
+        <mxCell id="NyP-TXietBwxDvst_5QZ-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&amp;nbsp;EXERCISES&lt;br&gt;&lt;div&gt;&amp;nbsp;-----------------------------&lt;/div&gt;&lt;div&gt;&amp;nbsp;PK exercise_id&lt;/div&gt;&lt;div&gt;&amp;nbsp;exercise_name&lt;/div&gt;&lt;div&gt;&amp;nbsp;muscle_group&lt;/div&gt;&lt;div&gt;&amp;nbsp;calories_burned&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="180" x="630" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="oqUcUFWFJiuJ-bFjp8hM-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&amp;nbsp;GOALS&lt;div&gt;&amp;nbsp;-----------------------------&lt;/div&gt;&lt;div&gt;&amp;nbsp;PK goal_id&lt;/div&gt;&lt;div&gt;&amp;nbsp;FK user_id&lt;/div&gt;&lt;div&gt;&amp;nbsp;goal_type&lt;/div&gt;&lt;div&gt;&amp;nbsp;target_value&lt;/div&gt;&lt;div&gt;&amp;nbsp;current_value&lt;/div&gt;&lt;div&gt;&amp;nbsp;target_date&lt;/div&gt;&lt;div&gt;&amp;nbsp;goal_status&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="150" width="220" x="460" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="oqUcUFWFJiuJ-bFjp8hM-10" edge="1" parent="1" source="NyP-TXietBwxDvst_5QZ-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.004;entryY=0.66;entryDx=0;entryDy=0;entryPerimeter=0;" target="oqUcUFWFJiuJ-bFjp8hM-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
