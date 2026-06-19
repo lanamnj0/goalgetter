@@ -127,12 +127,18 @@ aside .top{
         display: flex;
         justify-content: space-around;
         align-items: center;
-        margin-top: 1.4rem;
+        margin-top: 1.6rem; /* old value 1.4 */
 }
 
 aside .logo{
     display: flex;
     gap: 1rem;
+}
+
+.sidebar-icon{
+    vertical-align: middle;
+    line-height: 1;
+    display: inline-block;
 }
 
 aside .top div.close{
