@@ -30,19 +30,45 @@ class ExerciseAPI:
         self.url = "https://edb-with-videos-and-images-by-ascendapi.p.rapidapi.com/api/v1/bodyparts"
         self.headers = {
             'Content-Type': "application/json", 
-            'X-RAPIDAPI-HOST': "edb-with-videos-and-images-by-ascendapi.p.rapidapi.com", 
-            'X-RAPIDAPI-KEY': os.getenv("RAPIDAPI_KEY"), 
+            'X-RapidAPI-Host': "edb-with-videos-and-images-by-ascendapi.p.rapidapi.com", 
+            'X-RapidAPI-Key': os.getenv("RAPIDAPI_KEY"), 
         }
 
-    def search_by_muscle_group(self, muscle):
-        pass 
+    def search_by_body_part(self, bodyParts, limit = 15):
+        """
+        Search exercise by target body part e.g. chest.
+
+        This should return:
+        ExerciseID, Exercise name, target muscles, secondary muscles,
+        image url, equipment needed and instructions for the selected body part. 
+
+        Request: "GET", "/api/v1/bodyparts"
+        """
+        url = f"{self.url}/v1/bodyparts"
+        params = {"bodyParts": bodyParts, "limit": limit}
+        response = requests.get(url, headers=self.headers, params=params)
+        response.raise_for_status()
+        return response.json() 
+
+    def search_by_target_muscle(self, targetMuscles):
+        pass
 
     def search_by_name(self, name):
         pass
 
-    def search_by_equipment(self, equipment):
+    def search_by_equipment(self, equipments):
         pass 
 
-    def get_exercise_details(self, exercise_id): 
+    def get_exercise_details(self, exerciseId): 
         pass 
 
+    def _format_exercise(self, exercise):
+        # """
+        # To make the format look pretty + easier to use later.
+        # """
+        # return {
+        #     "id": exercise.get("id"), 
+
+        # }
+        pass 
+    
