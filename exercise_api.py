@@ -21,9 +21,17 @@ class ExerciseAPI:
     # creating a skeleton structure of the different files.. 
     # first the initialising structure
     def __init__(self): 
+        """
+        Initialising function.
+        This contains the API url with headers. 
+        The key is stored in .env as this must be secure
+        but is retrieved using os.getenv. 
+        """
         self.url = "https://edb-with-videos-and-images-by-ascendapi.p.rapidapi.com/api/v1/bodyparts"
         self.headers = {
-
+            'Content-Type': "application/json", 
+            'X-RAPIDAPI-HOST': "edb-with-videos-and-images-by-ascendapi.p.rapidapi.com", 
+            'X-RAPIDAPI-KEY': os.getenv("RAPIDAPI_KEY"), 
         }
 
     def search_by_muscle_group(self, muscle):
