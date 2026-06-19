@@ -27,16 +27,17 @@ class ExerciseAPI:
         The key is stored in .env as this must be secure
         but is retrieved using os.getenv. 
         """
-        self.url = "https://edb-with-videos-and-images-by-ascendapi.p.rapidapi.com/api/v1/bodyparts"
+        self.base_url = "https://edb-with-videos-and-images-by-ascendapi.p.rapidapi.com/api/v1"
         self.headers = {
             'Content-Type': "application/json", 
             'X-RapidAPI-Host': "edb-with-videos-and-images-by-ascendapi.p.rapidapi.com", 
             'X-RapidAPI-Key': os.getenv("RAPIDAPI_KEY"), 
         }
 
-    def search_by_body_part(self, bodyParts, limit = 15):
+    def search_by_body_part(self, body_part, limit=15):
         """
         Search exercise by target body part e.g. chest.
+        Comma-separated for multiple body parts e.g. Chest, Shoulers
 
         This should return:
         ExerciseID, Exercise name, target muscles, secondary muscles,
@@ -44,11 +45,31 @@ class ExerciseAPI:
 
         Request: "GET", "/api/v1/bodyparts"
         """
-        url = f"{self.url}/v1/bodyparts"
-        params = {"bodyParts": bodyParts, "limit": limit}
-        response = requests.get(url, headers=self.headers, params=params)
+        url = f"{self.base_url}/exercises"
+
+        params = {
+            "bodyParts": body_part,
+            "limit": limit 
+        }
+
+        response = requests.get(
+            url, 
+            headers=self.headers, 
+            params=params
+            )
+
         response.raise_for_status()
-        return response.json() 
+
+        # the API filters the data
+        # this will just return the data. 
+        data = response.json()["data"]
+    
+        # filter in Python
+        return [
+            exercise for exercise in data
+            if body_part.upper() in exercise["bodyParts"]
+        ][:limit]
+
 
     def search_by_target_muscle(self, targetMuscles):
         pass
