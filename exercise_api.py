@@ -41,9 +41,9 @@ class ExerciseAPI:
 
         This should return:
         ExerciseID, Exercise name, target muscles, secondary muscles,
-        image url, equipment needed and instructions for the selected body part. 
+        image url, and equipment needed for the selected body part. 
 
-        Request: "GET", "/api/v1/bodyparts"
+        Request: "GET", "/api/v1/exercises" with bodyParts query param
         """
         url = f"{self.base_url}/exercises"
 
@@ -65,31 +65,138 @@ class ExerciseAPI:
         data = response.json()["data"]
     
         # filter in Python
-        return [
-            exercise for exercise in data
-            if body_part.upper() in exercise["bodyParts"]
-        ][:limit]
+        return [self._format_exercise(exercise) for exercise in data] 
+        #     self._format_exercise(exercise)
+        #     exercise for exercise in data
+        #     if body_part.upper() in exercise["bodyParts"]
+        # ][:limit]
 
 
-    def search_by_target_muscle(self, targetMuscles):
-        pass
+    def search_by_target_muscle(self, target_muscle, limit=15 ):
+        """
+        Search exercise by target muscle. 
 
-    def search_by_name(self, name):
-        pass
+        This should return:
+        ExerciseID, Exercise name, body part, secondary muscles,
+        image url and equipment needed for the selected target muscle. 
 
-    def search_by_equipment(self, equipments):
-        pass 
+        Request: "GET", "/api/v1/exercises" with targetMuscles query param
+        """
+        url = f"{self.base_url}/exercises"
+
+        params = {
+            "targetMuscle": target_muscle,
+            "limit": limit 
+        }
+
+        response = requests.get(
+            url, 
+            headers=self.headers, 
+            params=params
+            )
+
+        response.raise_for_status()
+
+        # the API filters the data
+        # this will just return the data. 
+        data = response.json()["data"]
+    
+        # filter in Python
+        return [self._format_exercise(exercise) for exercise in data] 
+
+    def search_by_name(self, name, limit = 15):
+        """
+        Search exercise by exercise name. 
+
+        This should return:
+        ExerciseID, body part, target muscle, secondary muscles,
+        image url and equipment needed for the selected exercise name. 
+
+        Request: "GET", "/api/v1/exercises"
+        """
+        url = f"{self.base_url}/exercises"
+
+        params = {
+            "name": name,
+            "limit": limit 
+        }
+
+        response = requests.get(
+            url, 
+            headers=self.headers, 
+            params=params
+            )
+
+        response.raise_for_status()
+
+        # the API filters the data
+        # this will just return the data. 
+        data = response.json()["data"]
+    
+        # filter in Python
+        return [self._format_exercise(exercise) for exercise in data]
+
+    def search_by_equipment(self, equipments, limit=15):
+        """
+        Search exercise by equipment, e.g. body weight. 
+
+        This should return:
+        ExerciseID, Exercise name, body part, target muscle, secondary muscles
+        and image url for the selected equipment
+
+        Request: "GET", "/api/v1/exercises" with equipments query param
+        """
+        url = f"{self.base_url}/exercises"
+
+        params = {
+            "equipments": equipments,
+            "limit": limit 
+        }
+
+        response = requests.get(
+            url, 
+            headers=self.headers, 
+            params=params
+            )
+
+        response.raise_for_status()
+
+        # the API filters the data
+        # this will just return the data. 
+        data = response.json()["data"]
+    
+        # filter in Python
+        return [self._format_exercise(exercise) for exercise in data] 
 
     def get_exercise_details(self, exerciseId): 
-        pass 
+        """
+        Getting full exercise details for a single exercise by its ID
+        Request: "GET", "api/v1/exercises/{exerciseId}
+        """
+        url = f"{self.base_url}/exercises/{exerciseId}"
+
+        response = requests.get(
+            url, 
+            headers=self.headers
+            )
+    
+        response.raise_for_status()
+
+        return self._format_exercise(response.json()["data"])
 
     def _format_exercise(self, exercise):
         # """
         # To make the format look pretty + easier to use later.
-        # """
-        # return {
-        #     "id": exercise.get("id"), 
+        return {
+            "exerciseId: ", exercise.get("exerciseId"), 
+            "name: ", exercise.get("name"),
+            "exerciseType: ", exercise.get("exerciseType"),
+            "imageUrl: ", exercise.get("imageUrl"),
+            "targetMuscles: ", exercise.get("targetMuscles"),
+            "bodyParts: ", exercise.get("bodyParts"),
+            "equipments: ", exercise.get("equipments"),
+            "secondaryMuscles: ", exercise.get("secondaryMuscles")
 
-        # }
-        pass 
+        }
+        
     
