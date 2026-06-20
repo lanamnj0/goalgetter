@@ -188,14 +188,14 @@ class ExerciseAPI:
         # """
         # To make the format look pretty + easier to use later.
         return {
-            "exerciseId: ", exercise.get("exerciseId"), 
-            "name: ", exercise.get("name"),
-            "exerciseType: ", exercise.get("exerciseType"),
-            "imageUrl: ", exercise.get("imageUrl"),
-            "targetMuscles: ", exercise.get("targetMuscles"),
-            "bodyParts: ", exercise.get("bodyParts"),
-            "equipments: ", exercise.get("equipments"),
-            "secondaryMuscles: ", exercise.get("secondaryMuscles")
+            "exerciseId": exercise.get("exerciseId"), 
+            "name": exercise.get("name"),
+            "exerciseType": exercise.get("exerciseType"),
+            "imageUrl": exercise.get("imageUrl"),
+            "targetMuscles": exercise.get("targetMuscles"),
+            "bodyParts": exercise.get("bodyParts"),
+            "equipments": exercise.get("equipments"),
+            "secondaryMuscles": exercise.get("secondaryMuscles")
 
         }
         

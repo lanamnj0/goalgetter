@@ -1,4 +1,5 @@
 from exercise_api import ExerciseAPI
+import traceback
 
 def print_exercises(results, limit=5):
     """
@@ -22,8 +23,13 @@ def print_exercises(results, limit=5):
 api = ExerciseAPI()
 
 try:
-    results = api.search_by_body_part("Shoulders")
+    # results = api.search_by_body_part("Shoulders")
+    # print_exercises(results)
+    #print(results[:2])
+
+    results = api.search_by_equipment("dumbbell")
     print_exercises(results)
 
 except Exception as e:
     print("API Failed: ", e)
+    #traceback.print_exc()
