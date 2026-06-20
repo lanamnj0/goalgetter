@@ -34,6 +34,75 @@ class ExerciseAPI:
             'X-RapidAPI-Key': os.getenv("RAPIDAPI_KEY"), 
         }
 
+    def get_all_equipments(self):
+        """
+        Get the full list of valid equipment names recognised by the API. 
+        This is useful to validate user input before calling search_by_equipment.
+
+        Request: "GET", "/api/v1/equipments" 
+        """
+        url = f"{self.base_url}/equipments"
+
+        response = requests.get(
+            url, 
+            headers=self.headers
+            )
+
+        response.raise_for_status()
+
+        # the API filters the data
+        # this will just return the data. 
+        data = response.json()["data"]
+    
+        # filter in Python
+        return [item["name"] for item in data] 
+
+    def get_all_body_parts(self):
+        """
+        Get the full list of valid valid body parts recognised by the API. 
+        This is useful to validate user input before calling search_by_body_part.
+
+        Request: "GET", "/api/v1/bodyparts" 
+        """
+        url = f"{self.base_url}/bodyparts"
+
+        response = requests.get(
+            url, 
+            headers=self.headers
+            )
+
+        response.raise_for_status()
+
+        # the API filters the data
+        # this will just return the data. 
+        data = response.json()["data"]
+    
+        # filter in Python
+        return [item["name"] for item in data] 
+    
+    def get_all_exercise_types(self):
+        """
+        Get the full list of valid exercise types recognised by the API. 
+        This is useful to validate user input before calling search_by_exercise_types.
+
+        Request: "GET", "/api/v1/exercisetypes" 
+        """
+        url = f"{self.base_url}/exercisetypes"
+
+        response = requests.get(
+            url, 
+            headers=self.headers
+            )
+
+        response.raise_for_status()
+
+        # the API filters the data
+        # this will just return the data. 
+        data = response.json()["data"]
+    
+        # filter in Python
+        return [item["name"] for item in data] 
+
     def search_by_body_part(self, body_part, limit=15):
         """
         Search exercise by target body part e.g. chest.
@@ -66,10 +135,7 @@ class ExerciseAPI:
     
         # filter in Python
         return [self._format_exercise(exercise) for exercise in data] 
-        #     self._format_exercise(exercise)
-        #     exercise for exercise in data
-        #     if body_part.upper() in exercise["bodyParts"]
-        # ][:limit]
+
 
 
     def search_by_target_muscle(self, target_muscle, limit=15 ):
@@ -166,7 +232,39 @@ class ExerciseAPI:
         data = response.json()["data"]
     
         # filter in Python
-        return [self._format_exercise(exercise) for exercise in data] 
+        return [self._format_exercise(exercise) for exercise in data]
+
+    def search_by_exercise_type(self, exercise_type, limit=15):
+        """
+        Search exercise by target exercise type e.g. Strength
+
+        This should return:
+        ExerciseID, Exercise name, body part, target muscles, secondary muscles,
+        image url, and equipment needed for the selected exercise type. 
+
+        Request: "GET", "/api/v1/exercises" with exerciseType query param
+        """
+        url = f"{self.base_url}/exercises"
+
+        params = {
+            "exerciseType": exercise_type,
+            "limit": limit 
+        }
+
+        response = requests.get(
+            url, 
+            headers=self.headers, 
+            params=params
+            )
+
+        response.raise_for_status()
+
+        # the API filters the data
+        # this will just return the data. 
+        data = response.json()["data"]
+    
+        # filter in Python
+        return [self._format_exercise(exercise) for exercise in data]  
 
     def get_exercise_details(self, exerciseId): 
         """

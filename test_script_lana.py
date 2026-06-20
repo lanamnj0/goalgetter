@@ -22,14 +22,18 @@ def print_exercises(results, limit=5):
 
 api = ExerciseAPI()
 
-try:
-    # results = api.search_by_body_part("Shoulders")
-    # print_exercises(results)
-    #print(results[:2])
+# try:
+#     # results = api.search_by_body_part("Shoulders")
+#     # print_exercises(results)
+#     #print(results[:2])
 
-    results = api.search_by_equipment("dumbbell")
-    print_exercises(results)
+#     results = api.search_by_equipment("dumbbell")
+#     print_exercises(results)
 
-except Exception as e:
-    print("API Failed: ", e)
-    #traceback.print_exc()
+# except Exception as e:
+#     print("API Failed: ", e)
+#     #traceback.print_exc()
+
+print(api.get_all_body_parts())
+print(api.get_all_equipments())
+print(api.get_all_exercise_types())
