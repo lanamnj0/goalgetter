@@ -1,10 +1,6 @@
 from flask import Flask
 from config import Config
 
-from flask import Flask
-from config import Config
-
-
 def create_app():
     # Create and configure the Flask aplication
     app = Flask(__name__)
