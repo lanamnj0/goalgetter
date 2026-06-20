@@ -1,11 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for, request
 
 app = Flask(__name__)
 
 # This is the dashboard homepage
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('calendar.html')
 
 @app.route('/workouts')
 def workouts():
