@@ -33,7 +33,7 @@ def create_app():
     def goals():
         return {"message": "Goals endpoint ready"}, 200
 
-    # 
+    # Workout endpoint
     @app.route("/workouts")
     def workouts():
         return {"message": "Workouts endpoint ready"}, 200
