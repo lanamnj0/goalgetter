@@ -1,1 +1,4 @@
 .env
+__pyache__/ 
+*.pyc
+.vscode/ 
