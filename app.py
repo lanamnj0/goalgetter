@@ -1,23 +1,56 @@
-# Introduction to Team one
+from flask import Flask
+from config import Config
 
-# Hi, my name is Tosin 
-# One of my hobbies is fitness. I enjoy going for long walks and challenging myself
-# I enjoy it because it helps me stay active and achieve personal goals  
+def create_app():
+    # Create and configure the Flask aplication
+    app = Flask(__name__)
+    app.config.from_object(Config)
 
-# Hello, my name is Lana
-# I enjoy crochet and fitness. I love regularly going to the gym and
-# creating new healthy recipies, so that I can stay healthy and energised.
+    # Home route confirms the API is running
+    @app.route("/")
+    def home():
+        # return a JSON response with application status
+        return {
+            "message": "Welcome to GoalGetter - Track workouts, meals and fitness goals",
+            "status": "running"
+        }, 200
 
-"""
- Hi, my name is Neha
- One of my hobbies is road cycling 🚴‍♀️. Though it can be really, really hilly at times, and it can sometimes feel like a never-ending climb ⛰️😅 The social chats, brief coffee stops, and lovely nature is a great way to break up city life. Really recommend giving it a go, I love it!
-"""
-# Heyy, my name is Shalesa! I enjoy travelling, I've just come back from Bali and went to Brazil for carnval last year. 
-# I also enjoy live music (festivals, concerts) 
-# I go to the gym twice a week and try to stick to a semi strict diet including tuna, eggs, salmon and chocolate (ha)
+    # Users endpoint
+    @app.route("/users")
+    def users():
+        # return a JSON response
+        return {"message": "Users endpoint ready"}, 200
 
-# Hey hey, my name is Adeyosola 🌸
-# I love baking (favourite thing to bake are cookies) because it's really therapeutic for me and I love witnessing the process from start to finish.
+    # Meals endpoint
+    @app.route("/meals")
+    def meals():
+        return {"message": "Meals endpoint ready"}, 200
 
-# Hi, Im Thelma 👋🏾
-# I enjoy cooking and trying new recipes from different cuisines, especially Asian cuisine 🍽. I also love going on walks and just being in nature 🌳.
+    # Goals endpoint
+    @app.route("/goals")
+    def goals():
+        return {"message": "Goals endpoint ready"}, 200
+
+    # Workouts endpoint
+    @app.route("/workouts")
+    def workouts():
+        return {"message": "Workouts endpoint ready"}, 200
+
+    # exercises endpoint
+    @app.route("/exercises")
+    def exercises():
+        return {"message": "Exercises endpoint ready"}, 200
+
+    # workout-exercises endpoint
+    @app.route("/workout-exercises")
+    def workout_exercises():
+        return {"message": "Workout Exercises endpoint ready"}, 200
+
+    return app
+
+# create application instance 
+app = create_app()
+
+# run the application in debug mode 
+if __name__ == "__main__":
+    app.run(debug=True)
