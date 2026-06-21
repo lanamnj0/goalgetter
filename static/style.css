@@ -29,7 +29,7 @@ body{
     font-family: 'Poppins', sans-serif; /* General font type imported */
     width: 100vw;
     height: 100vh;
-    font-size: 0.88rem;
+    font-size: 0.87rem;
     user-select: none;
     overflow-x: hidden;
     background: var(--clr-color-background);
@@ -63,11 +63,11 @@ h1{
 }
 
 h2{
-    font-size: 1.4rem;
+    font-size: 1.4rem !important;
 }
 
 h3{
-    font-size: 0.87rem;
+    font-size: 0.87rem !important;
 }
 
 h4{
@@ -119,7 +119,8 @@ b{
 
 /* aside */
 aside{
-    height: 100vh;
+    min-height: 100vh;
+    width: 250px;
 }
 
 aside .top{
@@ -174,11 +175,11 @@ aside .sidebar a span{
     transition: all .1s ease-in;
 }
 
-aside a, aside spain, aside div{
+/*aside a, aside span, aside div{
     font-size: 1.6rem !important;
     font-family: 'Poppins' !important;
     font-weight: 400 !important;
-}
+} */
 
 /* the logout icon */
 aside .sidebar a:last-child{
@@ -210,4 +211,41 @@ aside .sidebar a:hover{
 aside .sidebar a:hover span{
     margin-left: 1rem;
     transition: .4s ease;
+}
+
+/* Carousel css*/
+.carousel-inner {
+    overflow: visible;
+}
+
+.short-banner-carousel {
+    width: 100%;
+    max-height: 250px;
+    /*margin-right: 0;*/
+    border-radius: 8px;
+    transition: transform 0.6s ease-in-out;
+}
+
+.short-banner-carousel .carousel-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+    display: flex !important;
+}
+
+.carousel-item:not(.active) {
+    opacity: 0.5;
+    transform: scale(0.95);
+}
+
+/* Grid gallery view */
+.card-body{
+    padding: 0px;
 }
