@@ -22,8 +22,9 @@ CREATE TABLE IF NOT EXISTS workouts (
 CREATE TABLE IF NOT EXISTS exercises (
     exercise_id INT AUTO_INCREMENT PRIMARY KEY,
     exercise_name VARCHAR(100) NOT NULL,
-    muscle_group VARCHAR(50),
-    calories_burned INT
+    body_part VARCHAR(50),
+    target_muscle VARCHAR(50),
+    equipment VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS workout_exercises (
