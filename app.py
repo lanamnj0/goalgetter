@@ -1,5 +1,6 @@
-from flask import Flask
+from flask import Flask, request, jsonify 
 from config import Config
+from exercise_api import ExerciseAPI
 
 def create_app():
     # Create and configure the Flask aplication
@@ -39,6 +40,38 @@ def create_app():
     # exercises endpoint
     @app.route("/exercises")
     def exercises():
+
+        api = ExerciseAPI() 
+
+        equipment = request.args.get("equipment")
+        body_part = request.args.get("body_part")
+        exercise_type = request.args.get("exercise_type")
+        name = request.args.get("name")
+        muscle = request.args.get("muscle")
+
+        try:
+
+            if equipment:
+                results = api.search_by_equipment(equipment)
+            elif body_part:
+                results = api.search_by_body_part(body_part)
+            elif exercise_type:
+                results = api.search_by_exercise_type(exercise_type)
+            elif name:
+                result = api.search_by_name(name)
+            elif muscle:
+                result = api.search_by_target_muscle(muscle)
+            else:
+                return {
+                    "error": "Please provide your chosen body_part, muscle, equipment or name"
+                }, 400 # 400 error - server didnt recognise the request 
+            
+            return jsonify(results), 200 # success 
+        
+        except Exception as e:
+            return {"error": str(e)}, 500 # unexpected 
+
+
         return {"message": "Exercises endpoint ready"}, 200
 
     # workout-exercises endpoint
