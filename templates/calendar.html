@@ -3,18 +3,15 @@
 {% block title %}
     Dashboard
 {% endblock %}
-  {% block extra_styles %}
+  {% block head %}
     <!-- Required meta tags -->
+    {{ super() }} <!-- the super() prioritises the layout, then inserts additional on top -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,700,800&display=swap" rel="stylesheet">
-
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,800&display=swap" rel="stylesheet">
 
-    
-    <link rel="stylesheet" href="../static/calendar_assets/fonts/icomoon/style.css">
-  
+    <link href="../static/calendar_assets/fonts/icomoon/style.css" rel="stylesheet">
     <link href='../static/calendar_assets/fullcalendar/packages/core/main.css' rel='stylesheet' />
     <link href='../static/calendar_assets/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
-    
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../static/calendar_assets/css/bootstrap.min.css">
@@ -24,30 +21,32 @@
 
   {% block main %}
 
+    <div class="d-flex flex-row flex-wrap gap-3 mb-1">
         <!-- Widget 1-->
-        <div class="card mb-3 shadow-sm border-0">
+        <div class="card mb-3 shadow-sm border-0" style="width: fit-content; border-left !important;">
             <div class="card-body p-3">
                 <small class="text-muted text-uppercase fw-bold">Sessions Complete:</small>
                 <!-- Temporarily hardcoded for now, can be easily replaced afterwards-->
-                <h3 class="mb-0 fw-bold">11</h3>
+                <h1 class="danger" class="mb-0 fw-bold">11</h1>
             </div>
         </div>
 
         <!-- Widget 2-->
-        <div class="card mb-3 shadow-sm border-0">
+        <div class="card mb-3 shadow-sm border-0" style="width: fit-content !important;">
             <div class="card-body p-3">
                 <small class="text-muted text-uppercase fw-bold">Current Streak:</small>
-                <h3 class="mb-9 fw-bold">5</h3>
+                <h1 class="danger" class="mb-9 fw-bold">5</h1>
             </div>
         </div>
 
         <!-- Widget 3-->
-        <div class="card mb-3 shadow-sm border-0">
+        <div class="card mb-3 shadow-sm border-0" style="width: fit-content !important;">
             <div class="card-body p-3">
-                <small class="text-muted text-uppercase fw-bold">Total time:</small>
-                <h3 class="mb-0 fw-bold">300 minutes</h3>
+                <small class="text-muted text-uppercase fw-bold">Total time(mins):</small>
+                <h1 class="danger" class="mb-0 fw-bold">300</h1>
             </div>
         </div>
+    </div>
 
         <!-- Calendar implementation-->
         <div class="content" class="col-md-8 mb-4"> <!--8/12 calendar, 4/12 widgets -->
