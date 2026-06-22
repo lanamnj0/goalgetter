@@ -79,7 +79,20 @@ def create_app():
     def workout_exercises():
         return {"message": "Workout Exercises endpoint ready"}, 200
 
-    return app
+
+    # Exercise detail route 
+    @app.route("/exercises/<exercise_id>")
+    def exercise_detail(exercise_id):
+
+        api = ExerciseAPI() 
+
+        try:
+            exercise = api.get_exercise_details(exercise_id)
+            return jsonify(exercise), 200 # success 
+        
+        except Exception as e:
+            return {"error": str(e)}, 500 
+        
 
 # create application instance 
 app = create_app()
