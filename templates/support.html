@@ -9,42 +9,47 @@
 <!-- HTML post form for users to submit an issue (for stakeholder perspective - shows industry-standard web application feature.
      Also helps with updating the system, keeping functionality of the web application, for consistent improvement. -->
 
-    <div class="content">
-        <div class="row justify-content-center">
-        <div class="card shadow-sm">
-                    <div class="card header">
-                        <h3 class="mb-0">Contact Support</h3>
+    <!--<div class="content">
+        <div class="row justify-content-center"> -->
+        <div class="card shadow-sm border-0 mx-auto" style="max-width: 600px;">
+                    <div class="card header p-3">
+                        <h3 class="mb-0 fw-bold">Contact Support</h3>
                     </div>
                     <div class="card-body p-4">
-                        <form action="/support" method="post">
-                            <label>
-                                <input type="text" name="name" placeholder="Enter Fullname..." required>
-                            </label>
+                        <form action="/support" method="POST">
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-seoncdary small">Full Name:</label>
+                                <input class="form-control p-2" type="text" name="name" placeholder="Enter Full Name..." required>
+                            </div>
                             <br>
-                            <label>
-                                <input type="email" name="email" placeholder="Enter Email..." required>
-                            </label>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-secondary small">Email Address:</label>
+                                <input class="form-control p-2" type="email" name="email" placeholder="Enter Email..." required>
+                            </div>
                             <br>
-                            <label class="form-label fw-semibold">
-                                <textarea name="message" class="form-control" rows="4" placeholder="Type your message here..." required></textarea>
-                            </label>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-secondary small">Your Message:</label>
+                                <textarea name="message" class="form-control p-2" rows="4" placeholder="Type your message here..." required></textarea>
+                            </div>
                             <br>
 
-                            <label for="ticket-type" class="form-label"> Issue Type:</label>
-                            <select class="form-select" id="ticket-type" name="support_category">
-                                <option value="" disabled selected class="text-muted">Choose an issue type...</option>
-                                <option value="bug">Report a Bug</option>
-                                <option value="login">Login Issue</option>
-                                <option value="other">Other Support</option>
-                            </select>
-
+                            <div class="mb-4">
+                                <label for="ticket-type" class="form-label fw-bold text-secondary small"> Issue Type:</label>
+                                <select class="form-select p-2" id="ticket-type" name="support_category">
+                                    <option value="" disabled selected class="text-muted">Choose an issue type...</option>
+                                    <option value="bug">Report a Bug</option>
+                                    <option value="account">Account Issue</option>
+                                    <option value="other">Other Support</option>
+                                </select>
+                            </div>
                             <br>
-                            <button class="btn btn-primary" type="submit">Submit</button>
+                            <button class="btn btn-primary w-100 fw-bold p-2" type="Submit Ticket">Submit</button>
                             </form>
 
                     </div>
         </div>
-        </div>
-    </div>
+       <!-- </div>
+    </div>-->
 
 {% endblock %}

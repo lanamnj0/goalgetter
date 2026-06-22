@@ -37,9 +37,8 @@ def support():
 
         # flash() entirely relies on browser Sessions and Cookies not MySQL
         flash(f"Thank you! Your support ticket #{counter} has been submitted! A team member will email your shortly")
+
         print(f"User selected: {selected_issue}")
-
-
     return render_template('support.html')
 
 @app.route('/settings')
