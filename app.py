@@ -63,7 +63,7 @@ def create_app():
                 result = api.search_by_target_muscle(muscle)
             else:
                 return {
-                    "error": "Please provide your chosen body_part, muscle, equipment or name"
+                    "error": "Please provide your chosen exercise_type, body_part, muscle, equipment or name"
                 }, 400 # 400 error - server didnt recognise the request 
             
             return jsonify(results), 200 # success 
@@ -92,6 +92,8 @@ def create_app():
         
         except Exception as e:
             return {"error": str(e)}, 500 
+        
+    return app 
         
 
 # create application instance 

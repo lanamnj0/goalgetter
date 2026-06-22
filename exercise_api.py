@@ -140,7 +140,7 @@ class ExerciseAPI:
 
     def search_by_target_muscle(self, target_muscle, limit=15 ):
         """
-        Search exercise by target muscle. 
+        Search exercise by target muscle e.g. "Pectoralis Major". 
 
         This should return:
         ExerciseID, Exercise name, body part, secondary muscles,
@@ -151,7 +151,7 @@ class ExerciseAPI:
         url = f"{self.base_url}/exercises"
 
         params = {
-            "targetMuscle": target_muscle,
+            "targetMuscles": target_muscle,
             "limit": limit 
         }
 
