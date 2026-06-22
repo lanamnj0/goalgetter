@@ -103,6 +103,29 @@ class ExerciseAPI:
         # filter in Python
         return [item["name"] for item in data] 
 
+    def get_all_target_muscles(self):
+        """
+        Get the full list of valid muscle names recognised by the API. 
+        This is useful to validate user input before calling search_by_target_muscle.
+
+        Request: "GET", "/api/v1/muscles" 
+        """
+        url = f"{self.base_url}/muscles"
+
+        response = requests.get(
+            url, 
+            headers=self.headers
+            )
+
+        response.raise_for_status()
+
+        # the API filters the data
+        # this will just return the data. 
+        data = response.json()["data"]
+    
+        # filter in Python
+        return [item["name"] for item in data] 
+    
     def search_by_body_part(self, body_part, limit=15):
         """
         Search exercise by target body part e.g. chest.

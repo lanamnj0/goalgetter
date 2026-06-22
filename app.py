@@ -58,9 +58,9 @@ def create_app():
             elif exercise_type:
                 results = api.search_by_exercise_type(exercise_type)
             elif name:
-                result = api.search_by_name(name)
+                results = api.search_by_name(name)
             elif muscle:
-                result = api.search_by_target_muscle(muscle)
+                results = api.search_by_target_muscle(muscle)
             else:
                 return {
                     "error": "Please provide your chosen exercise_type, body_part, muscle, equipment or name"
@@ -73,12 +73,46 @@ def create_app():
 
 
         return {"message": "Exercises endpoint ready"}, 200
+    
+    # Equipment endpoint - getting all equipments 
+    @app.route("/equipments")
+    def equipments():
+        api = ExerciseAPI() 
+        try:
+            results = api.get_all_equipments()
+            return jsonify(results), 200 
+        except Exception as e:
+            return {"error": str(e)}, 500 
+        
+    #body part endpoint - getting all body parts  
+    @app.route("/bodyparts")
+    def bodyparts():
+        api = ExerciseAPI() 
+        try:
+            results = api.get_all_body_parts()
+            return jsonify(results), 200 
+        except Exception as e:
+            return {"error": str(e)}, 500 
 
-    # workout-exercises endpoint
-    @app.route("/workout-exercises")
-    def workout_exercises():
-        return {"message": "Workout Exercises endpoint ready"}, 200
-
+    # exercise_type endpoint - getting all exercise types  
+    @app.route("/exercisetypes")
+    def exercisetypes():
+        api = ExerciseAPI() 
+        try:
+            results = api.get_all_exercise_types()
+            return jsonify(results), 200 
+        except Exception as e:
+            return {"error": str(e)}, 500 
+        
+    # target_muscles endpoint - getting all target muscles   
+    @app.route("/targetmuscles")
+    def targetmuscles():
+        api = ExerciseAPI() 
+        try:
+            results = api.get_all_target_muscles()
+            return jsonify(results), 200 
+        except Exception as e:
+            return {"error": str(e)}, 500 
 
     # Exercise detail route 
     @app.route("/exercises/<exercise_id>")
@@ -93,6 +127,12 @@ def create_app():
         except Exception as e:
             return {"error": str(e)}, 500 
         
+    # workout-exercises endpoint
+    @app.route("/workout-exercises")
+    def workout_exercises():
+        return {"message": "Workout Exercises endpoint ready"}, 200
+
+
     return app 
         
 
