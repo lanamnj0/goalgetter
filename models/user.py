@@ -1,4 +1,5 @@
 from db_connection import get_connection
+import hashlib
 
 class User:
     def __init__(
@@ -15,6 +16,9 @@ class User:
         self.password_hash = password_hash
         self.current_weight_kg = current_weight_kg
     
+    def hash_password(self, password):
+        return hashlib.sha256(password.encode()).hexdigest()
+    
     # CREATE USER PROFILE - adding new user to database
 
     def create_user(self):
@@ -26,10 +30,11 @@ class User:
         (username, email, password_hash, current_weight_kg)
         VALUES (%s, %s, %s, %s)
         """
+        hashed_password = self.hash_password(self.password_hash)
         values = (
             self.username,
             self.email,
-            self.password_hash,
+            hashed_password,
             self.current_weight_kg
         )
 
@@ -38,6 +43,8 @@ class User:
 
         cursor.close()
         connection.close()
+
+        return "User profile created successfully"
 
      # GET USER PROFILE DATA - getting/retriving their personal info from SQL databse
 
@@ -56,7 +63,7 @@ class User:
         """
 
         cursor.execute(query, (self.user_id, ))
-        user = cursor.fetchtone()
+        user = cursor.fetchone()
 
         cursor.close()
         connection.close()
@@ -91,7 +98,7 @@ class User:
         cursor.close()
         connection.close()
 
-        return "User profile created successfully"
+        return "User profile updated successfully"
 
     # DELETE USER PROFILE DATA - remove user from app
 
