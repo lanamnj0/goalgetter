@@ -1,3 +1,14 @@
+<!--WORKOUTS PAGE – Exercise Library & Filtering
+
+    PAGE STRUCTURE:
+    - Filter dropdowns (Body Part, Equipment, Category, Target Muscle)
+    - Filter/Get All buttons
+    - The frontend set to receive data from your backend route (based on previous data given)
+
+    TECHNICAL CONNECTION POINTS:
+    1. Flask Route: /exercises (GET method)
+    2. Query Parameters: body_part, equipment, category, muscle -->
+
 {% extends "layout.html" %}
 
 {% block title %}
@@ -9,7 +20,7 @@
  <!-- Dropdown menu that links to the data list from api-->
     <div class="card shadow-sm border-0 mx-auto" style="max-width: 600px;">
         <div class="card-header p-3">
-            <h3 class="mb-0 fw-bold">Browse Exercises</h3>
+            <h3 class="mb-0 fw-bold">Browse Exercises  🏋️‍♀️ </h3>
         </div>
         <div class="card-body p-4">
 
