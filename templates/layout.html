@@ -1,16 +1,7 @@
-<!--
-Citations:
-- Sidebar and UI layout provided by Creative Babar through video tutorials.
-- UI Calendar template provided by Colorlib
-- Workout carousel images provided by SwiperJS Demo playground.
-- Documentation for grids, columns, rows, styling, widgets, dropdown feature provided by Bootstrap website. https://getbootstrap.com/docs/5.3/components/carousel/
-- Bootstrap Gridview tutorial provided by Omerko video tutorial.
--->
-
-<!-- type 'open layout.html' in terminal to see this template browser, or 'python frontend.py' for dynamic viewing, if 'frontend.py' file available -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,7 +45,7 @@ Citations:
                     <span class="material-symbols-outlined">grid_view</span>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="/workouts" class="nav-link text-decoration-none" class="list-group-item list-group-item-action {% if '/workouts' in request.path %}active{% endif %}">
+                <a href="/exercises" class="nav-link text-decoration-none" class="list-group-item list-group-item-action {% if '/exercises' in request.path %}active{% endif %}">
                     <span class="material-symbols-outlined">fitness_center</span>
                     <h3>Workouts</h3>
                 </a>
@@ -83,12 +74,34 @@ Citations:
 
         </aside>
 
+        <!-- Main section start (the center part of the UI where things side other than the sidebar-->
         <main class="flex-grow-1 p-5" style="min-width: 0; min-height: 100vh;">
             {% block main %} {% endblock %}
         </main>
 
+        <!-- Where the profile picture and name is sat-->
+        <div class="right">
+            <div class="top">
+                <button id="menu_bar">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+            </div>
+
+            <div class="profile">
+                <div class="info">
+                    <p><b>Clare</b></p>
+                    <p>Smith</p>
+                    <small class="text-muted"></small>
+                </div>
+                <div class="profile-photo">
+                    <img src="../static/tester-image-profile.jpeg" alt="">
+                </div>
+            </div>
+
+        </div>
 
     </div>
+    <!-- links to the script.js file if dynamic actions needs to be added -->
     <script src="../static/script.js"></script>
 </body>
 </html>
