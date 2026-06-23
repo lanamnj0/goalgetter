@@ -38,7 +38,35 @@ def exercises():
 
 @app.route('/meals_and_recipes')
 def meals_and_recipes():
-    return render_template('meals_and_recipes.html')
+    # Hardcoded mock data – like an API response
+    meals = [
+        {
+            'id': 1,
+            'name': 'Greek Salad',
+            'description': 'Fresh vegetables, feta cheese, olives, and a light dressing.',
+            'image_url': '../static/greek-salad-test-image.jpeg',  # placeholder images
+            'prep_time': 15,
+            'calories': 320
+        },
+        {
+            'id': 2,
+            'name': 'Grilled Chicken',
+            'description': 'Herb-marinated chicken breast with roasted vegetables.',
+            'image_url': '../static/grilled-chicken-test-image.jpeg',
+            'prep_time': 25,
+            'calories': 420
+        },
+        {
+            'id': 3,
+            'name': 'Protein Smoothie',
+            'description': 'Banana, berries, whey protein, and almond milk.',
+            'image_url': '../static/protein-smoothie-test-image.jpeg',
+            'prep_time': 5,
+            'calories': 250
+        },
+        # Some examples, more could be added.
+    ]
+    return render_template('meals_and_recipes.html', meals=meals)
 
 @app.route('/history')
 def history():
