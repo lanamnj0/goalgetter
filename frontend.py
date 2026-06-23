@@ -1,3 +1,4 @@
+import time
 from flask import Flask, flash, redirect, render_template, request, url_for
 
 app = Flask(__name__)
@@ -5,11 +6,35 @@ app = Flask(__name__)
 # This is the dashboard homepage
 @app.route('/')
 def index():
-    return render_template('calendar.html')
+    # Here is the calendar and widgets on the dashboard
+    return render_template('dashboard.html')
 
-@app.route('/workouts')
-def workouts():
-    return render_template('workouts.html')
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
+@app.route('/exercises', methods=['GET', 'POST'])
+def exercises():
+    # Hardcoded data provided by teammate
+    body_parts = ['BACK', 'CALVES', 'CHEST', 'FOREARMS', 'HIPS', 'NECK', 'SHOULDERS', 'THIGHS', 'WAIST', 'HANDS', 'FEET', 'FACE', 'FULL BODY', 'BICEPS', 'UPPER ARMS', 'TRICEPS', 'HAMSTRINGS', 'QUADRICEPS']
+    equipment = ['ASSISTED', 'BAND', 'BARBELL', 'BATTLING ROPE', 'BODY WEIGHT', 'BOSU BALL', 'CABLE', 'DUMBBELL', 'EZ BARBELL', 'HAMMER', 'KETTLEBELL', 'LEVERAGE MACHINE', 'MEDICINE BALL', 'OLYMPIC BARBELL', 'POWER SLED', 'RESISTANCE BAND', 'ROLL', 'ROLLBALL', 'ROPE', 'SLED MACHINE', 'SMITH MACHINE', 'STABILITY BALL', 'STICK', 'SUSPENSION', 'TRAP BAR', 'VIBRATE PLATE', 'WEIGHTED', 'WHEEL ROLLER']
+    categories = ['STRENGTH', 'CARDIO', 'PLYOMETRICS', 'STRETCHING', 'WEIGHTLIFTING', 'YOGA', 'AEROBIC']
+    muscles = ['ADDUCTOR LONGUS', 'ADDUCTOR BREVIS', 'ADDUCTOR MAGNUS', 'BICEPS BRACHII', 'BRACHIALIS', 'BRACHIORADIALIS', 'DEEP HIP EXTERNAL ROTATORS', 'ANTERIOR DELTOID', 'LATERAL DELTOID', 'POSTERIOR DELTOID', 'ERECTOR SPINAE', 'GASTROCNEMIUS', 'GLUTEUS MAXIMUS', 'GLUTEUS MEDIUS', 'GLUTEUS MINIMUS', 'GRACILIS', 'HAMSTRINGS', 'ILIOPSOAS', 'INFRASPINATUS', 'LATISSIMUS DORSI', 'LEVATOR SCAPULAE', 'OBLIQUES', 'PECTINEUS', 'PECTORALIS MAJOR CLAVICULAR HEAD', 'PECTORALIS MAJOR STERNAL HEAD', 'POPLITEUS', 'QUADRICEPS', 'RECTUS ABDOMINIS', 'SARTORIUS', 'SERRATUS ANTE', 'SERRATUS ANTERIOR', 'SOLEUS', 'SPLENIUS', 'STERNOCLEIDOMASTOID', 'SUBSCAPULARIS', 'TENSOR FASCIAE LATAE', 'TERES MAJOR', 'TERES MINOR', 'TIBIALIS ANTERIOR', 'TRANSVERSUS ABDOMINIS', 'TRAPEZIUS LOWER FIBERS', 'TRAPEZIUS MIDDLE FIBERS', 'TRAPEZIUS UPPER FIBERS', 'TRICEPS BRACHII', 'WRIST EXTENSORS', 'WRIST FLEXORS']
+
+    # Just printing to terminal to see if it works. '.args' is for GET HTTP method only, '.form' is for POST method.
+    selected_body = request.args.get('body_part') # e.g.WHERE body_part = 'Shoulders'
+    selected_equipment = request.args.get('equipment') # e.g. WHERE equipment - 'Dumbells'
+    selected_category = request.args.get('categories') # e.g. WHERE category = 'Strength'
+    selected_muscle = request.args.get('muscles') # e.g. WHERE target_muscle = 'Biceps Brachii'
+
+    print(f" Filters applied: Body={selected_body}, Equipment={selected_equipment},Category={selected_category}, Muscle={selected_muscle}")
+
+    return render_template('workouts.html',
+                           body_parts=body_parts,
+                           equipment=equipment,
+                           categories=categories,
+                           muscles=muscles # Links variables names here to the template names
+                           )
 
 @app.route('/meals_and_recipes')
 def meals_and_recipes():
@@ -21,28 +46,44 @@ def history():
 
 @app.route('/support', methods=['GET', 'POST'])
 def support():
-    if request.method == 'POST' and 'name' in request.form and 'email' in request.form and 'message' in request.form and 'support_category' in request.form:  # issue type not included in this yet
+    if request.method == 'POST':
+        # Grabs all data from form
         name = request.form.get('name')
         email = request.form.get('email')
         message = request.form.get('message')
         selected_issue = request.form.get('support_category')
 
-        # These fields need to be saved into a support table within MySQL
-        # Also need case handling
-        counter = 0
-        support_tickets = []
-        if name and email and message:
-            for i in support_tickets:
-                counter += 1
+        # Mock validation to check required fields exist
+        if name and email and message and selected_issue:
+            # Generating a fake ticket number using time module, unique number every second
+            fake_ticket_number = int(time.time()) # Do not want a float
 
-        # flash() entirely relies on browser Sessions and Cookies not MySQL
-        flash(f"Thank you! Your support ticket #{counter} has been submitted! A team member will email your shortly")
+            # flash() sucessful message with the fake ticket number
+            flash(f"Thank you {name}! Your support ticket #{fake_ticket_number} has been submitted! A team member will email your shortly", "success")
 
-        print(f"User selected: {selected_issue}")
+        else: # If some or any of the fields are missing from the form
+            flash("Please fill out all the required fields before submitting", "info")
+
     return render_template('support.html')
 
-@app.route('/settings')
+@app.route('/settings', methods=['GET', 'POST'])
 def settings():
+    if request.method == 'POST':
+        new_password = request.form.get('new_password')
+        confirm_password = request.form.get('confirm_password')
+
+        # Mock validation (no hashing yet, just checking for functionality)
+        # if they are entered in the form and match
+        if new_password and confirm_password and new_password == confirm_password:
+            flash("Password updated successfully! (Mock result - hashing coming soon", "success")
+        # if they are entered in the form but do not match
+        elif new_password and confirm_password and new_password != confirm_password:
+            flash("Passwords do not match. Please try again")
+        else: # Error occurred, likely missing field
+            flash("Please fill in both password fields to proceed","info")
+
+        return redirect('/settings') # if incorrect/missing fields sends back to settings page
+
     return render_template('settings.html')
 
 @app.route('/logout')
