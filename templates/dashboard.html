@@ -1,0 +1,169 @@
+
+<!--    Dashboard-->
+
+<!--  -->
+<!--    &lt;!&ndash; Required meta tags &ndash;&gt;-->
+<!--    <link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,700,800&display=swap" rel="stylesheet">-->
+<!--    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,800&display=swap" rel="stylesheet">-->
+
+<!--    <link href="../static/calendar_assets/fonts/icomoon/style.css" rel="stylesheet">-->
+<!--    <link href='../static/calendar_assets/fullcalendar/packages/core/main.css' rel='stylesheet' />-->
+<!--    <link href='../static/calendar_assets/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />-->
+<!--    -->
+<!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
+<!--    &lt;!&ndash; <link rel="stylesheet" href="../static/calendar_assets/css/bootstrap.min.css">&ndash;&gt;-->
+<!--    <link rel="stylesheet" href="{{ url_for('static', filename='calendar_assets/css/bootstrap.min.css') }}">-->
+<!--    &lt;!&ndash; Style &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="../static/calendar_assets/css/style.css">-->
+
+<!--    <div class="d-flex flex-row flex-wrap gap-3 mb-1">-->
+<!--        &lt;!&ndash; Widget 1&ndash;&gt;-->
+<!--        <div class="card mb-3 shadow-sm border-0" style="width: fit-content; border-left !important;">-->
+<!--            <div class="card-body p-3">-->
+<!--                <small class="text-muted text-uppercase fw-bold">Sessions Complete:</small>-->
+<!--                &lt;!&ndash; Temporarily hardcoded for now, can be easily replaced afterwards&ndash;&gt;-->
+<!--                <h1 class="danger mb-0 fw-bold">11</h1>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Widget 2&ndash;&gt;-->
+<!--        <div class="card mb-3 shadow-sm border-0" style="width: fit-content !important;">-->
+<!--            <div class="card-body p-3">-->
+<!--                <small class="text-muted text-uppercase fw-bold">Current Streak:</small>-->
+<!--                <h1 class="danger mb-9 fw-bold">5</h1>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Widget 3&ndash;&gt;-->
+<!--        <div class="card mb-3 shadow-sm border-0" style="width: fit-content !important;">-->
+<!--            <div class="card-body p-3">-->
+<!--                <small class="text-muted text-uppercase fw-bold">Total time(mins):</small>-->
+<!--                <h1 class="danger mb-0 fw-bold">660</h1>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--        &lt;!&ndash; Calendar implementation&ndash;&gt;-->
+<!--        <div class="content col-md-8 mb-4"> &lt;!&ndash;8/12 calendar, 4/12 widgets &ndash;&gt;-->
+<!--            <div id='calendar' style="height: 400px;"></div>-->
+<!--        </div>-->
+
+<!--    <script src="{{ url_for('static', filename='calendar_assets/js/jquery-3.3.1.min.js') }}"></script>-->
+<!--    &lt;!&ndash;<script src="../static/calendar_assets/js/jquery-3.3.1.min.js"></script>&ndash;&gt;-->
+<!--    <script src="../static/calendar_assets/js/popper.min.js"></script>-->
+<!--    <script src="../static/calendar_assets/js/bootstrap.min.js"></script>-->
+
+<!--    <script src='../static/calendar_assets/fullcalendar/packages/core/main.js'></script>-->
+<!--    <script src='../static/calendar_assets/fullcalendar/packages/interaction/main.js'></script>-->
+<!--    <script src='../static/calendar_assets/fullcalendar/packages/daygrid/main.js'></script>-->
+
+<!--    <script>-->
+<!--      document.addEventListener('DOMContentLoaded', function() {-->
+<!--    var calendarEl = document.getElementById('calendar');-->
+
+<!--    var calendar = new FullCalendar.Calendar(calendarEl, {-->
+<!--      plugins: [ 'interaction', 'dayGrid' ],-->
+<!--      defaultDate: '2026-06-12',-->
+<!--      editable: true,-->
+<!--      eventLimit: true, // allow "more" link when too many events-->
+<!--      /* change events to  events:'/route_name' when data for events available */-->
+<!--      events: [-->
+<!--        {-->
+<!--          title: 'Leg day',-->
+<!--          start: '2026-06-01'-->
+<!--        },-->
+<!--        {-->
+<!--          title: 'Rest days',-->
+<!--          start: '2026-06-10',-->
+<!--          end: '2026-06-12'-->
+<!--        },-->
+<!--        {-->
+<!--          title: 'Upper body',-->
+<!--          start: '2026-06-13'-->
+<!--        },-->
+<!--        {-->
+<!--          title: 'Arm day',-->
+<!--          start: '2026-06-28'-->
+<!--        },-->
+<!--        {-->
+<!--          title: 'Lower body',-->
+<!--          start: '2026-06-21'-->
+<!--        }-->
+<!--      ]-->
+<!--    });-->
+
+<!--    calendar.render();-->
+<!--  });-->
+
+<!--    </script>-->
+
+<!--    <script src="../static/calendar_assets/js/main.js"></script>-->
+
+{% extends "layout.html" %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block head %}
+    {{ super() }}
+<!--    <link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,700,800&display=swap" rel="stylesheet">-->
+<!--    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,800&display=swap" rel="stylesheet">-->
+
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.css" rel="stylesheet"> <!-- CDN files over local for now -->
+{% endblock %}
+
+{% block main %}
+    <!-- Widgets -->
+    <div class="d-flex flex-row flex-wrap gap-3 mb-4">
+        <div class="card mb-3 shadow-sm border-0" style="width: fit-content;">
+            <div class="card-body p-3">
+                <small class="text-muted text-uppercase fw-bold">Sessions Complete:</small>
+                <h1 class="danger mb-0 fw-bold">11</h1> <!-- These figures currently hardcoded for frontend-->
+            </div>
+        </div>
+
+        <div class="card mb-3 shadow-sm border-0" style="width: fit-content;">
+            <div class="card-body p-3">
+                <small class="text-muted text-uppercase fw-bold">Current Streak:</small>
+                <h1 class="danger mb-0 fw-bold">5</h1>
+            </div>
+        </div>
+
+        <div class="card mb-3 shadow-sm border-0" style="width: fit-content;">
+            <div class="card-body p-3">
+                <small class="text-muted text-uppercase fw-bold">Total time (mins):</small>
+                <h1 class="danger mb-0 fw-bold">660</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar -->
+    <div class="content col-md-8 mb-4">
+        <div id="calendar" style="height: 400px;"></div>
+    </div>
+
+    <!-- Scripts - switched to CDN for functionality -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                initialDate: '2026-06-12',
+                editable: true,
+                events: [
+                    { title: 'Leg day', start: '2026-06-01' },
+                    { title: 'Rest days', start: '2026-06-10', end: '2026-06-12' },
+                    { title: 'Upper body', start: '2026-06-13' },
+                    { title: 'Arm day', start: '2026-06-28' },
+                    { title: 'Lower body', start: '2026-06-21' }
+                ]
+            });
+            calendar.render();
+        });
+    </script>
+
+    <!--<script src="{{ url_for('static', filename='calendar_assets/js/main.js') }}"></script>-->
+{% endblock %}
