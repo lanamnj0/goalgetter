@@ -1,15 +1,21 @@
-<!-- TODO: (Password hashing)
-    Source: https://werkzeug.palletsprojects.com/en/stable/utils/
-    [ generate_password_hash(password)
-      check_password_hash(pwhash, password)
-      ]
-     Import: from werkzeug.security import generate_password_hash
-     Replace the mock flash line with:
-     hashed_password = generate_password_hash(new_pass)
-     Save hashed_password to your user's row in the database
-     Remove the mock flash and add a real database commit success flash.
--->
+<!--SETTINGS PAGE – User Preferences & Account Management
 
+    CURRENT FEATURES:
+    - Theme preference toggle (UI only – dark/light mode NOT yet implemented)
+    - Password update form (placeholder for teammate to integrate hashing logic)
+
+    TECHNICAL NOTES:
+    - Dark/Light mode toggle is currently non-functional. The 'active' class is permanently
+      applied to 'light_mode' icon. Future implementation should:
+        1. Store user preference in database (or localStorage)
+        2. Apply appropriate CSS class to <body> or container
+        3. Toggle between light/dark CSS variables
+
+    - Password update form is mocked and ready for backend integration.
+      Teammate should implement:
+        1. Werkzeug.security.generate_password_hash() for hashing
+        2. MySQL UPDATE query to store new hash
+        3. Flash messages for success/error feedback (using 'flash()' )-->
 
 {% extends "layout.html" %}
 
@@ -28,7 +34,9 @@
             <h3 class="mb-0 fw-bold">Account Settings</h3>
         </div>
         <div class="card-body p-4">
-            <!-- Dark / Light mode toggle -->
+            <!-- THEME (Dark/Light Mode) PREFERENCE TOGGLE NOTE: Non-functional (UI placeholder only).
+            The 'active' class is hardcoded to 'light_mode' to show default state.
+            Future work required to implement actual dark/light mode switching. -->
             <div class="mb-4">
                 <label class="form-label fw-bold text-secondary small">Theme preference:</label>
                 <div class="d-flex gap-3">
@@ -46,6 +54,12 @@
                 <label class="form-label fw-bold text-secondary small">Update Password</label>
 
             <!-- UPDATE action route to appropriate naming if necessary  -->
+                <!-- TODO FOR TEAMMATE:
+                 - Add Flask route to handle POST request
+                 - Validate new_password == confirm_password
+                 - Use generate_password_hash() for hashing
+                 - Update user's password in MySQL
+                 - Add flash() success/error messages  -->
                 <form action="/settings" method="POST" id="update-password-form">
 
                 <!-- Industry-standard to have a new password and confirm password-->
