@@ -1,3 +1,22 @@
+<!--SUPPORT PAGE – Stakeholder Perspective:
+    - Provides a structured feedback channel for users to report bugs or issues.
+    - Facilitates continuous system improvement by capturing user pain points.
+    - Enhances user retention by demonstrating that the platform is actively maintained.
+    - Allows the development team to prioritise fixes and feature updates based on real user data.
+
+    TECHNICAL NOTE:
+    - This form currently collects data via POST request but does NOT persist to MySQL.
+    - A support_tickets table needs to be created to store:
+        - name (VARCHAR)
+        - email (VARCHAR)
+        - message (TEXT)
+        - support_category (ENUM or VARCHAR)
+        - timestamp (DATETIME)
+    - Future implementation should include:
+        - Server-side validation
+        - Email notification to support team
+        - Ticket tracking system -->
+
 {% extends "layout.html" %}
 
 {% block title %}
@@ -5,10 +24,6 @@
 {% endblock %}
 
 {% block main %}
-
-<!-- HTML post form for users to submit an issue (for stakeholder perspective - shows industry-standard web application feature.
-     Also helps with updating the system, keeping functionality of the web application, for consistent improvement. -->
-
         <div class="card shadow-sm border-0 mx-auto" style="max-width: 600px;">
                     <div class="card-header p-3">
                         <h3 class="mb-0 fw-bold">Contact Support</h3>
