@@ -10,7 +10,7 @@
     --clr-info-light: #dce1eb;
     --clr-dark: #363949;
     --clr-warning: #ff4edc;
-    --clr-light: #rgba(132, 139, 200, 0.18);
+    --clr-light: rgba(132, 139, 200, 0.18);
     --clr-primary-variant: #111e88;
     --clr-dark-variant: #677483;
     --clr-color-background: #f6f6f9;
@@ -49,7 +49,7 @@ body{
     display: grid;
     width: 96%;
     gap: 1.8rem;
-    grid-template-columns: 14rem auto 14rem;
+    grid-template-columns: 250px 1fr 200px; /*14rem auto 14rem; old value*/
     margin: 0 auto;
 }
 
@@ -82,7 +82,7 @@ small{
     font-size: 0.75rem;
 }
 
-.profile-photo{
+.profile-photo img{
     width: 2.8rem;
     height: 2.8rem;
     border-radius: 50%;
@@ -121,14 +121,20 @@ b{
 aside{
     min-height: 100vh;
     width: 250px;
+    min-width: 200px: /* just been added */
+
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 aside .top{
     background-color: var(--clr-white);
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        margin-top: 1.6rem; /* old value 1.4 */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 1.6rem; /* old value 1.4 */
 }
 
 aside .logo{
@@ -154,20 +160,39 @@ aside .sidebar{
     height: 85vh;
     position: relative;
     top: 1rem;
+    overflow: hidden; /* just added */
+}
+
+aside .sidebar .list-group-item{
+    border: none;
 }
 
 aside h3{
     font-weight: 400; /* 500 was bolder font for sidebar */
 }
 
+/* just created now */
+aside .sidebar a h3{
+    font-size: 0.80rem !important;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 aside .sidebar a{
     display: flex;
     color: var(--clr-info-dark);
-    margin-left: 2rem;
-    gap: 1rem;
+    margin-left: 1rem; /* was set to 2*/
+    gap: 0.8rem; /* was set to 1*/
     align-items: center;
     height: 3.2rem;
+
+    /*padding: 0 0.5rem; */
+
     transition: all .1s ease-in;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /*  last 3 here just been added */
 }
 
 aside .sidebar a span{
@@ -175,11 +200,6 @@ aside .sidebar a span{
     transition: all .1s ease-in;
 }
 
-/*aside a, aside span, aside div{
-    font-size: 1.6rem !important;
-    font-family: 'Poppins' !important;
-    font-weight: 400 !important;
-} */
 
 /* the logout icon */
 aside .sidebar a:last-child{
@@ -213,39 +233,68 @@ aside .sidebar a:hover span{
     transition: .4s ease;
 }
 
-/* Carousel css*/
-.carousel-inner {
-    overflow: visible;
-}
-
-.short-banner-carousel {
-    width: 100%;
-    max-height: 250px;
-    /*margin-right: 0;*/
-    border-radius: 8px;
-    transition: transform 0.6s ease-in-out;
-}
-
-.short-banner-carousel .carousel-item img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    object-position: center;
-}
-
-
-.carousel-inner .carousel-item.active,
-.carousel-inner .carousel-item-next,
-.carousel-inner .carousel-item-prev {
-    display: flex !important;
-}
-
-.carousel-item:not(.active) {
-    opacity: 0.5;
-    transform: scale(0.95);
-}
-
 /* Grid gallery view */
 .card-body{
     padding: 0px;
+}
+
+/* right side styling for dashboard*/
+.right{
+    margin-top: 1.4rem;
+    justify-content: start;
+    gap: 2rem;
+}
+
+.right .top button{
+    display: none;
+}
+
+.right .top .profile{
+    display: flex;
+    gap: 1rem;
+    /*text-align: center; */
+    align-items: center;
+}
+
+.right .top .profile .info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.right .top .profile .info p{
+    margin: 0;
+    line-height: 1.2;
+}
+
+.right .info h3{
+    color: var(--clr-dark);
+}
+.right .item h3{
+    color: var(--clr-dark);
+}
+
+/* settings theme toggler */
+.theme-toggler{
+    background-color: var(--clr-white);
+    display: flex;
+    justify-content: space-between;
+    height: 1.6rem;
+    width: 4.2rem;
+    cursor: pointer;
+    border-radius: var(--border-radius-1);
+}
+
+.theme-toggler span{
+    font-size: 1.2rem;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggler span.active{
+    background-color: var(--clr-primary);
+    color: #ffffff;
 }
