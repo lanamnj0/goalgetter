@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Exercises</title>
+        <style>
+            .card {
+                border: 1px solid #ddd;
+                padding: 15px;
+                margin: 10px;
+                border-radius: 10px;
+            }
+            .card img {
+                max-width: 200px;
+                display: block;
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+    
+    <h1>Exercise Results</h1>
+
+    {% for exercise in exercises %}
+
+    <div class="card">
+
+        <h2>{{exercise.name}}</h2>
+
+        {% if exercise.imageUrl %}
+        <img src="{{ exercise.imageUrl }}" alt="{{ exercise.name }}">
+        {% endif %}
+
+        <p>
+            <strong>Exercise Type:</strong> 
+            {{ exercise.exerciseType }}
+        </p>
+        
+        <p>
+            <strong>Target Muscle:</strong> 
+            {{ exercise.targetMuscles | join(', ') }}
+        </p>
+
+        <p>
+            <strong>Body Part:</strong> 
+            {{ exercise.bodyParts | join(', ') }}
+        </p>
+
+        <p>
+            <strong>Equipment:</strong> 
+            {{ exercise.equipments | join(', ') }}
+        </p>
+
+    </div>
+
+    {% endfor %}
+    
+    </body>
+</html>
