@@ -1,37 +1,64 @@
+<!--MEALS & RECIPES PAGE – Grid Gallery View (MVP)
+
+    PAGE STRUCTURE:
+    - Responsive grid gallery displaying meal/recipe cards with images
+    - Uses Bootstrap 5 grid system (row + col)
+    - Each card shows an image, title, and description
+
+    TECHNICAL NOTE FOR TEAMMATE (API Integration):
+    - Currently using static mock images (greek-salad-test-image.jpeg, etc.)
+    - When adding the meal builder API, please include an image_url field
+      in the API schema so that the frontend can display dynamic images
+    - Expected data structure:
+        {
+            "id": 1,
+            "name": "Greek Salad",
+            "description": "Fresh vegetables with feta",
+            "image_url": "https://example.com/image.jpg",
+            "prep_time": 15,
+            "calories": 320
+        }
+
+    STAKEHOLDER VALUE:
+    - Visually appealing display of meal options
+    - Encourages user engagement with the nutrition feature
+    - Grid layout is optimised for browsing and discovery-->
+
 {% extends "layout.html" %}
 
 {% block title %}
-    Nutritional Meals & Recipes
+    Meals & Recipes
 {% endblock %}
 
 {% block main %}
-
-<!-- Boostrap grid view of available recipes and meals-->
-    <div class="container">
-        <div class="row">
-            <div class="card-columns">
-
-                <div class="card">
-                    <div class="card-body">
-                        <img src="../static/test_meal_image_one.jpeg" alt="Image" width="100%">
+    <div class="container-fluid py-4" style="max-width: 100%;">
+        <div class="row g-3">
+            <!-- Loop through the meals passed from Flask -->
+            {% for meal in meals %}
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
+                    <div class="card h-100 shadow-sm">
+                        <!-- If image_url exists, show it; otherwise show an emoji placeholder -->
+                        {% if meal.image_url %}
+                            <img src="{{ meal.image_url }}"
+                                 class="card-img-top"
+                                 alt="{{ meal.name }}"
+                                 style="height: 200px; object-fit: cover; width: 100%;">
+                        {% else %}
+                            <div style="height: 200px; background: linear-gradient(135deg, #f5f7fa, #c3cfe2); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+                                🍽️
+                            </div>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ meal.name }}</h5>
+                            <p class="card-text small text-muted">{{ meal.description }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-success">{{ meal.prep_time }} mins</span>
+                                <span class="badge bg-primary">{{ meal.calories }} kcal</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="card">
-                    <div class="card-body">
-                        <img src="../static/test_meal_image_two.jpeg" alt="Image" width="100%">
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-body">
-                        <img src="../static/test_meal_image_three.jpeg" alt="Image" width="100%">
-                    </div>
-                </div>
-
-
-            </div>
+            {% endfor %}
         </div>
     </div>
-
 {% endblock %}
