@@ -36,14 +36,13 @@ def insert_data_queries(query, params=None):
             db_connection.commit()
             print("Insert complete")
             cursor.close()
-   
+    
     except Exception:
         raise DbConnectionError(("The database connection failed...Check you have the correct information"), 500)
     
     return (cursor.rowcount)
 
-
-class workout_exercises():
+class WorkoutExercises():
     def __init__(self, workout_id, exercise_id, set_count, reps, weight_kg, id=None):
         self.id = id
         self.workout_id = workout_id
@@ -51,9 +50,8 @@ class workout_exercises():
         self.set_count = set_count
         self.reps = reps
         self.weight_kg = weight_kg
-        self.exercises = []
 
-class workouts():
+class Workouts():
     def __init__(self, user_id, workout_date, duration_minutes, calories_burned, workout_id=None):
         self.workout_id = workout_id
         self.user_id = user_id
