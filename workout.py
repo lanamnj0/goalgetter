@@ -24,3 +24,20 @@ def run_queries(query, params=None):
     
     return results
 
+class workout_exercises():
+    def __init__(self, workout_id, exercise_id, set_count, reps, weight_kg, id=None):
+        self.id = id
+        self.workout_id = workout_id
+        self.exercise_id = exercise_id
+        self.set_count = set_count
+        self.reps = reps
+        self.weight_kg = weight_kg
+        self.exercises = []
+
+class workouts():
+    def __init__(self, user_id, workout_date, duration_minutes, calories_burned, workout_id=None):
+        self.workout_id = workout_id
+        self.user_id = user_id
+        self.workout_date = workout_date
+        self.duration_minutes = duration_minutes
+        self.calories_burned = calories_burned
