@@ -19,6 +19,24 @@
     {{ super() }}
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.css" rel="stylesheet"> <!-- CDN files over local for now -->
 
+    <style>
+        #calendar {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            height: 500px;
+        }
+        /* Make sure FullCalendar styles apply */
+        .fc {
+            font-family: 'Poppins', sans-serif;
+        }
+        .fc-daygrid-day {
+            height: 60px !important;
+        }
+    </style>
 {% endblock %}
 
 {% block main %}
@@ -47,11 +65,10 @@
     </div>
 
     <!-- Calendar -->
-    <div class="content col-md-8 mb-4">
-        <div id="calendar" style="height: 400px;"></div>
-    </div>
+    <!--<div class="content col-md-8 mb-4"> -->
+    <div id="calendar" style="max-width: 900px; margin: 40px auto; padding: 20px; background: white; border-radius: 8px; height: 450px;"></div>
+        <!-- Scripts - switched to CDN for functionality -->
 
-    <!-- Scripts - switched to CDN for functionality -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.js"></script>
 
     <script>
@@ -60,16 +77,21 @@
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 initialDate: '2026-06-12',
-                editable: true,
+                headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth, dayGridWeek'
+                };
                 events: [
                     { title: 'Leg day', start: '2026-06-01' },
                     { title: 'Rest days', start: '2026-06-10', end: '2026-06-12' },
                     { title: 'Upper body', start: '2026-06-13' },
                     { title: 'Arm day', start: '2026-06-28' },
                     { title: 'Lower body', start: '2026-06-21' }
-                ]
-            });
+                    ]
+                });
             calendar.render();
         });
     </script>
+
 {% endblock %}

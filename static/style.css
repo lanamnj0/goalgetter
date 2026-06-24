@@ -47,10 +47,12 @@ body{
 
 .container{
     display: grid;
-    width: 96%;
-    gap: 1.8rem;
+    width: 100%; /* was 96% */
+    gap: 0.5rem; /* was 1.8rem*/
     grid-template-columns: 250px 1fr 200px; /*14rem auto 14rem; old value*/
     margin: 0 auto;
+
+    padding: 0 1rem;
 }
 
 a{
@@ -120,6 +122,7 @@ b{
 /* aside */
 aside{
     min-height: 100vh;
+    height: 100vh;
     width: 250px;
     min-width: 200px: /* just been added */
 
@@ -182,17 +185,18 @@ aside .sidebar a h3{
 aside .sidebar a{
     display: flex;
     color: var(--clr-info-dark);
-    margin-left: 1rem; /* was set to 2*/
+    margin-left: 0.5rem; /* was set to 2, then 1*/
+
+    padding 0.5rem 0.8rem;
+
     gap: 0.8rem; /* was set to 1*/
     align-items: center;
-    height: 3.2rem;
-
-    /*padding: 0 0.5rem; */
-
-    transition: all .1s ease-in;
+    height: 3rem; /* was 3.2rem*/
+    transition: all 0.15s ease-in; /* was .1*/
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; /*  last 3 here just been added */
+    border-radius: 8px;
 }
 
 aside .sidebar a span{
@@ -213,7 +217,7 @@ aside .sidebar a.active{
     background: var(--clr-light);
     color: var(--clr-primary);
     margin-left: 0;
-    /*border-left: 5px solid var(--clr-primary);*/ /* thinner border when uncommented */
+    /*border-left: 4px solid var(--clr-primary);*/ /* thinner border when uncommented */
 }
 
 aside .sidebar a.active::before{
@@ -298,3 +302,4 @@ aside .sidebar a:hover span{
     background-color: var(--clr-primary);
     color: #ffffff;
 }
+
