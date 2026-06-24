@@ -14,4 +14,7 @@ def insert_workouts(table, data):
 def get_workouts_by_id(workout_id,):
     query = """SELECT * FROM workouts WHERE workout_id = %s"""
     return run_select_queries(query, workout_id)
-    
+
+def get_workouts_by_user_id(user_id,):
+    query = """SELECT * FROM workouts WHERE user_id = %s"""
+    return run_select_queries(query, user_id)  
