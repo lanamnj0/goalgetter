@@ -1,8 +1,6 @@
 from config import Config
 from exercise_api import ExerciseAPI
 from flask import Flask, request, jsonify, render_template
-from frontend import frontend_bp
-
 
 
 def create_app():
@@ -10,9 +8,6 @@ def create_app():
     # Create and configure the Flask aplication
     app = Flask(__name__)
     app.config.from_object(Config)
-
-    # Registering blueprint onto app.py
-    app.register_blueprint(frontend_bp)
 
     # Home route confirms the API is running
     @app.route("/")
