@@ -1,6 +1,6 @@
 import unittest
 
-from models.meal import Meal, MealPlan, calculate_total_nutrition, suggest_meal_plan
+from models.meal import Meal, MealPlan, calculate_total_nutrition, suggest_meal_plan, generate_weekly_meal_variations
 
 
 class TestMealModels(unittest.TestCase):
@@ -105,6 +105,16 @@ class TestMealModels(unittest.TestCase):
         self.assertEqual(plan.title, "Muscle Gain Meal Plan")
         self.assertGreater(len(plan.meals), 0)
         self.assertGreater(plan.calculate_totals()["calories"], 0)
+
+    def test_generate_weekly_meal_variations(self):
+        plan = suggest_meal_plan("muscle_gain")
+
+        variations = generate_weekly_meal_variations(plan, total_days=7)
+
+        self.assertEqual(len(variations), 7)
+        self.assertEqual(variations[0].title, "Muscle Gain Meal Plan Day 1")
+        self.assertEqual(variations[6].title, "Muscle Gain Meal Plan Day 7")
+        self.assertGreater(len(variations[0].meals), 0)
 
 if __name__ == "__main__":
     unittest.main()

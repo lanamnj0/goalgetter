@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from copy import deepcopy
 
 
 @dataclass
@@ -66,6 +67,8 @@ def calculate_total_nutrition(data):
         return totals
 
     return totals
+
+
 def suggest_meal_plan(goal):
     goal = goal.lower()
 
@@ -158,8 +161,28 @@ def suggest_meal_plan(goal):
     )
 
 
+def generate_weekly_meal_variations(base_plan, total_days=7, current_day=1, variations=None):
+    if variations is None:
+        variations = []
 
+    if current_day > total_days:
+        return variations
 
+    new_plan = deepcopy(base_plan)
+    new_plan.title = f"{base_plan.title} Day {current_day}"
+
+    if len(new_plan.meals) > 0:
+        shift = (current_day - 1) % len(new_plan.meals)
+        new_plan.meals = new_plan.meals[shift:] + new_plan.meals[:shift]
+
+    variations.append(new_plan)
+
+    return generate_weekly_meal_variations(
+        base_plan,
+        total_days,
+        current_day + 1,
+        variations
+    )
 
 
 if __name__ == "__main__":
