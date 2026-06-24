@@ -1,21 +1,36 @@
+"""
+    Blueprint Refactoring – Work in Progress
+
+    This file demonstrates the implementation of Flask Blueprints to organise frontend routes.
+    The blueprint is registered in app.py, and all frontend templates are served through it.
+
+    Integration of teammates' backend functions is planned.
+    Currently, mock data is used for frontend testing and demonstration.
+    This follows industry-standard Flask architecture patterns.
+
+NOTE:
+    Inside the @frontend_bp.route(</route_name>) must be an identical match to the <href="/..."> in the layout.html file for the UI to correspond to the backend.
+
+"""
+
 import time
-from flask import Flask, flash, redirect, render_template, request, url_for
+from flask import Blueprint, Flask, flash, redirect, render_template, request, url_for
 
 
-
-app = Flask(__name__)
+# 'frontend' is the internal name, __name__ helps Flask locate templates
+frontend_bp = Blueprint('frontend', __name__)
 
 # This is the dashboard homepage
-@app.route('/')
+@frontend_bp.route('/')
 def index():
     # Here is the calendar and widgets on the dashboard
     return render_template('dashboard.html')
 
-@app.route('/dashboard')
+@frontend_bp.route('/dashboard')
 def dashboard():
     return render_template('dashboard.html')
 
-@app.route('/exercises', methods=['GET', 'POST'])
+@frontend_bp.route('/exercises', methods=['GET', 'POST'])
 def exercises():
     # Hardcoded data provided by teammate
     body_parts = ['BACK', 'CALVES', 'CHEST', 'FOREARMS', 'HIPS', 'NECK', 'SHOULDERS', 'THIGHS', 'WAIST', 'HANDS', 'FEET', 'FACE', 'FULL BODY', 'BICEPS', 'UPPER ARMS', 'TRICEPS', 'HAMSTRINGS', 'QUADRICEPS']
@@ -38,7 +53,7 @@ def exercises():
                            muscles=muscles # Links variables names here to the template names
                            )
 
-@app.route('/meals_and_recipes')
+@frontend_bp.route('/meals_and_recipes')
 def meals_and_recipes():
     # Hardcoded mock data – like an API response
     meals = [
@@ -70,11 +85,11 @@ def meals_and_recipes():
     ]
     return render_template('meals_and_recipes.html', meals=meals)
 
-@app.route('/history')
+@frontend_bp.route('/history')
 def history():
     return render_template('history.html')
 
-@app.route('/support', methods=['GET', 'POST'])
+@frontend_bp.route('/support', methods=['GET', 'POST'])
 def support():
     if request.method == 'POST':
         # Grabs all data from form
@@ -96,7 +111,7 @@ def support():
 
     return render_template('support.html')
 
-@app.route('/settings', methods=['GET', 'POST'])
+@frontend_bp.route('/settings', methods=['GET', 'POST'])
 def settings():
     if request.method == 'POST':
         new_password = request.form.get('new_password')
@@ -116,9 +131,9 @@ def settings():
 
     return render_template('settings.html')
 
-@app.route('/logout')
+@frontend_bp.route('/logout')
 def logout():
     return render_template('logout.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    frontend_bp.run(debug=True)
