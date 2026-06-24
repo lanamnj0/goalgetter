@@ -66,6 +66,101 @@ def calculate_total_nutrition(data):
         return totals
 
     return totals
+def suggest_meal_plan(goal):
+    goal = goal.lower()
+
+    if goal == "weight_loss":
+        return MealPlan(
+            title="Weight Loss Meal Plan",
+            goal="weight_loss",
+            meals=[
+                Meal(
+                    name="Greek yoghurt bowl",
+                    meal_type="breakfast",
+                    food_items=[
+                        {
+                            "name": "Greek yoghurt, berries and chia seeds",
+                            "calories": 330,
+                            "protein": 28,
+                            "carbs": 34,
+                            "fat": 9
+                        }
+                    ]
+                ),
+                Meal(
+                    name="Chicken salad",
+                    meal_type="lunch",
+                    food_items=[
+                        {
+                            "name": "Chicken breast salad with avocado",
+                            "calories": 450,
+                            "protein": 42,
+                            "carbs": 22,
+                            "fat": 20
+                        }
+                    ]
+                )
+            ]
+        )
+
+    if goal == "muscle_gain":
+        return MealPlan(
+            title="Muscle Gain Meal Plan",
+            goal="muscle_gain",
+            meals=[
+                Meal(
+                    name="Protein oats",
+                    meal_type="breakfast",
+                    food_items=[
+                        {
+                            "name": "Oats, banana and protein powder",
+                            "calories": 650,
+                            "protein": 42,
+                            "carbs": 78,
+                            "fat": 20
+                        }
+                    ]
+                ),
+                Meal(
+                    name="Chicken rice bowl",
+                    meal_type="lunch",
+                    food_items=[
+                        {
+                            "name": "Chicken, rice and vegetables",
+                            "calories": 720,
+                            "protein": 55,
+                            "carbs": 85,
+                            "fat": 14
+                        }
+                    ]
+                )
+            ]
+        )
+
+    return MealPlan(
+        title="Maintenance Meal Plan",
+        goal="maintenance",
+        meals=[
+            Meal(
+                name="Balanced eggs on toast",
+                meal_type="breakfast",
+                food_items=[
+                    {
+                        "name": "Eggs, toast and fruit",
+                        "calories": 480,
+                        "protein": 26,
+                        "carbs": 48,
+                        "fat": 18
+                    }
+                ]
+            )
+        ]
+    )
+
+
+
+
+
 
 if __name__ == "__main__":
     breakfast = Meal(

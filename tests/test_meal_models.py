@@ -1,6 +1,6 @@
 import unittest
 
-from models.meal import Meal, MealPlan, calculate_total_nutrition
+from models.meal import Meal, MealPlan, calculate_total_nutrition, suggest_meal_plan
 
 
 class TestMealModels(unittest.TestCase):
@@ -98,6 +98,13 @@ class TestMealModels(unittest.TestCase):
         self.assertEqual(totals["carbs"], 47)
         self.assertEqual(totals["fat"], 9)
 
+    def test_goal_based_meal_suggestion(self):
+        plan = suggest_meal_plan("muscle_gain")
+
+        self.assertEqual(plan.goal, "muscle_gain")
+        self.assertEqual(plan.title, "Muscle Gain Meal Plan")
+        self.assertGreater(len(plan.meals), 0)
+        self.assertGreater(plan.calculate_totals()["calories"], 0)
 
 if __name__ == "__main__":
     unittest.main()
