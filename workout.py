@@ -4,7 +4,7 @@ from db_connection import get_connection
 class DbConnectionError(Exception):
     pass
 
-def run_queries(query, params=None):
+def run_select_queries(query, params=None):
     db_connection = None
     results = None
     try:
@@ -23,6 +23,25 @@ def run_queries(query, params=None):
         raise DbConnectionError(("The database connection failed...Check you have the correct information"), 500)
     
     return results
+
+def insert_data_queries(query, params=None):
+    db_connection = None
+   
+    try:
+        with get_connection() as db_connection:
+            cursor = db_connection.cursor(dictionary=True)
+            print("Connecting to database...")
+            cursor.execute(query, params)
+            print("Executing query...")
+            db_connection.commit()
+            print("Insert complete")
+            cursor.close()
+   
+    except Exception:
+        raise DbConnectionError(("The database connection failed...Check you have the correct information"), 500)
+    
+    return (cursor.rowcount)
+
 
 class workout_exercises():
     def __init__(self, workout_id, exercise_id, set_count, reps, weight_kg, id=None):
