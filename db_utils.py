@@ -18,3 +18,26 @@ def get_workouts_by_id(workout_id,):
 def get_workouts_by_user_id(user_id,):
     query = """SELECT * FROM workouts WHERE user_id = %s"""
     return run_select_queries(query, user_id)  
+
+def update_workout(data, workout_id):
+    fields = []
+    values = []
+
+    allowed_fields = ["workout_id", "user_id", "workout_date", "duration_minutes", "calories_burned"]
+
+    for field in allowed_fields:
+        if field in data:
+            fields.append(f"{field} = %s")
+            values.append(data[field])
+
+    if not fields:
+        return None
+    
+    values.append(workout_id)
+
+    query = f"""UPDATE workouts SET {','.join(fields)} WHERE workout_id = %s"""
+
+    insert_data_queries(query, values)
+
+    return get_workouts_by_id(workout_id)
+
