@@ -82,4 +82,3 @@ def delete_workout(workout_id):
     insert_data_queries("""DELETE FROM workouts WHERE workout_id = %s""", (workout_id,))
     
     return True
-
