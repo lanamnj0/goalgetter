@@ -2,11 +2,10 @@ import mysql.connector
 
 # connect to the GoalGetter MySQL database using local credentials 
 def get_connection():
-    print("USING UPDATED CONNECTION FILE") 
     return mysql.connector.connect(
         host="localhost",
-        user="python_user",
-        password="password123", # replace with your local MySQL password
+        user="root",
+        password="password", # replace with your local MySQL password
         database="goalgetter"
     )
 if __name__ == "__main__":
