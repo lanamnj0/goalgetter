@@ -12,6 +12,12 @@ def insert_workouts(table, data):
     
     print("Executed")
 
+# ---------------- GET ALL ----------------
+def get_all_workouts():
+    results = run_select_queries("""SELECT * workouts""")
+
+    return results
+
 # ---------------- GET BY ID ----------------
 def get_workouts_by_id(workout_id,):
     query = """SELECT * FROM workouts WHERE workout_id = %s"""
