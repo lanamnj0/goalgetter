@@ -4,6 +4,8 @@ Calendar Breadth First Search logic to calculate weekly schedule - rests vs. wor
 
 from collections import deque
 
+
+# BFS  Schedule generator
 def generate_7_day_schedule():
     # queue (FIFO) storing tuples of variables that are immutable (day_number, consecutive_workouts, current_schedule_list)
     # Start: Day 0, 0 consecutive workout days, empty schedule = []
@@ -29,6 +31,7 @@ def generate_7_day_schedule():
 
     return valid_schedules
 
+# Scheduling
 def get_first_schedule():
     all_available_schedules = generate_7_day_schedule()
     return all_available_schedules[0] if all_available_schedules else "No schedule currently found"
@@ -44,10 +47,22 @@ def get_schedule_for_calendar():
 
     return calendar_data
 
+# Connecting to linked list
 def get_workout_count_from_history(history_list): # Connecting to singly linked list
-    if history_list is None:
-        return "No history available"
+    try:
+        if history_list is None:
+            return 0 # No history available
 
-    workouts = history_list.get_workouts()
+        workouts = history_list.get_workouts()
+        if workouts is None:
+            return 0
+
+        numbers_of_all_workouts = len(workouts)
+        return numbers_of_all_workouts
+    except AttributeError: # From class to function, the function might not be fully integrated - from previous unittesting AttributeError has been raised before
+        return 0
+    except TypeError: # To catch just in case datatype is not the same
+        return 0
+
 
 
