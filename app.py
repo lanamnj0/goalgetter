@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify, request
 from config import Config
 from db_utils import get_workouts_by_id, get_workouts_by_user_id, delete_workout, insert_workouts, update_workout
 
@@ -36,6 +36,46 @@ def create_app():
     @app.route("/workouts")
     def workouts():
         return {"message": "Workouts endpoint ready"}, 200
+    
+    @app.route("/workouts/new", methods=["POST"])
+    def create_workout():
+
+        data = request.get_json()
+
+        required_fields = ["user_id", "workout_date", "duration_minutes", "calories_burned"]
+
+        if not data:
+            return jsonify({"status":"error", "message":"There's no JSON data received"}), 400
+        
+        for field in required_fields:
+            if field not in data:
+                return jsonify({
+                "status": "error",
+                "message": f"Missing field: {field}"
+            }), 400
+
+        try:
+            insert_data = (
+                data["user_id"], data["workout_date"], data["duration_minutes"], data["calories_burned"]
+                )
+            
+            new_workout = insert_workouts("workouts", insert_data)
+
+            if not new_workout:
+                return jsonify({"status": "error", "message": "Failed to create workout"}), 500
+            
+            return jsonify({
+            "status": "success",
+            "message": "Workout created successfully",
+            "data": data
+            }), 201
+        except Exception as e:
+            return jsonify({
+            "status": "error",
+            "message": "Failed to create workout",
+            "error": str(e)
+            }), 500
+
 
     # exercises endpoint
     @app.route("/exercises")
