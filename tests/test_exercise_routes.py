@@ -3,7 +3,7 @@ import unittest
 from unittest.mock import patch
 from app import create_app
 
-class TestExerciseRoutes(unittest, TestCase):
+class TestExerciseRoutes(unittest.TestCase):
 
     def setUp(self):
         self.app = create_app()

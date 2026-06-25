@@ -39,6 +39,6 @@ class TestExerciseAPI(unittest.TestCase):
         api = ExerciseAPI()
         results = api.search_by_body_part("CHEST")
 
-        self.assertEqual(len(results), 1)
+        self.assertEqual(len(results), 2)
         self.assertEqual(results[0]["name"], "Bench Press")
-        self.assertEqual("CHEST", results[0]["bodyParts"])
+        self.assertIn("CHEST", results[0]["bodyParts"])
