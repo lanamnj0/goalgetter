@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from config import Config
-from db_utils import get_workouts_by_id, get_workouts_by_user_id, delete_workout, insert_workouts, update_workout
+from db_utils_workouts import get_workouts_by_id, get_workouts_by_user_id, delete_workout, insert_workouts, update_workout
 
 def create_app():
     # Create and configure the Flask aplication
