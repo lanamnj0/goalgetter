@@ -118,7 +118,7 @@ def create_app():
                 "error": str(e)
                 }), 500
         
-    @app.route("/workout/update/<workout_id>", method=["PUT"])
+    @app.route("/workout/update/<workout_id>", methods=["PUT"])
     def update_workout_api(workout_id):
         try:
             workout_id = int(workout_id)
@@ -164,7 +164,7 @@ def create_app():
                 return jsonify({"status": "error", "message": "Workout not found"}), 404
             
             delete_workout(workout_id)
-            
+
             return jsonify({"status": "Workout has been deleted", "data": workout}), 200
         
         except Exception as e:
