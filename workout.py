@@ -42,14 +42,14 @@ def insert_data_queries(query, params=None):
     
     return (cursor.rowcount)
 
-class WorkoutExercises():
-    def __init__(self, workout_id, exercise_id, set_count, reps, weight_kg, id=None):
-        self.id = id
-        self.workout_id = workout_id
-        self.exercise_id = exercise_id
-        self.set_count = set_count
-        self.reps = reps
-        self.weight_kg = weight_kg
+# class WorkoutExercises():
+#     def __init__(self, workout_id, exercise_id, set_count, reps, weight_kg, id=None):
+#         self.id = id
+#         self.workout_id = workout_id
+#         self.exercise_id = exercise_id
+#         self.set_count = set_count
+#         self.reps = reps
+#         self.weight_kg = weight_kg
 
 class Workouts():
     def __init__(self, user_id, workout_date, duration_minutes, calories_burned, workout_id=None):
