@@ -64,15 +64,17 @@ def create_app():
             else:
                 return {
                     "error": "Please provide your chosen exercise_type, body_part, muscle, equipment or name"
-                }, 400 # 400 error - server didnt recognise the request 
-            
-            return jsonify(results), 200 # success 
+                }, 400 # 400 error - server didnt recognise the request
+             
+            # returning the html exercise card
+            return render_template(
+                "exercise_cards.html",
+                exercises=results
+            )
         
         except Exception as e:
             return {"error": str(e)}, 500 # unexpected 
 
-
-        return {"message": "Exercises endpoint ready"}, 200
     
     # Equipment endpoint - getting all equipments 
     @app.route("/equipments")
