@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template 
+from flask import Flask, request, jsonify, render_template
 from config import Config
 from exercise_api import ExerciseAPI
 
@@ -129,11 +129,27 @@ def create_app():
         except Exception as e:
             return {"error": str(e)}, 500 
         
-    # # workout-exercises endpoint
-    # @app.route("/workout-exercises")
-    # def workout_exercises():
-    #     return {"message": "Workout Exercises endpoint ready"}, 200
-
+    # workout-exercises endpoint
+    @app.route("/workout-exercises")
+    def workout_exercises():
+        return {"message": "Workout Exercises endpoint ready"}, 200
+    
+    @app.route("/profile")
+    def profile():
+        return render_template("profile.html")
+    
+    @app.route("/login")
+    def login ():
+        return render_template("login.hmtl")
+    
+    @app.route("/register")
+    def register():
+        return render_template("register.hmtl")
+    
+    @app.route("/profile/edit")
+    def edit_profile():
+        return render_template("edit_profile.html")
+    
     return app 
         
 
