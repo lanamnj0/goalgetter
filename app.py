@@ -1,11 +1,14 @@
-from flask import Flask, request, jsonify 
+from flask import Flask, request, jsonify
 from config import Config
 from exercise_api import ExerciseAPI
+from routes.meal_routes import meal_bp
 
 def create_app():
     # Create and configure the Flask aplication
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    app.register_blueprint(meal_bp)
 
     # Home route confirms the API is running
     @app.route("/")
@@ -141,4 +144,5 @@ app = create_app()
 
 # run the application in debug mode 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app = create_app()
+    app.run(debug=True, port=5001)

@@ -1,0 +1,123 @@
+{% extends "layout.html" %}
+
+{% block title %}Weekly Meal Plan{% endblock %}
+
+{% block main %}
+<style>
+    body {
+        background: #fff7fb;
+    }
+
+    .weekly-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .weekly-hero {
+        background:
+            linear-gradient(135deg, rgba(190, 105, 145, 0.78), rgba(255, 198, 222, 0.68)),
+            url("https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1600&q=80");
+        background-size: cover;
+        background-position: center;
+        color: white;
+        border-radius: 28px;
+        padding: 3rem;
+        margin-bottom: 2rem;
+    }
+
+    .day-card {
+        border: none;
+        border-radius: 24px;
+        box-shadow: 0 14px 35px rgba(0, 0, 0, 0.08);
+        height: 100%;
+    }
+
+    .day-badge {
+        background: #ff9ecb;
+        color: #2b1b24;
+        border-radius: 999px;
+        padding: 0.4rem 0.9rem;
+        font-weight: 700;
+        display: inline-block;
+        margin-bottom: 1rem;
+    }
+
+    .meal-box {
+        background: #fff0f7;
+        border: 1px solid #ffd0e4;
+        border-radius: 16px;
+        padding: 1rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .nutrition-text {
+        color: #555;
+        font-size: 0.95rem;
+    }
+
+    .btn-pink {
+        background: #ff9ecb;
+        color: #2b1b24;
+        border: none;
+        border-radius: 999px;
+        padding: 0.8rem 1.6rem;
+        font-weight: 700;
+    }
+
+    .btn-pink:hover {
+        background: #ff83bd;
+        color: #2b1b24;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="weekly-wrapper">
+
+        <a href="{{ url_for('meals.view_single_meal_plan', plan_id=plan_id) }}" class="btn btn-outline-secondary rounded-pill mb-4">
+            Back to Meal Plan
+        </a>
+
+        <section class="weekly-hero">
+            <span class="day-badge">GoalGetter Weekly Plan</span>
+            <h1 class="fw-bold">7 Day Meal Plan Variations</h1>
+            <p class="mb-0">
+                This weekly plan is generated recursively from your selected {{ goal.replace('_', ' ').title() }} meal plan.
+            </p>
+        </section>
+
+        <div class="row g-4">
+            {% for plan in weekly_plans %}
+                {% set totals = plan.calculate_totals() %}
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card day-card">
+                        <div class="card-body p-4">
+                            <span class="day-badge">Day {{ loop.index }}</span>
+
+                            <h4 class="fw-bold mb-3">{{ plan.title }}</h4>
+
+                            <p class="nutrition-text">
+                                Calories: {{ totals["calories"] }} kcal<br>
+                                Protein: {{ totals["protein"] }}g<br>
+                                Carbs: {{ totals["carbs"] }}g<br>
+                                Fat: {{ totals["fat"] }}g
+                            </p>
+
+                            <h6 class="fw-bold mt-4 mb-3">Meals</h6>
+
+                            {% for meal in plan.meals %}
+                                <div class="meal-box">
+                                    <strong>{{ meal.name }}</strong>
+                                    <p class="mb-0 text-muted">{{ meal.meal_type.title() }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

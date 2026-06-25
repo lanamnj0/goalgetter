@@ -78,11 +78,11 @@ def suggest_meal_plan(goal):
             goal="weight_loss",
             meals=[
                 Meal(
-                    name="Greek yoghurt bowl",
+                    name="Greek Yoghurt Bowl",
                     meal_type="breakfast",
                     food_items=[
                         {
-                            "name": "Greek yoghurt, berries and chia seeds",
+                            "name": "Greek Yoghurt, Berries and Chia Seeds",
                             "calories": 330,
                             "protein": 28,
                             "carbs": 34,
@@ -91,15 +91,28 @@ def suggest_meal_plan(goal):
                     ]
                 ),
                 Meal(
-                    name="Chicken salad",
+                    name="Chicken Salad",
                     meal_type="lunch",
                     food_items=[
                         {
-                            "name": "Chicken breast salad with avocado",
+                            "name": "Chicken Breast Salad with Avocado",
                             "calories": 450,
                             "protein": 42,
                             "carbs": 22,
                             "fat": 20
+                        }
+                    ]
+                ),
+                Meal(
+                    name="Grilled Salmon Veg Plate",
+                    meal_type="dinner",
+                    food_items=[
+                        {
+                            "name": "Grilled Salmon with Mixed Vegetables and Roasted Sweet Potato",
+                            "calories": 520,
+                            "protein": 42,
+                            "carbs": 35,
+                            "fat": 22
                         }
                     ]
                 )
@@ -112,11 +125,11 @@ def suggest_meal_plan(goal):
             goal="muscle_gain",
             meals=[
                 Meal(
-                    name="Protein oats",
+                    name="Protein Oats",
                     meal_type="breakfast",
                     food_items=[
                         {
-                            "name": "Oats, banana and protein powder",
+                            "name": "Oats, Banana and Protein Powder",
                             "calories": 650,
                             "protein": 42,
                             "carbs": 78,
@@ -125,40 +138,35 @@ def suggest_meal_plan(goal):
                     ]
                 ),
                 Meal(
-                    name="Chicken rice bowl",
+                    name="Chicken Rice Bowl",
                     meal_type="lunch",
                     food_items=[
                         {
-                            "name": "Chicken, rice and vegetables",
+                            "name": "Chicken, Rice and Vegetables",
                             "calories": 720,
                             "protein": 55,
                             "carbs": 85,
                             "fat": 14
                         }
                     ]
+                ),
+                Meal(
+                    name="Steak Rice Bowl",
+                    meal_type="dinner",
+                    food_items=[
+                        {
+                            "name": "Tender Steak Strips Served with Rice, Peppers, Greens and Garlic Dressing",
+                            "calories": 690,
+                            "protein": 52,
+                            "carbs": 70,
+                            "fat": 24
+                        }
+                    ]
                 )
             ]
         )
 
-    return MealPlan(
-        title="Maintenance Meal Plan",
-        goal="maintenance",
-        meals=[
-            Meal(
-                name="Balanced eggs on toast",
-                meal_type="breakfast",
-                food_items=[
-                    {
-                        "name": "Eggs, toast and fruit",
-                        "calories": 480,
-                        "protein": 26,
-                        "carbs": 48,
-                        "fat": 18
-                    }
-                ]
-            )
-        ]
-    )
+    return suggest_meal_plan("weight_loss")
 
 
 def generate_weekly_meal_variations(base_plan, total_days=7, current_day=1, variations=None):
@@ -187,7 +195,7 @@ def generate_weekly_meal_variations(base_plan, total_days=7, current_day=1, vari
 
 if __name__ == "__main__":
     breakfast = Meal(
-        name="Protein oats",
+        name="Protein Oats",
         meal_type="breakfast",
         food_items=[
             {
@@ -198,7 +206,7 @@ if __name__ == "__main__":
                 "fat": 8,
                 "items": [
                     {
-                        "name": "Protein powder",
+                        "name": "Protein Powder",
                         "calories": 120,
                         "protein": 24,
                         "carbs": 2,
