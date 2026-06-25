@@ -76,7 +76,27 @@ def create_app():
             "error": str(e)
             }), 500
 
-
+    @app.route("/workouts/<workout_id>", methods=["GET"])
+    def get_workout_id_api(workout_id):
+        try:
+            workout_id = int(workout_id)
+        except ValueError:
+            return jsonify({"status": "Error", "message": "Invalid workout ID"}), 400
+        try: 
+            workout = get_workouts_by_id(workout_id)
+            
+            if not workout:
+                return jsonify({"status": "error", "message": "Workout not found"}), 404
+            
+            return jsonify({"status": "Workout found", "data": workout}), 200
+        
+        except Exception as e:
+                return jsonify({
+                "status": "error",
+                "message": "Failed to retrieve workout",
+                "error": str(e)
+                }), 500
+        
     # exercises endpoint
     @app.route("/exercises")
     def exercises():
