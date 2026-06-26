@@ -4,7 +4,16 @@
 
 GoalGetter is a fitness tracking application designed to help users monitor their fitness journey
 Users can log workouts, track exercises, record meals and set personal fitness goals
-The application aims to provide a simple and organised way to manage halth and fitness progress
+The application aims to provide a simple and organised way to manage health and fitness progress
+
+## Technologies used
+- Python
+- Flask
+- MySQL
+- DBeaver
+- Git/GitHub
+- ExerciseDB API
+
 
 ### Group Members
 
@@ -35,7 +44,6 @@ Before running this project, ensure the following software is installed:
 - Git
 - pip (Python package manager) 
 
-
 ## Clone the Repository 
 
 Clone the repository and navigate into the project folder. 
@@ -61,16 +69,49 @@ pip install -r requirements.txt
 6. Execute the script to populate the database with sample records. 
 5. Refresh the database navigator to confirm that all tables have been created successfully
 
-## Database Schema
+## ExerciseDB API Setup 
 
-The database stores information relating to users, workouts, exercises, goals and meals.
+The Exercise Search feature uses ExerciseDB API hosted on RapidAPI. A personal RapidAPI key is required to access this functionality.
 
-Relationships between tables are managed using primar and foreign keys
+### 1. Create a RapidAPI Account. 
 
-## Running the Flask Application 
+Visit: https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb 
+
+1. Create a free RapidAPI account or sign in if you already have an account.
+2. Subscribe to the Free plan (or another plan if you prefer another subscription). 
+
+### 2. Obtain your API Key
+
+After subscribing;
+
+1. Open the App section of the API page.
+2. Locate your X-RapidAPI-Key (this must be kept a secret). 
+3. Copy the key. 
+
+### 3. Create a `.env` File 
+
+Create a `.env` file in the root project directory.
+
+Add your RapidAPI key replacing the placeholder: 
+
+`RAPIDAPI_KEY=your_rapidapi_key_here` 
+
+Example:
+
+`RAPIDAPI_KEY=1234567890abcdefghijklmnopqrstuvwxyz`
+
+The `.env` file should not be committed to GitHub and should be listed in `.gitignore`.  
+
+## Running the application 
+
+### Start MySQL 
+
+### Run `python app.py` 
 
 From the project root directory, run:
 `python app.py`
+
+### Open the Flask URl 
 
 The Flask development server should start and display something similar to:
 
@@ -80,7 +121,13 @@ Running on http://127.0.0.1:5000
 
 Open the URL in your browser. 
 
-## Exercise Search
+## Using the application 
+
+### Register/ login (Shalesa)
+
+### Manage workouts (Thelma)
+
+## Search exercises 
 
 The application integrates with ExerciseDB API to search for exercises. 
 
@@ -119,6 +166,34 @@ This image below shows you an example of the exercise cards:
 
 ![sample-img](sample-img.png)
 
+### Create meal plans (Yosola)
+
+### Dashboard/ progress (Neha)
+
+## Running Unit Tests
+
+Run all project tests from the root project directory:
+
+```python
+python -m unittest discover -s tests```
+
+If successful, the output should look something like:
+
+```python
+
+Ran X tests in 0.XXXs
+
+OK
+```
+
+## Troubleshooting 
+
+### Database connection fails 
+
+### Exercise API returns an authentication error
+
+- Confirm that a valid `RAPIDAPI_KEY` has been added to the `.env` file
+- Restart the Flask application after updating the `.env` file 
 
 ## Future Improvements
 
