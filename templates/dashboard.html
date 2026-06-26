@@ -1,0 +1,97 @@
+<!-- TODO: Calendar currently showing as plain text.
+   Issue: FullCalendar CSS not rendering grid properly.
+   Fix attempt: Try using CDN version instead of local files:
+   https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.css
+   https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.js
+   Or check that static/calendar_assets/ files exist.  W
+
+
+   -Will be debugging in the next few days to fix functionality.
+   -The Graph is yet to be made, and the TDD(unittesting) is in progress for it and statistics widget(s). -->
+
+{% extends "layout.html" %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.css" rel="stylesheet"> <!-- CDN files over local for now -->
+
+    <style>
+        #calendar {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            height: 500px;
+        }
+        /* Making sure full calendar style is applying - or trying to */
+        .fc {
+            font-family: 'Poppins', sans-serif;
+        }
+        .fc-daygrid-day {
+            height: 60px !important;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <!-- Widgets -->
+    <div class="d-flex flex-row flex-wrap gap-3 mb-4">
+        <div class="card mb-3 shadow-sm border-0" style="width: fit-content;">
+            <div class="card-body p-3">
+                <small class="text-muted text-uppercase fw-bold">Sessions Complete:</small>
+                <h1 class="danger mb-0 fw-bold">11</h1> <!-- These figures currently hardcoded for frontend-->
+            </div>
+        </div>
+
+        <div class="card mb-3 shadow-sm border-0" style="width: fit-content;">
+            <div class="card-body p-3">
+                <small class="text-muted text-uppercase fw-bold">Current Streak:</small>
+                <h1 class="danger mb-0 fw-bold">5</h1>
+            </div>
+        </div>
+
+        <div class="card mb-3 shadow-sm border-0" style="width: fit-content;">
+            <div class="card-body p-3">
+                <small class="text-muted text-uppercase fw-bold">Total time (mins):</small>
+                <h1 class="danger mb-0 fw-bold">660</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar -->
+    <!--<div class="content col-md-8 mb-4"> -->
+    <div id="calendar" style="max-width: 900px; margin: 40px auto; padding: 20px; background: white; border-radius: 8px; height: 450px;"></div>
+        <!-- Scripts - switched to CDN for functionality -->
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                initialDate: '2026-06-12',
+                headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth, dayGridWeek'
+                };
+                events: [
+                    { title: 'Leg day', start: '2026-06-01' },
+                    { title: 'Rest days', start: '2026-06-10', end: '2026-06-12' },
+                    { title: 'Upper body', start: '2026-06-13' },
+                    { title: 'Arm day', start: '2026-06-28' },
+                    { title: 'Lower body', start: '2026-06-21' }
+                    ]
+                });
+            calendar.render();
+        });
+    </script>
+
+{% endblock %}
