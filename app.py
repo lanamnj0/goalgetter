@@ -38,7 +38,7 @@ def create_app():
     def workouts():
         return {"message": "Workouts endpoint ready"}, 200
     
-    @app.route("/workouts", methods=["POST"])
+    @app.route("/workouts/create", methods=["POST"]) #endpoint for creating workouts
     def create_workout():
 
         data = request.get_json()
@@ -77,7 +77,7 @@ def create_app():
             "error": str(e)
             }), 500
 
-    @app.route("/workouts/<workout_id>", methods=["GET"])
+    @app.route("/workouts/<workout_id>", methods=["GET"]) #endpoint for workout searched by workout id
     def get_workout_id_api(workout_id):
         try:
             workout_id = int(workout_id)
@@ -98,7 +98,7 @@ def create_app():
                 "error": str(e)
                 }), 500
         
-    @app.route("/workouts/user/<user_id>", methods=["GET"])
+    @app.route("/workouts/user/past_workouts/<user_id>", methods=["GET"]) #endpoint for the users workouts
     def get_workout_user_api(user_id):
         try:
             user_id = int(user_id)
@@ -119,7 +119,7 @@ def create_app():
                 "error": str(e)
                 }), 500
         
-    @app.route("/workout/update/<workout_id>", methods=["PUT"])
+    @app.route("/workout/update/<workout_id>", methods=["PUT"]) #endpoint for updating workouts
     def update_workout_api(workout_id):
         try:
             workout_id = int(workout_id)
@@ -152,7 +152,7 @@ def create_app():
                 "error": str(e)
                 }), 500
 
-    @app.route("/workout/delete/<workout_id>", methods=['DELETE'])
+    @app.route("/workout/delete/<workout_id>", methods=['DELETE']) #endpoint for deleting a workout
     def delete_workout_api(workout_id):
         try:
             workout_id = int(workout_id)
