@@ -1,0 +1,82 @@
+<!--SETTINGS PAGE – User Preferences & Account Management
+
+    CURRENT FEATURES:
+    - Theme preference toggle (UI only – dark/light mode NOT yet implemented)
+    - Password update form (placeholder for teammate to integrate hashing logic)
+
+    TECHNICAL NOTES:
+    - Dark/Light mode toggle is currently non-functional. The 'active' class is permanently
+      applied to 'light_mode' icon. Future implementation should:
+        1. Store user preference in database (or localStorage)
+        2. Apply appropriate CSS class to <body> or container
+        3. Toggle between light/dark CSS variables
+
+    - Password update form is mocked and ready for backend integration.
+      Teammate should implement:
+        1. Werkzeug.security.generate_password_hash() for hashing
+        2. MySQL UPDATE query to store new hash
+        3. Flash messages for success/error feedback (using 'flash()' )-->
+
+{% extends "layout.html" %}
+
+{% block title %}
+    Settings
+{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+{% endblock %}
+
+{% block main %}
+    <div class="card shadow-sm border-0 mx-auto" style="max-width: 600px;">
+        <div class="card-header p-3">
+            <h3 class="mb-0 fw-bold">Account Settings</h3>
+        </div>
+        <div class="card-body p-4">
+            <!-- THEME (Dark/Light Mode) PREFERENCE TOGGLE NOTE: Non-functional (UI placeholder only).
+            The 'active' class is hardcoded to 'light_mode' to show default state.
+            Future work required to implement actual dark/light mode switching. -->
+            <div class="mb-4">
+                <label class="form-label fw-bold text-secondary small">Theme preference:</label>
+                <div class="d-flex gap-3">
+                    <button class="theme-toggler">
+                        <span class="material-symbols-outlined active">light_mode</span> <!--add 'active' to the class to toggle it -->
+                    </button>
+                    <button class="theme-toggler">
+                        <span class="material-symbols-outlined">dark_mode</span>
+                    </button>
+                </div>
+            </div>
+            <br>
+            <!-- 2. PASSWORD UPDATE PLACEHOLDER (ready for teammate's hashing logic) -->
+            <div class="mb-4">
+                <label class="form-label fw-bold text-secondary small">Update Password</label>
+
+            <!-- UPDATE action route to appropriate naming if necessary  -->
+                <!-- TODO FOR TEAMMATE:
+                 - Add Flask route to handle POST request
+                 - Validate new_password == confirm_password
+                 - Use generate_password_hash() for hashing
+                 - Update user's password in MySQL
+                 - Add flash() success/error messages  -->
+                <form action="/settings" method="POST" id="update-password-form">
+
+                <!-- Industry-standard to have a new password and confirm password-->
+                <!-- New Password -->
+                    <div class="mb-3">
+                        <input class="form-control p-2" type="password" name="new_password" placeholder="Enter new password..." required>
+                    </div>
+
+                <!-- Confirm Password -->
+                    <div class="mb-3">
+                        <input class="form-control p-2" type="password" name="confirm_password" placeholder="Confirm new password..." required>
+                    </div>
+                    <br>
+                    <button class="btn btn-primary w-100 fw-bold p-2" type="submit">Change Password</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
