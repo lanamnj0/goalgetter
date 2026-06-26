@@ -127,7 +127,7 @@ Open the URL in your browser.
 
 ### Manage workouts (Thelma)
 
-## Search exercises 
+### Search exercises 
 
 The application integrates with ExerciseDB API to search for exercises. 
 
