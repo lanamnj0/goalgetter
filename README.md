@@ -175,7 +175,8 @@ This image below shows you an example of the exercise cards:
 Run all project tests from the root project directory:
 
 ```python
-python -m unittest discover -s tests```
+python -m unittest discover -s tests
+```
 
 If successful, the output should look something like:
 
