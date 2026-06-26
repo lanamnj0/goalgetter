@@ -1,6 +1,6 @@
 import mysql.connector
 
-# connect to the GoalGetter MySQL database using local credentials
+# connect to the GoalGetter MySQL database using local credentials 
 def get_connection():
     return mysql.connector.connect(
         host="localhost",
@@ -15,5 +15,5 @@ if __name__ == "__main__":
     if connection.is_connected():
         print("database successfully connected")
 
-    # close the database connection after use
+    # close the database connection after use 
     connection.close()

@@ -1,16 +1,11 @@
+from flask import Flask, request, jsonify, render_template
 from config import Config
 from exercise_api import ExerciseAPI
-from flask import Flask, request, jsonify, render_template
-from frontend import frontend_bp
 
 def create_app():
-
-    # Create and configure the Flask application
+    # Create and configure the Flask aplication
     app = Flask(__name__)
     app.config.from_object(Config)
-
-    # Registering blueprint object onto app.py
-    app.register_blueprint(frontend_bp)
 
     # Home route confirms the API is running
     @app.route("/")
@@ -46,7 +41,7 @@ def create_app():
     @app.route("/exercises")
     def exercises():
 
-        api = ExerciseAPI()
+        api = ExerciseAPI() 
 
         equipment = request.args.get("equipment")
         body_part = request.args.get("body_part")
@@ -69,86 +64,98 @@ def create_app():
             else:
                 return {
                     "error": "Please provide your chosen exercise_type, body_part, muscle, equipment or name"
-                }, 400  #  400 error - server didnt recognise the request
-
+                }, 400 # 400 error - server didnt recognise the request
+             
             # returning the html exercise card
             return render_template(
                 "exercise_cards.html",
                 exercises=results
             )
-
+        
         except Exception as e:
-            return {"error": str(e)}, 500  # unexpected
+            return {"error": str(e)}, 500 # unexpected 
 
-    #  Equipment endpoint - getting all equipments
+    
+    # Equipment endpoint - getting all equipments 
     @app.route("/equipments")
     def equipments():
-        api = ExerciseAPI()
+        api = ExerciseAPI() 
         try:
             results = api.get_all_equipments()
-            return jsonify(results), 200
+            return jsonify(results), 200 
         except Exception as e:
-            return {"error": str(e)}, 500
-
-            # body part endpoint - getting all body parts
-
+            return {"error": str(e)}, 500 
+        
+    #body part endpoint - getting all body parts  
     @app.route("/bodyparts")
     def bodyparts():
-        api = ExerciseAPI()
+        api = ExerciseAPI() 
         try:
             results = api.get_all_body_parts()
-            return jsonify(results), 200
+            return jsonify(results), 200 
         except Exception as e:
-            return {"error": str(e)}, 500
+            return {"error": str(e)}, 500 
 
-            # exercise_type endpoint - getting all exercise types
-
+    # exercise_type endpoint - getting all exercise types  
     @app.route("/exercisetypes")
     def exercisetypes():
-        api = ExerciseAPI()
+        api = ExerciseAPI() 
         try:
             results = api.get_all_exercise_types()
-            return jsonify(results), 200
+            return jsonify(results), 200 
         except Exception as e:
-            return {"error": str(e)}, 500
-
-            # target_muscles endpoint - getting all target muscles
-
+            return {"error": str(e)}, 500 
+        
+    # target_muscles endpoint - getting all target muscles   
     @app.route("/targetmuscles")
     def targetmuscles():
-        api = ExerciseAPI()
+        api = ExerciseAPI() 
         try:
             results = api.get_all_target_muscles()
-            return jsonify(results), 200
+            return jsonify(results), 200 
         except Exception as e:
-            return {"error": str(e)}, 500
+            return {"error": str(e)}, 500 
 
-            # Exercise detail route
-
+    # Exercise detail route 
     @app.route("/exercises/<exercise_id>")
     def exercise_detail(exercise_id):
 
-        api = ExerciseAPI()
+        api = ExerciseAPI() 
 
         try:
             exercise = api.get_exercise_details(exercise_id)
-            return jsonify(exercise), 200  # success
-
+            return jsonify(exercise), 200 # success 
+        
         except Exception as e:
-            return {"error": str(e)}, 500
+            return {"error": str(e)}, 500 
+        
+    # workout-exercises endpoint
+    @app.route("/workout-exercises")
+    def workout_exercises():
+        return {"message": "Workout Exercises endpoint ready"}, 200
+    
+    @app.route("/profile")
+    def profile():
+        return render_template("profile.html")
+    
+    @app.route("/login")
+    def login ():
+        return render_template("login.hmtl")
+    
+    @app.route("/register")
+    def register():
+        return render_template("register.hmtl")
+    
+    @app.route("/profile/edit")
+    def edit_profile():
+        return render_template("edit_profile.html")
+    
+    return app 
+        
 
-            # # workout-exercises endpoint
-
-    # @app.route("/workout-exercises")
-    # def workout_exercises():
-    #     return {"message": "Workout Exercises endpoint ready"}, 200
-
-    return app
-
-
-# create application instance
+# create application instance 
 app = create_app()
 
-# run the application in debug mode
+# run the application in debug mode 
 if __name__ == "__main__":
     app.run(debug=True)

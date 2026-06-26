@@ -29,9 +29,9 @@
             }
 
             .card img {
-                width: 100%;
-                height: 220px;
-                object-fit: cover;
+                width: 100%; 
+                height: 220px; 
+                object-fit: cover; 
             }
 
             .card-content {
@@ -59,79 +59,79 @@
 
             .image-link {
                 display: inline-block;
-                margin-top: 5px;
+                margin-top: 5px; 
                 text-decoration: none;
                 color: #0066cc;
             }
 
             .image-link:hover {
-                text-decoration: underline;
+                text-decoration: underline; 
             }
 
         </style>
     </head>
 
     <body>
-
+    
     <h1>Exercise Results</h1>
 
     <div class="exercise-container">
-
+ 
     {% for exercise in exercises %}
-
+ 
     <div class="card">
-
+ 
         {% if exercise.imageUrl %}
             <img src="{{ exercise.imageUrl }}" alt="{{ exercise.name }}">
         {% endif %}
-
+ 
         <div class="card-content">
-
+ 
             <h2>{{ exercise.name }}</h2>
-
+ 
             <p>
-                <strong>Exercise Type:</strong>
+                <strong>Exercise Type:</strong> 
                 {{ exercise.exerciseType }}
             </p>
-
+        
             <p>
-                <strong>Target Muscle:</strong>
+                <strong>Target Muscle:</strong> 
                 {{ exercise.targetMuscles | join(', ') }}
             </p>
-
+ 
             <p>
-                <strong>Body Part:</strong>
+                <strong>Body Part:</strong> 
                 {{ exercise.bodyParts | join(', ') }}
             </p>
-
+ 
             <p>
-                <strong>Equipment:</strong>
+                <strong>Equipment:</strong> 
                 {{ exercise.equipments | join(', ') }}
             </p>
-
+ 
             {% if exercise.imageUrl %}
-
+ 
             <p><strong>Image URL:</strong></p>
-
+ 
             <div class="url-box">
                 {{ exercise.imageUrl }}
             </div>
-
+ 
             <a class="image-link"
                 href="{{ exercise.imageUrl }}"
                 target="_blank">
                 Open Image
             </a>
-
+ 
             {% endif %}
-
+ 
         </div>
-
+ 
     </div>
-
+ 
     {% endfor %}
-
+ 
     </div>
-
+ 
     </body>
 </html>
