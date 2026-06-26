@@ -169,6 +169,40 @@ This image below shows you an example of the exercise cards:
 ### Create meal plans (Yosola)
 
 ### Dashboard/ progress (Neha)
+#### Frontend & Backend Setup
+This section covers the implementation of the dashboard and calendar components of the application.
+
+#### Files Implemented
+##### Frontend:
+- `frontend.py` - Flask frontend routes using mocked data for UI demonstration.
+- `frontend_blueprinting.py` - Initial Flask Blueprint implementation to support modular routing.
+- `layout.html` - Base HTML template providing global structure and sidebar navigation.
+- `dashboard.html` - Dashboard interface featuring widget statistics, and a Calendar UI
+- `workouts.html` - Workouts page with dropdown filtering to display mock data
+- `meals_and_recipes.html` - Recipe interface displaying mock API response cards
+- `history.html` - Past history user workout data rendered in a structured table
+- `settings.html` - User settings interface implementation
+- `support.html` - Support form allowing users to submit issues or bugs reports.
+- `logout.html` - Logout route and interface element.
+
+##### Backend:
+- `dashboard_logic.py` - Dashboard widget calculation logic.
+- `calendar_logic.py` - Calendar scheduling logic using a Breadth First Search (BFS) implementation.
+
+##### Unit Test:
+- `test_dashboard_logic.py` - Unit tests for dashboard calculation logic
+- `test_calendar_logic.py` - Unit tests for calendar scheduling logic
+
+##### Running the frontend UI application
+- Install project dependencies
+- Run the Flask application (e.g. `python frontend.py`)
+- Open the application in a web browser
+- Navigate using the sidebar to access dashboard, calendar, workouts, meals, history, settings, and support pages
+
+##### Notes
+- The frontend demonstrates a Minimum Viable Product (MVP) using mocked data for demonstration purposes.
+- Dashboard widget values and calendar events are also powered by mock data to demonstrate frontend functionality.
+- Unit tests are provided for the dashboard and calendar backend modules to verify the isolated logic of both components.
 
 ## Running Unit Tests
 
