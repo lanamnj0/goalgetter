@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="../static/style.css"> <!-- '../' means to go out of current file -->
 
+    {% block head %} {% endblock %}
     <!-- flash() can be used in Flask to show messages on screen to client-side-->
     {% if get_flashed_messages() %}
         <div class="alert alert-primary mb-0 text-center" role="alert">
