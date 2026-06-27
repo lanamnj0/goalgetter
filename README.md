@@ -108,6 +108,8 @@ Example:
 
 `RAPIDAPI_KEY=1234567890abcdefghijklmnopqrstuvwxyz`
 
+Required environment variable: `RAPIDAPI_KEY` (*store this in your .env file*)
+
 The `.env` file should not be committed to GitHub and should be listed in `.gitignore`.
 
 ### API Documentation
@@ -139,15 +141,15 @@ Open the URL in your browser.
 
 ## Using the application
 
-### Register/ login (Shalesa)
+### API Endpoints
 
-### Manage workouts (Thelma)
+- Search by body part
+- Search by equipment
+- Search by target muscle
+- Search by exercise name
+- Search by exercise type
 
-- This application manages workouts using the full CRUD flask routes.
-- Can create, read, update and delete workouts. These routes handle user requests, interact with the database and ensure workout data can be managed through this application.
-- The application has a workout history endpoint where users can receive all past workouts. This allows the user to see their fitness journey details and progress such as when the user worked out and burned the most calories.
-
-### Search exercises
+### Search exercises
 
 The application integrates with ExerciseDB API to search for exercises.
 
@@ -181,6 +183,14 @@ The application displays exercise cards showing:
 - Target muscle
 - Equipment
 - Exercise image
+
+### Register/ login (Shalesa)
+
+### Manage workouts (Thelma)
+
+- This application manages workouts using the full CRUD flask routes.
+- Can create, read, update and delete workouts. These routes handle user requests, interact with the database and ensure workout data can be managed through this application.
+- The application has a workout history endpoint where users can receive all past workouts. This allows the user to see their fitness journey details and progress such as when the user worked out and burned the most calories.
 
 This image below shows you an example of the exercise cards:
 
