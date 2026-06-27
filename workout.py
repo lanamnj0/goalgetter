@@ -43,10 +43,3 @@ def insert_data_queries(query, params=None): #put my db connector and execution 
     return (cursor.rowcount)
 
 
-class Workouts(): #created a workout class 
-    def __init__(self, user_id, workout_date, duration_minutes, calories_burned, workout_id=None): #class attributes align with the workouts  table in the database
-        self.workout_id = workout_id
-        self.user_id = user_id
-        self.workout_date = workout_date
-        self.duration_minutes = duration_minutes
-        self.calories_burned = calories_burned

@@ -1,4 +1,4 @@
-from workout import run_select_queries, insert_data_queries, Workouts
+from workout import run_select_queries, insert_data_queries
 
 # ---------------- INSERT ----------------
 def insert_workouts(table, data):
@@ -25,33 +25,16 @@ def get_workouts_by_id(workout_id,):
 
     row = result[0] #index 0 because there should only be one workout by that id (its a unique number)
 
-    return Workouts(
-        workout_id=row["workout_id"],
-        user_id=row["user_id"],
-        workout_date=row["workout_date"],
-        duration_minutes=row["duration_minutes"],
-        calories_burned=row["calories_burned"]
-    ) #used workout class in the return
+    return (row)
 
 # ---------------- GET BY USER ----------------
 #this is part of my hisory page for past workouts
 def get_workouts_by_user_id(user_id,):
     query = """SELECT * FROM workouts WHERE user_id = %s""" #getting all past workouts for a specific user
     results = run_select_queries(query, (user_id,))  #this calls the function
-    workouts_list = []
+    
 
-    for row in results: #the output from the above query is iterated and saved into workout instance of the Workout class.
-        workout = Workouts(
-        workout_id=row["workout_id"],
-        user_id=row["user_id"],
-        workout_date=row["workout_date"],
-        duration_minutes=row["duration_minutes"],
-        calories_burned=row["calories_burned"]
-    )
-
-    workouts_list.append(workout) #workout is then appended to the empty workout_list variable
-
-    return workouts_list #return the results in an array.
+    return results #return the results in an array.
 
 # ---------------- UPDATE ----------------
 def update_workout(data, workout_id):
@@ -86,3 +69,4 @@ def delete_workout(workout_id):
     insert_data_queries("""DELETE FROM workouts WHERE workout_id = %s""", (workout_id,)) #deleting from both workout and workout exercise tables because they are connected with the foreign key
     
     return True
+

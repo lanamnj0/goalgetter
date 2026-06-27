@@ -148,6 +148,74 @@ Open the URL in your browser.
 - Search by target muscle
 - Search by exercise name
 - Search by exercise type
+### Manage workouts (Thelma)
+
+## Workout Management (CRUD)
+
+This application manages workouts using full CRUD Flask routes.
+
+- Users can create, read, update, and delete workouts.
+- These routes handle user requests, interact with the database, and ensure workout data is properly stored and managed.
+
+## Workout History Endpoint
+
+The application includes a workout history endpoint that retrieves all past workouts for a specific user.  
+This allows users to track their fitness journey, including workout dates, duration, and calories burned.
+
+### Example Route
+
+```python
+@app.route("/workouts/user/past_workouts/<user_id>", methods=["GET"])
+def get_workout_user_api(user_id):
+        try:
+            user_id = int(user_id)
+        except ValueError:
+            return jsonify({"status": "Error", "message": "Invalid user ID"}), 400
+        try:
+            workout = get_workouts_by_user_id(user_id)
+
+            if not workout:
+                return jsonify({"status": "error", "message": "Workout not found"}), 404
+
+            return jsonify({"status": "Workout found", "data": workout}), 200
+
+        except Exception as e:
+                return jsonify({
+                "status": "error",
+                "message": "Failed to retrieve workout",
+                "error": str(e)
+                }), 500
+
+        except Exception as e:
+            return jsonify({
+            "status": "error",
+            "message": "Failed to retrieve workout",
+            "error": str(e)
+            }), 500
+
+```
+
+### Example Request
+
+```
+GET /workouts/user/past_workouts/1
+```
+
+### Example Response
+
+```json
+{
+  "id": 1,
+  "user_id": 1,
+  "workout_date": "2026-06-20",
+  "duration_minutes": 60,
+  "calories_burned": 500
+}
+```
+
+### Screenshot
+
+![Workout History Endpoint](/example_workouts.pgn.png)
 
 ### Search exercises
 
@@ -196,9 +264,139 @@ This image below shows you an example of the exercise cards:
 
 ![sample-img](sample-img.png)
 
-### Create meal plans (Yosola)
+## Create Meal Plans (Yosola)
 
-### Dashboard/ progress (Neha)
+The meal planning feature allows users to create a personalised meal plan based on their fitness goal. Users can choose between a weight loss goal and a muscle gain goal. Once a goal is selected, the application generates a suggested meal plan and displays the total calories, protein, carbohydrates and fat.
+
+The feature also includes a seven day meal plan view. This uses a recursive function to generate weekly meal plan variations from the selected base meal plan.
+
+### Files Used
+
+#### Backend
+
+`models/meal.py`  
+Contains the `Meal` and `MealPlan` classes, the recursive nutrition calculation function, the goal based meal suggestion function and the recursive weekly meal plan variation function.
+
+`routes/meal_routes.py`  
+Contains the Flask routes for viewing meal plans, creating a meal plan, updating a meal plan, deleting a meal plan and viewing the seven day meal plan.
+
+#### Frontend
+
+`templates/meals/list.html`  
+Displays the meal plan gallery and goal based meal suggestions.
+
+`templates/meals/create.html`  
+Displays the form used to create a new meal plan.
+
+`templates/meals/detail.html`  
+Displays the generated meal plan, nutrition totals and action buttons.
+
+`templates/meals/update.html`  
+Displays the form used to update an existing meal plan.
+
+`templates/meals/weekly.html`  
+Displays the seven day meal plan variations.
+
+#### Unit Test
+
+`tests/test_meal_models.py`  
+Contains unit tests for the meal planning models, recursive nutrition calculation, goal based suggestions and weekly meal plan variations.
+
+### Running the Meal Planning Feature
+
+Start the Flask application from the root project directory:
+
+```bash
+python app.py
+```
+
+The Flask server should display a local URL such as:
+
+```text
+http://127.0.0.1:5000
+```
+
+To open the meal planning page directly, go to:
+
+```text
+http://127.0.0.1:5000/meal-plans/
+```
+
+If the application is running on port `5001` instead, use:
+
+```text
+http://127.0.0.1:5001/meal-plans/
+```
+
+### Using the Meal Planning Feature
+
+From the meal plans page, users can view the available meal ideas and select goal based meal plan suggestions.
+
+To create a new meal plan:
+
+1. Click **Create Meal Plan**.
+2. Enter a meal plan title.
+3. Select either **Weight Loss** or **Muscle Gain**.
+4. Click **Generate Meal Plan**.
+5. The application will display the generated meal plan with nutrition totals.
+
+After creating a meal plan, users can:
+
+- View the generated meal plan
+- Update the meal plan title or goal
+- Delete the meal plan
+- View a seven day meal plan generated from the selected plan
+
+### Example Meal Plan Routes
+
+View all meal plans:
+
+```text
+http://127.0.0.1:5000/meal-plans/
+```
+
+Create a meal plan:
+
+```text
+http://127.0.0.1:5000/meal-plans/create
+```
+
+View a suggested weight loss plan:
+
+```text
+http://127.0.0.1:5000/meal-plans/suggest/weight_loss
+```
+
+View a suggested muscle gain plan:
+
+```text
+http://127.0.0.1:5000/meal-plans/suggest/muscle_gain
+```
+
+### Running Meal Planning Unit Tests
+
+To run the meal planning unit tests from the root project directory, use:
+
+```bash
+python -m unittest discover -s tests -p "test_meal_models.py" -v
+```
+
+If successful, the output should show:
+
+```text
+Ran 5 tests
+OK
+```
+
+### Notes
+
+The meal planning feature currently uses predefined meal suggestions to generate plans for weight loss and muscle gain. Created meal plans are managed through the Flask application routes and can be created, viewed, updated and deleted during the running session.
+
+### Screenshots
+![Create Meal Plan Page](static/create_meal_plan_image.png)
+![Meal Plan Main Page](static/meal_plan_main_page.png)
+
+### 📊 Dashboard/ progress (Neha)
 
 ***Note*** *The dashboard currently uses sample data to demostrate the user interface. Integration with live backend data is planned for future development*
 
@@ -206,7 +404,9 @@ This image below shows you an example of the exercise cards:
 
 This section covers the implementation of the dashboard and calendar components of the application.
 
-#### Files Implemented
+The image below shows a preview of the main user dashboard interface, featuring the weekly workout calendar and data analytics widgets:
+![frontend-UI-goalgetter-dashboard.png](static/frontend-UI-goalgetter-dashboard.png)
+#### 🗂️ Files Implemented
 
 ##### Frontend:
 
@@ -231,14 +431,14 @@ This section covers the implementation of the dashboard and calendar components 
 - `test_dashboard_logic.py` - Unit tests for dashboard calculation logic
 - `test_calendar_logic.py` - Unit tests for calendar scheduling logic
 
-##### Running the frontend UI application
+##### Running the frontend UI application:
 
 - Install project dependencies
 - Run the Flask application (e.g. `python frontend.py`)
 - Open the application in a web browser
 - Navigate using the sidebar to access dashboard, calendar, workouts, meals, history, settings, and support pages
 
-##### Notes
+##### Notes:
 
 - The frontend demonstrates a Minimum Viable Product (MVP) using mocked data for demonstration purposes.
 - Dashboard widget values and calendar events are also powered by mock data to demonstrate frontend functionality.
