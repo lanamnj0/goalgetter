@@ -133,9 +133,71 @@ Open the URL in your browser.
 
 ### Manage workouts (Thelma)
 
-- This application manages workouts using the full CRUD flask routes.
-- Can create, read, update and delete workouts. These routes handle user requests, interact with the database and ensure workout data can be managed through this application.
-- The application has a workout history endpoint where users can receive all past workouts. This allows the user to see their fitness journey details and progress such as when the user worked out and burned the most calories.
+## Workout Management (CRUD)
+
+This application manages workouts using full CRUD Flask routes.
+
+- Users can create, read, update, and delete workouts.
+- These routes handle user requests, interact with the database, and ensure workout data is properly stored and managed.
+
+## Workout History Endpoint
+
+The application includes a workout history endpoint that retrieves all past workouts for a specific user.  
+This allows users to track their fitness journey, including workout dates, duration, and calories burned.
+
+### Example Route
+
+```python
+@app.route("/workouts/user/past_workouts/<user_id>", methods=["GET"])
+def get_workout_user_api(user_id):
+    try:
+        user_id = int(user_id)
+    except ValueError:
+        return jsonify({"status": "Error", "message": "Invalid user ID"}), 400
+
+    try:
+        workout = get_workouts_by_user_id(user_id)
+
+        if not workout:
+            return jsonify({"status": "error", "message": "Workout not found"}), 404
+
+        return jsonify({
+            "id": workout.workout_id,
+            "user_id": workout.user_id,
+            "workout_date": str(workout.workout_date),
+            "duration_minutes": workout.duration_minutes,
+            "calories_burned": workout.calories_burned
+        }), 200
+
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": "Failed to retrieve workout",
+            "error": str(e)
+        }), 500
+```
+
+### Example Request
+
+```
+GET /workouts/user/past_workouts/1
+```
+
+### Example Response
+
+```json
+{
+  "id": 1,
+  "user_id": 1,
+  "workout_date": "2026-06-20",
+  "duration_minutes": 60,
+  "calories_burned": 500
+}
+```
+
+### Screenshot
+
+![Workout History Endpoint](/example_workouts.pgn.png)
 
 ### Search exercises
 
