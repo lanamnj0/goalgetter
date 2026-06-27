@@ -367,6 +367,9 @@ OK
 
 The meal planning feature currently uses predefined meal suggestions to generate plans for weight loss and muscle gain. Created meal plans are managed through the Flask application routes and can be created, viewed, updated and deleted during the running session.
 
+### Screenshot
+![Create Meal Plan Page](static/create_meal_plan_image.png)
+
 ### 📊 Dashboard/ progress (Neha)
 
 #### Frontend & Backend Setup
