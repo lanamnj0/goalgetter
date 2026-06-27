@@ -133,9 +133,72 @@ Open the URL in your browser.
 
 ### Manage workouts (Thelma)
 
-- This application manages workouts using the full CRUD flask routes.
-- Can create, read, update and delete workouts. These routes handle user requests, interact with the database and ensure workout data can be managed through this application.
-- The application has a workout history endpoint where users can receive all past workouts. This allows the user to see their fitness journey details and progress such as when the user worked out and burned the most calories.
+## Workout Management (CRUD)
+
+This application manages workouts using full CRUD Flask routes.
+
+- Users can create, read, update, and delete workouts.
+- These routes handle user requests, interact with the database, and ensure workout data is properly stored and managed.
+
+## Workout History Endpoint
+
+The application includes a workout history endpoint that retrieves all past workouts for a specific user.  
+This allows users to track their fitness journey, including workout dates, duration, and calories burned.
+
+### Example Route
+
+```python
+@app.route("/workouts/user/past_workouts/<user_id>", methods=["GET"])
+def get_workout_user_api(user_id):
+        try:
+            user_id = int(user_id)
+        except ValueError:
+            return jsonify({"status": "Error", "message": "Invalid user ID"}), 400
+        try:
+            workout = get_workouts_by_user_id(user_id)
+
+            if not workout:
+                return jsonify({"status": "error", "message": "Workout not found"}), 404
+
+            return jsonify({"status": "Workout found", "data": workout}), 200
+
+        except Exception as e:
+                return jsonify({
+                "status": "error",
+                "message": "Failed to retrieve workout",
+                "error": str(e)
+                }), 500
+
+        except Exception as e:
+            return jsonify({
+            "status": "error",
+            "message": "Failed to retrieve workout",
+            "error": str(e)
+            }), 500
+
+```
+
+### Example Request
+
+```
+GET /workouts/user/past_workouts/1
+```
+
+### Example Response
+
+```json
+{
+  "id": 1,
+  "user_id": 1,
+  "workout_date": "2026-06-20",
+  "duration_minutes": 60,
+  "calories_burned": 500
+}
+```
+
+### Screenshot
+
+![Workout History Endpoint](/example_workouts.pgn.png)
 
 ### Search exercises
 
@@ -176,13 +239,13 @@ This image below shows you an example of the exercise cards:
 
 ![sample-img](sample-img.png)
 
-### Create Meal Plans (Yosola)
+## Create Meal Plans (Yosola)
 
 The meal planning feature allows users to create a personalised meal plan based on their fitness goal. Users can choose between a weight loss goal and a muscle gain goal. Once a goal is selected, the application generates a suggested meal plan and displays the total calories, protein, carbohydrates and fat.
 
 The feature also includes a seven day meal plan view. This uses a recursive function to generate weekly meal plan variations from the selected base meal plan.
 
-### Files Implemented
+### Files Used
 
 #### Backend
 
@@ -284,7 +347,7 @@ View a suggested muscle gain plan:
 ```text
 http://127.0.0.1:5000/meal-plans/suggest/muscle_gain
 ```
-
+https://github.com/Tosino97/CFG-Group-Project/blob/main/README.md
 ### Running Meal Planning Unit Tests
 
 To run the meal planning unit tests from the root project directory, use:
@@ -304,13 +367,18 @@ OK
 
 The meal planning feature currently uses predefined meal suggestions to generate plans for weight loss and muscle gain. Created meal plans are managed through the Flask application routes and can be created, viewed, updated and deleted during the running session.
 
-### Dashboard/ progress (Neha)
+### Screenshot
+![Create Meal Plan Page](static/create_meal_plan_image.png)
+
+### 📊 Dashboard/ progress (Neha)
 
 #### Frontend & Backend Setup
 
 This section covers the implementation of the dashboard and calendar components of the application.
 
-#### Files Implemented
+The image below shows a preview of the main user dashboard interface, featuring the weekly workout calendar and data analytics widgets:
+![frontend-UI-goalgetter-dashboard.png](static/frontend-UI-goalgetter-dashboard.png)
+#### 🗂️ Files Implemented
 
 ##### Frontend:
 
@@ -335,14 +403,14 @@ This section covers the implementation of the dashboard and calendar components 
 - `test_dashboard_logic.py` - Unit tests for dashboard calculation logic
 - `test_calendar_logic.py` - Unit tests for calendar scheduling logic
 
-##### Running the frontend UI application
+##### Running the frontend UI application:
 
 - Install project dependencies
 - Run the Flask application (e.g. `python frontend.py`)
 - Open the application in a web browser
 - Navigate using the sidebar to access dashboard, calendar, workouts, meals, history, settings, and support pages
 
-##### Notes
+##### Notes:
 
 - The frontend demonstrates a Minimum Viable Product (MVP) using mocked data for demonstration purposes.
 - Dashboard widget values and calendar events are also powered by mock data to demonstrate frontend functionality.
