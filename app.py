@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 from config import Config
 from exercise_api import ExerciseAPI
+from db_utils_workouts import get_workouts_by_id, get_workouts_by_user_id, delete_workout, insert_workouts, update_workout
 
 def create_app():
     # Create and configure the Flask aplication
@@ -36,6 +37,144 @@ def create_app():
     @app.route("/workouts")
     def workouts():
         return {"message": "Workouts endpoint ready"}, 200
+    
+    @app.route("/workouts/create", methods=["POST"]) #endpoint for creating workouts
+    def create_workout():
+
+        data = request.get_json()
+
+        required_fields = ["user_id", "workout_date", "duration_minutes", "calories_burned"]
+
+        if not data:
+            return jsonify({"status":"error", "message":"There's no JSON data received"}), 400
+        
+        for field in required_fields:
+            if field not in data:
+                return jsonify({
+                "status": "error",
+                "message": f"Missing field: {field}"
+            }), 400
+
+        try:
+            insert_data = (
+                data["user_id"], data["workout_date"], data["duration_minutes"], data["calories_burned"]
+                )
+            
+            new_workout = insert_workouts("workouts", insert_data)
+
+            if not new_workout:
+                return jsonify({"status": "error", "message": "Failed to create workout"}), 500
+            
+            return jsonify({
+            "status": "success",
+            "message": "Workout created successfully",
+            "data": data
+            }), 201
+        except Exception as e:
+            return jsonify({
+            "status": "error",
+            "message": "Failed to create workout",
+            "error": str(e)
+            }), 500
+
+    @app.route("/workouts/<workout_id>", methods=["GET"]) #endpoint for workout searched by workout id
+    def get_workout_id_api(workout_id):
+        try:
+            workout_id = int(workout_id)
+        except ValueError:
+            return jsonify({"status": "Error", "message": "Invalid workout ID"}), 400
+        try: 
+            workout = get_workouts_by_id(workout_id)
+            
+            if not workout:
+                return jsonify({"status": "error", "message": "Workout not found"}), 404
+            
+            return jsonify({"status": "Workout found", "data": workout}), 200
+        
+        except Exception as e:
+                return jsonify({
+                "status": "error",
+                "message": "Failed to retrieve workout",
+                "error": str(e)
+                }), 500
+        
+    @app.route("/workouts/user/past_workouts/<user_id>", methods=["GET"]) #endpoint for the users workouts
+    def get_workout_user_api(user_id):
+        try:
+            user_id = int(user_id)
+        except ValueError:
+            return jsonify({"status": "Error", "message": "Invalid user ID"}), 400
+        try: 
+            workout = get_workouts_by_user_id(user_id)
+            
+            if not workout:
+                return jsonify({"status": "error", "message": "Workout not found"}), 404
+            
+            return jsonify({"status": "Workout found", "data": workout}), 200
+        
+        except Exception as e:
+                return jsonify({
+                "status": "error",
+                "message": "Failed to retrieve workout",
+                "error": str(e)
+                }), 500
+        
+    @app.route("/workout/update/<workout_id>", methods=["PUT"]) #endpoint for updating workouts
+    def update_workout_api(workout_id):
+        try:
+            workout_id = int(workout_id)
+        except ValueError:
+            return jsonify({"status": "Error", "message": "Invalid workout ID"}), 400
+
+        data = request.get_json()
+
+        if not data:
+            return jsonify({"status":"error", "message":"There's no JSON data received"}), 400
+        try:
+            existing = get_workouts_by_id(workout_id)
+            if not existing:
+                return jsonify({"status": "error", "message": "Workout not found"}), 404
+            
+            updated = update_workout(workout_id, data)
+
+            if not updated:
+                return jsonify({"status": "error", "message": "No fields to update"}), 400
+            
+            return jsonify({
+            "status": "success",
+            "message": "Workout updated successfully",
+            "data": data
+            }), 200
+        except Exception as e:
+                return jsonify({
+                "status": "error",
+                "message": "Failed to update workout",
+                "error": str(e)
+                }), 500
+
+    @app.route("/workout/delete/<workout_id>", methods=['DELETE']) #endpoint for deleting a workout
+    def delete_workout_api(workout_id):
+        try:
+            workout_id = int(workout_id)
+        except ValueError:
+            return jsonify({"status": "Error", "message": "Invalid workout ID"}), 400
+        
+        try:
+            workout = get_workouts_by_id(workout_id)
+            if not workout:
+                return jsonify({"status": "error", "message": "Workout not found"}), 404
+            
+            delete_workout(workout_id)
+
+            return jsonify({"status": "Workout has been deleted", "data": workout}), 200
+        
+        except Exception as e:
+                return jsonify({
+                "status": "error",
+                "message": "Failed to delete workout",
+                "error": str(e)
+                }), 500
+
 
     # exercises endpoint
     @app.route("/exercises")
