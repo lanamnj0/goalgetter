@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS exercises (
     body_part VARCHAR(50),
     target_muscle VARCHAR(50),
     equipment VARCHAR(50),
+    exercise_type VARCHAR(50),
     secondary_muscles VARCHAR(255),
     image_url VARCHAR(255)
 );
