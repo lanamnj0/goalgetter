@@ -7,9 +7,19 @@
     body {
         background: #fff7fb;
     }
+    .create-page {
+       max-width: 950px;
+       margin: 0 auto;
+       width: 100%;
 
+    }
+
+    .create-hero-text {
+    color: #000000 !important;
+
+    }
     .create-wrapper {
-        max-width: 800px;
+        max-width: 720px;
         margin: 0 auto;
     }
 
@@ -28,7 +38,7 @@
         background-size: cover;
         background-position: center;
         color: white;
-        padding: 3rem;
+        padding: 2.5rem;
     }
 
     .form-section {
@@ -71,7 +81,7 @@
     }
 </style>
 
-<div class="container py-5">
+<div class="create-page py-4 px-3">
     <div class="create-wrapper">
 
         <a href="{{ url_for('meals.view_meal_plans') }}" class="btn btn-outline-secondary rounded-pill mb-4">
@@ -84,7 +94,7 @@
                     GoalGetter Builder
                 </span>
                 <h1 class="fw-bold mb-3">Create Your Meal Plan</h1>
-                <p class="mb-0">
+                <p class="mb-0 create-hero-text">
                     Choose your goal and GoalGetter will generate a suggested breakfast, lunch and dinner plan.
                 </p>
             </div>
@@ -98,7 +108,7 @@
                             class="form-control"
                             id="title"
                             name="title"
-                            placeholder="Example: My Weight Loss Plan"
+                            placeholder="Example: My Weight Loss Journey"
                             required
                         >
                     </div>
@@ -106,7 +116,7 @@
                     <div class="mb-4">
                         <label for="goal" class="form-label fw-bold">Fitness Goal</label>
                         <select class="form-select" id="goal" name="goal" required>
-                            <option value="">Select a goal</option>
+                            <option value="">Select A Goal</option>
                             <option value="weight_loss">Weight Loss</option>
                             <option value="muscle_gain">Muscle Gain</option>
                         </select>
@@ -114,16 +124,16 @@
 
                     <div class="helper-box mb-4">
                         <strong>How it works:</strong>
-                        The app uses your selected goal to generate a meal plan, then calculates the total calories,
+                        The app uses your selected goal to generate a meal plan then calculates the total calories,
                         protein, carbs and fat using the recursive nutrition function.
                     </div>
 
-                    <div class="d-flex gap-3">
+                    <div class="d-flex gap-3 flex-wrap align-items-center justify-content-center">
                         <button type="submit" class="btn btn-pink">
                             Generate Meal Plan
                         </button>
 
-                        <a href="{{ url_for('meals.view_meal_plans') }}" class="btn btn-outline-secondary rounded-pill px-4">
+                        <a href="{{ url_for('meals.view_meal_plans') }}" class="btn btn-outline-secondary rounded-pill px-4 py-2">
                             Cancel
                         </a>
                     </div>

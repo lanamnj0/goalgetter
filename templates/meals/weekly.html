@@ -1,123 +1,186 @@
 {% extends "layout.html" %}
 
-{% block title %}Weekly Meal Plan{% endblock %}
+{% block title %}
+    7 Day Meal Plan
+{% endblock %}
 
 {% block main %}
-<style>
-    body {
-        background: #fff7fb;
-    }
+    <style>
+        body {
+            background: #f8f5f7;
+        }
 
-    .weekly-wrapper {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
+        .weekly-page {
+            max-width: 950px;
+            margin: 0 auto;
+            width: 100%;
+        }
 
-    .weekly-hero {
-        background:
-            linear-gradient(135deg, rgba(190, 105, 145, 0.78), rgba(255, 198, 222, 0.68)),
-            url("https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1600&q=80");
-        background-size: cover;
-        background-position: center;
-        color: white;
-        border-radius: 28px;
-        padding: 3rem;
-        margin-bottom: 2rem;
-    }
+        .weekly-hero {
+            background:
+                linear-gradient(135deg, rgba(190, 105, 145, 0.72), rgba(255, 198, 222, 0.58)),
+                url("https://mikisgym.com/wp-content/uploads/2025/07/Meal_prep-Shelley-1.jpeg");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            border-radius: 30px;
+            padding: 42px;
+            margin-bottom: 30px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.14);
+        }
 
-    .day-card {
-        border: none;
-        border-radius: 24px;
-        box-shadow: 0 14px 35px rgba(0, 0, 0, 0.08);
-        height: 100%;
-    }
+        .weekly-hero-text {
+            color: #000000 !important;
+            font-size: 1rem;
+            max-width: 650px;
+        }
 
-    .day-badge {
-        background: #ff9ecb;
-        color: #2b1b24;
-        border-radius: 999px;
-        padding: 0.4rem 0.9rem;
-        font-weight: 700;
-        display: inline-block;
-        margin-bottom: 1rem;
-    }
+        .weekly-pill {
+            background: #ff9ecb;
+            color: #2b1b24;
+            border-radius: 999px;
+            padding: 8px 16px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 14px;
+        }
 
-    .meal-box {
-        background: #fff0f7;
-        border: 1px solid #ffd0e4;
-        border-radius: 16px;
-        padding: 1rem;
-        margin-bottom: 0.8rem;
-    }
+        .back-btn {
+            border-radius: 999px;
+            font-weight: 600;
+        }
 
-    .nutrition-text {
-        color: #555;
-        font-size: 0.95rem;
-    }
+        .weekly-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            align-items: stretch;
+        }
 
-    .btn-pink {
-        background: #ff9ecb;
-        color: #2b1b24;
-        border: none;
-        border-radius: 999px;
-        padding: 0.8rem 1.6rem;
-        font-weight: 700;
-    }
+        .day-card {
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            height: 100%;
+        }
 
-    .btn-pink:hover {
-        background: #ff83bd;
-        color: #2b1b24;
-    }
-</style>
+        .day-badge {
+            background: #ff9ecb;
+            color: #2b1b24;
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            display: inline-block;
+            margin-bottom: 14px;
+        }
 
-<div class="container py-5">
-    <div class="weekly-wrapper">
+        .day-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #1f2a24;
+            margin-bottom: 16px;
+        }
 
-        <a href="{{ url_for('meals.view_single_meal_plan', plan_id=plan_id) }}" class="btn btn-outline-secondary rounded-pill mb-4">
-            Back to Meal Plan
+        .nutrition-box {
+            background: #fff7fb;
+            border: 1px solid #ffd6e8;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 18px;
+        }
+
+        .nutrition-box p {
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+            color: #5f6875;
+        }
+
+        .nutrition-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .meals-label {
+            font-weight: 800;
+            color: #1f2a24;
+            margin-bottom: 12px;
+        }
+
+        .weekly-meal-item {
+            background: #fff7fb;
+            border: 1px solid #ffd6e8;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+
+        .weekly-meal-item strong {
+            display: block;
+            font-size: 1rem;
+            color: #1f2a24;
+            margin-bottom: 4px;
+        }
+
+        .weekly-meal-item small {
+            color: #6c757d;
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 900px) {
+            .weekly-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <div class="weekly-page py-4 px-3">
+
+        <a href="{{ url_for('meals.view_meal_plans') }}" class="btn btn-outline-secondary back-btn mb-4">
+            Back to Meal Plans
         </a>
 
         <section class="weekly-hero">
-            <span class="day-badge">GoalGetter Weekly Plan</span>
-            <h1 class="fw-bold">7 Day Meal Plan Variations</h1>
-            <p class="mb-0">
-                This weekly plan is generated recursively from your selected {{ goal.replace('_', ' ').title() }} meal plan.
+            <span class="weekly-pill">GoalGetter Weekly Meal Plan</span>
+
+            <h1 class="display-5 fw-bold mb-3">7 Day Meal Plan Variations</h1>
+
+            <p class="lead mb-0 weekly-hero-text">
+                This weekly plan is generated recursively from your selected {{ goal.replace('_', ' ') }} meal plan.
             </p>
         </section>
 
-        <div class="row g-4">
+        <div class="weekly-grid">
             {% for plan in weekly_plans %}
                 {% set totals = plan.calculate_totals() %}
 
-                <div class="col-md-6 col-lg-4">
-                    <div class="card day-card">
-                        <div class="card-body p-4">
-                            <span class="day-badge">Day {{ loop.index }}</span>
+                <div class="day-card">
+                    <span class="day-badge">
+                        Day {{ loop.index }}
+                    </span>
 
-                            <h4 class="fw-bold mb-3">{{ plan.title }}</h4>
+                    <h2 class="day-title">
+                        {{ plan.title }}
+                    </h2>
 
-                            <p class="nutrition-text">
-                                Calories: {{ totals["calories"] }} kcal<br>
-                                Protein: {{ totals["protein"] }}g<br>
-                                Carbs: {{ totals["carbs"] }}g<br>
-                                Fat: {{ totals["fat"] }}g
-                            </p>
-
-                            <h6 class="fw-bold mt-4 mb-3">Meals</h6>
-
-                            {% for meal in plan.meals %}
-                                <div class="meal-box">
-                                    <strong>{{ meal.name }}</strong>
-                                    <p class="mb-0 text-muted">{{ meal.meal_type.title() }}</p>
-                                </div>
-                            {% endfor %}
-                        </div>
+                    <div class="nutrition-box">
+                        <p><strong>Calories:</strong> {{ totals.calories }} kcal</p>
+                        <p><strong>Protein:</strong> {{ totals.protein }}g</p>
+                        <p><strong>Carbs:</strong> {{ totals.carbs }}g</p>
+                        <p><strong>Fat:</strong> {{ totals.fat }}g</p>
                     </div>
-                </div>
 
+                    <p class="meals-label">Meals</p>
+
+                    {% for meal in plan.meals %}
+                        <div class="weekly-meal-item">
+                            <strong>{{ meal.name }}</strong>
+                            <small>{{ meal.meal_type.title() }}</small>
+                        </div>
+                    {% endfor %}
+                </div>
             {% endfor %}
         </div>
 
     </div>
-</div>
 {% endblock %}

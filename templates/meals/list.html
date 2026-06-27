@@ -38,10 +38,16 @@
             background: #fff7fb;
         }
 
+        .meals-page {
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
         .meals-hero {
             background:
-            linear-gradient(135deg, rgba(190, 105, 145, 0.78), rgba(255, 198, 222, 0.68)),
-            url("https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1600&q=80");
+                linear-gradient(135deg, rgba(190, 105, 145, 0.78), rgba(255, 198, 222, 0.68)),
+                url("https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1600&q=80");
             background-size: cover;
             background-position: center;
             color: white;
@@ -49,6 +55,8 @@
             padding: 55px;
             margin-bottom: 35px;
             box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+            position: relative;
+            min-height: 330px;
         }
 
         .hero-tag {
@@ -59,6 +67,18 @@
             display: inline-block;
             margin-bottom: 16px;
             font-weight: 600;
+        }
+
+        .meals-hero p.lead {
+            color: #000000 !important;
+            font-size: 0.95rem;
+            max-width: 470px;
+        }
+
+        .create-meal-hero-btn {
+            position: absolute;
+            right: 55px;
+            bottom: 35px;
         }
 
         .goal-btn {
@@ -73,6 +93,7 @@
             overflow: hidden;
             transition: 0.25s ease;
             background: white;
+            height: 100%;
         }
 
         .meal-card:hover {
@@ -95,6 +116,27 @@
             font-size: 4rem;
         }
 
+        .meal-card .card-body {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .meal-card .card-title {
+            color: #1f2a24;
+            font-size: 1.15rem;
+            font-weight: 800;
+
+        }
+
+        .meal-card .card-text {
+            min-height: 72px;
+        }
+
+        .meal-meta {
+            margin-top: auto;
+        }
+
         .meal-badge {
             border-radius: 50px;
             padding: 8px 14px;
@@ -113,26 +155,39 @@
             text-align: center;
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
         }
+
+        @media (max-width: 900px) {
+            .meals-hero {
+                padding: 40px;
+                min-height: 360px;
+            }
+
+            .create-meal-hero-btn {
+                left: 40px;
+                right: auto;
+                bottom: 30px;
+            }
+        }
     </style>
 
-    <div class="container-fluid py-4 px-4" style="max-width: 100%;">
+    <div class="meals-page py-4 px-3">
 
         <section class="meals-hero">
             <div class="row align-items-center">
                 <div class="col-lg-8">
                     <span class="hero-tag">GoalGetter Nutrition</span>
+
                     <h1 class="display-5 fw-bold mb-3">Meals & Recipes</h1>
+
                     <p class="lead mb-0">
                         Be a real GoalGetter: set your nutrition goals, build your meal plan and fuel every workout with purpose.
                     </p>
                 </div>
-
-                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
-                    <a href="{{ url_for('meals.create_meal_plan') }}" class="btn btn-light btn-lg rounded-pill px-4 fw-bold">
-                        Create Meal Plan
-                    </a>
-                </div>
             </div>
+
+            <a href="{{ url_for('meals.create_meal_plan') }}" class="btn btn-light btn-lg rounded-pill px-4 fw-bold create-meal-hero-btn">
+                Create Meal Plan
+            </a>
         </section>
 
         <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
@@ -155,7 +210,7 @@
         <div class="row g-4">
             {% if meals %}
                 {% for meal in meals %}
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="card meal-card h-100 shadow-sm">
 
                             {% if meal.image_url %}
@@ -175,18 +230,23 @@
                                     {{ meal.description }}
                                 </p>
 
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="badge bg-success meal-badge">{{ meal.prep_time }} mins</span>
-                                    <span class="badge meal-badge" style="background-color: #ff9ecb; color: #2b1b24;">
-    {{ meal.calories }} kcal
-</span>
-                                </div>
+                                <div class="meal-meta">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="badge bg-success meal-badge">
+                                            {{ meal.prep_time }} mins
+                                        </span>
 
-                                {% if meal.goal %}
-                                    <span class="badge bg-light text-dark border">
-                                        {{ meal.goal }}
-                                    </span>
-                                {% endif %}
+                                        <span class="badge meal-badge" style="background-color: #ff9ecb; color: #2b1b24;">
+                                            {{ meal.calories }} kcal
+                                        </span>
+                                    </div>
+
+                                    {% if meal.goal %}
+                                        <span class="badge bg-light text-dark border">
+                                            {{ meal.goal }}
+                                        </span>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -195,10 +255,13 @@
                 <div class="col-12">
                     <div class="empty-box">
                         <div style="font-size: 4rem;">🥗</div>
+
                         <h3 class="fw-bold mt-3">No meal plans have been created yet</h3>
+
                         <p class="text-muted">
                             Start with a goal based suggestion or create your own meal plan.
                         </p>
+
                         <a href="{{ url_for('meals.create_meal_plan') }}" class="btn btn-success rounded-pill px-4">
                             Create Your First Meal Plan
                         </a>

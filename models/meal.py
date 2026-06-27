@@ -168,6 +168,81 @@ def suggest_meal_plan(goal):
 
     return suggest_meal_plan("weight_loss")
 
+def get_weekly_meal_pool(goal):
+    goal = goal.lower()
+
+    if goal == "muscle_gain":
+        return {
+            "breakfast": [
+                Meal("Protein Oats", "breakfast", [
+                    {"name": "Oats, Banana and Protein Powder", "calories": 650, "protein": 42, "carbs": 78, "fat": 20}
+                ]),
+                Meal("Egg and Avocado Toast", "breakfast", [
+                    {"name": "Wholemeal Toast, Eggs and Avocado", "calories": 580, "protein": 32, "carbs": 48, "fat": 28}
+                ]),
+                Meal("Greek Yoghurt Protein Bowl", "breakfast", [
+                    {"name": "Greek Yoghurt, Granola, Berries and Honey", "calories": 520, "protein": 35, "carbs": 62, "fat": 14}
+                ]),
+            ],
+            "lunch": [
+                Meal("Chicken Rice Bowl", "lunch", [
+                    {"name": "Chicken, Rice and Vegetables", "calories": 720, "protein": 55, "carbs": 85, "fat": 14}
+                ]),
+                Meal("Turkey Pasta Bowl", "lunch", [
+                    {"name": "Turkey Mince, Pasta and Tomato Sauce", "calories": 690, "protein": 48, "carbs": 82, "fat": 16}
+                ]),
+                Meal("Tuna Sweet Potato Bowl", "lunch", [
+                    {"name": "Tuna, Sweet Potato, Sweetcorn and Salad", "calories": 610, "protein": 45, "carbs": 70, "fat": 13}
+                ]),
+            ],
+            "dinner": [
+                Meal("Steak Rice Bowl", "dinner", [
+                    {"name": "Tender Steak Strips Served with Rice, Peppers, Greens and Garlic Dressing", "calories": 690, "protein": 52, "carbs": 70, "fat": 24}
+                ]),
+                Meal("Salmon Potato Plate", "dinner", [
+                    {"name": "Salmon, Baby Potatoes and Green Vegetables", "calories": 680, "protein": 46, "carbs": 58, "fat": 30}
+                ]),
+                Meal("Chicken Couscous Bowl", "dinner", [
+                    {"name": "Chicken Breast, Couscous and Roasted Vegetables", "calories": 640, "protein": 50, "carbs": 66, "fat": 18}
+                ]),
+            ],
+        }
+
+    return {
+        "breakfast": [
+            Meal("Greek Yoghurt Bowl", "breakfast", [
+                {"name": "Greek Yoghurt, Berries and Chia Seeds", "calories": 330, "protein": 28, "carbs": 34, "fat": 9}
+            ]),
+            Meal("Berry Yoghurt Bowl", "breakfast", [
+                {"name": "Oats, Berries and Low Fat Yoghurt", "calories": 360, "protein": 22, "carbs": 48, "fat": 8}
+            ]),
+            Meal("Avocado Egg Toast", "breakfast", [
+                {"name": "Egg, Avocado and Wholemeal Toast", "calories": 390, "protein": 24, "carbs": 32, "fat": 18}
+            ]),
+        ],
+        "lunch": [
+            Meal("Chicken Salad", "lunch", [
+                {"name": "Chicken Breast Salad with Avocado", "calories": 450, "protein": 42, "carbs": 22, "fat": 20}
+            ]),
+            Meal("Prawn Quinoa Bowl", "lunch", [
+                {"name": "Prawns, Quinoa, Mango and Salad", "calories": 430, "protein": 36, "carbs": 45, "fat": 11}
+            ]),
+            Meal("Falafel Hummus Plate", "lunch", [
+                {"name": "Falafel, Hummus, Salad and Flatbread", "calories": 470, "protein": 24, "carbs": 52, "fat": 18}
+            ]),
+        ],
+        "dinner": [
+            Meal("Grilled Salmon Veg Plate", "dinner", [
+                {"name": "Grilled Salmon, Mixed Vegetables and Roasted Sweet Potato", "calories": 520, "protein": 42, "carbs": 35, "fat": 22}
+            ]),
+            Meal("Turkey Courgette Pasta", "dinner", [
+                {"name": "Turkey Mince, Courgette and Light Tomato Pasta", "calories": 510, "protein": 40, "carbs": 48, "fat": 14}
+            ]),
+            Meal("Loaded Sweet Potato", "dinner", [
+                {"name": "Sweet Potato, Beans, Avocado and Salad", "calories": 480, "protein": 22, "carbs": 62, "fat": 16}
+            ]),
+        ],
+    }
 
 def generate_weekly_meal_variations(base_plan, total_days=7, current_day=1, variations=None):
     if variations is None:
@@ -176,14 +251,23 @@ def generate_weekly_meal_variations(base_plan, total_days=7, current_day=1, vari
     if current_day > total_days:
         return variations
 
-    new_plan = deepcopy(base_plan)
-    new_plan.title = f"{base_plan.title} Day {current_day}"
+    meal_pool = get_weekly_meal_pool(base_plan.goal)
 
-    if len(new_plan.meals) > 0:
-        shift = (current_day - 1) % len(new_plan.meals)
-        new_plan.meals = new_plan.meals[shift:] + new_plan.meals[:shift]
+    breakfast_options = meal_pool["breakfast"]
+    lunch_options = meal_pool["lunch"]
+    dinner_options = meal_pool["dinner"]
 
-    variations.append(new_plan)
+    breakfast = deepcopy(breakfast_options[(current_day - 1) % len(breakfast_options)])
+    lunch = deepcopy(lunch_options[(current_day - 1) % len(lunch_options)])
+    dinner = deepcopy(dinner_options[(current_day - 1) % len(dinner_options)])
+
+    daily_plan = MealPlan(
+        title=f"{base_plan.title} Day {current_day}",
+        goal=base_plan.goal,
+        meals=[breakfast, lunch, dinner]
+    )
+
+    variations.append(daily_plan)
 
     return generate_weekly_meal_variations(
         base_plan,

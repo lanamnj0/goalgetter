@@ -10,40 +10,29 @@
             background: #f8f5f7;
         }
 
+        .meal-detail-page {
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
         .plan-hero {
             background:
-                linear-gradient(135deg, rgba(190, 105, 145, 0.78), rgba(255, 198, 222, 0.68)),
-                url("https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1600&q=80");
+                linear-gradient(135deg, rgba(190, 105, 145, 0.72), rgba(255, 198, 222, 0.58)),
+                url("https://www.drinkiconic.com/cdn/shop/articles/AdobeStock_195060440.jpeg?v=1566333475");
             background-size: cover;
             background-position: center;
             color: white;
             border-radius: 30px;
-            padding: 45px;
+            padding: 42px;
             box-shadow: 0 18px 45px rgba(0, 0, 0, 0.14);
             margin-bottom: 30px;
         }
 
-        .stat-card {
-            border: none;
-            border-radius: 24px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            background: white;
-        }
-
-        .meal-card {
-            border: none;
-            border-radius: 24px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            background: white;
-        }
-
-        .food-item {
-            background: #fff7fb;
-            border: 1px solid #ffd6e8;
-            border-radius: 16px;
-            padding: 14px;
-            margin-bottom: 12px;
+        .plan-hero-text {
+            color: #000000 !important;
+            font-size: 1rem;
+            max-width: 650px;
         }
 
         .pink-pill {
@@ -59,9 +48,141 @@
             border-radius: 999px;
             font-weight: 600;
         }
+
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            border: none;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            background: white;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .stat-card h5 {
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #1f2a24;
+        }
+
+        .stat-card p {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0;
+            color: #6c7888;
+        }
+
+        .section-title {
+            font-weight: 800;
+            color: #1f2a24;
+            margin-bottom: 22px;
+        }
+
+        .meals-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        .meal-card {
+            border: none;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            background: white;
+            height: 100%;
+        }
+
+        .meal-card-body {
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            height: 100%;
+        }
+
+        .meal-type-badge {
+            background: #22282b;
+            color: white;
+            border-radius: 999px;
+            padding: 6px 12px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 14px;
+            width: auto;
+        }
+
+        .meal-card h3 {
+            font-size: 1.55rem;
+            line-height: 1.2;
+            margin-bottom: 18px;
+            color: #1f2a24;
+        }
+
+        .food-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1f2a24;
+        }
+
+        .food-item {
+            background: #fff7fb;
+            border: 1px solid #ffd6e8;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+        .food-item strong {
+            display: block;
+            font-size: 0.98rem;
+            line-height: 1.35;
+            margin-bottom: 6px;
+            color: #1f2a24;
+        }
+
+        .food-item p {
+            margin-bottom: 0;
+            font-size: 0.88rem;
+            line-height: 1.45;
+            color: #6c757d;
+        }
+
+        .meal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 35px;
+        }
+
+        .meal-actions .btn {
+            border-radius: 999px;
+            padding: 10px 24px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 900px) {
+            .nutrition-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .meals-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 
-    <div class="container py-4">
+    <div class="meal-detail-page py-4 px-3">
 
         <a href="{{ url_for('meals.view_meal_plans') }}" class="btn btn-outline-secondary back-btn mb-4">
             Back to Meal Plans
@@ -69,90 +190,82 @@
 
         <section class="plan-hero">
             <span class="pink-pill mb-3">GoalGetter Meal Plan</span>
+
             <h1 class="display-5 fw-bold mb-3">{{ meal_plan.title }}</h1>
-            <p class="lead mb-0">
+
+            <p class="lead mb-0 plan-hero-text">
                 A balanced meal suggestion designed to support your {{ meal_plan.goal.replace('_', ' ') }} goal.
             </p>
         </section>
 
-        <div class="row g-4 mb-5">
-            <div class="col-md-3">
-                <div class="card stat-card text-center p-4">
-                    <h5 class="fw-bold">Calories</h5>
-                    <p class="fs-2 mb-0">{{ totals.calories }}</p>
-                </div>
+        <div class="nutrition-grid">
+            <div class="stat-card">
+                <h5>Calories</h5>
+                <p>{{ totals.calories }}</p>
             </div>
 
-            <div class="col-md-3">
-                <div class="card stat-card text-center p-4">
-                    <h5 class="fw-bold">Protein</h5>
-                    <p class="fs-2 mb-0">{{ totals.protein }}g</p>
-                </div>
+            <div class="stat-card">
+                <h5>Protein</h5>
+                <p>{{ totals.protein }}g</p>
             </div>
 
-            <div class="col-md-3">
-                <div class="card stat-card text-center p-4">
-                    <h5 class="fw-bold">Carbs</h5>
-                    <p class="fs-2 mb-0">{{ totals.carbs }}g</p>
-                </div>
+            <div class="stat-card">
+                <h5>Carbs</h5>
+                <p>{{ totals.carbs }}g</p>
             </div>
 
-            <div class="col-md-3">
-                <div class="card stat-card text-center p-4">
-                    <h5 class="fw-bold">Fat</h5>
-                    <p class="fs-2 mb-0">{{ totals.fat }}g</p>
-                </div>
+            <div class="stat-card">
+                <h5>Fat</h5>
+                <p>{{ totals.fat }}g</p>
             </div>
         </div>
 
-        <h2 class="fw-bold mb-4">Meals Included</h2>
+        <h2 class="section-title">Meals Included</h2>
 
-        <div class="row g-4">
+        <div class="meals-grid">
             {% for meal in meal_plan.meals %}
-                <div class="col-md-6">
-                    <div class="card meal-card h-100">
-                        <div class="card-body p-4">
-                            <span class="badge rounded-pill bg-dark mb-3">
-                                {{ meal.meal_type.title() }}
-                            </span>
+                <div class="meal-card">
+                    <div class="meal-card-body">
+                        <span class="meal-type-badge">
+                            Meal {{ loop.index }}
+                        </span>
 
-                            <h3 class="fw-bold">{{ meal.name }}</h3>
+                        <h3 class="fw-bold">{{ meal.name }}</h3>
 
-                            <h5 class="mt-4 mb-3">Food Items</h5>
 
-                            {% for item in meal.food_items %}
-                                <div class="food-item">
-                                    <strong>{{ item.name }}</strong>
-                                    <p class="mb-0 small text-muted">
-                                        Calories: {{ item.calories }},
-                                        Protein: {{ item.protein }}g,
-                                        Carbs: {{ item.carbs }}g,
-                                        Fat: {{ item.fat }}g
-                                    </p>
-                                </div>
-                            {% endfor %}
-                        </div>
+                        {% for item in meal.food_items %}
+                            <div class="food-item">
+                                <strong>{{ item.name }}</strong>
+                                <p>
+                                    Calories: {{ item.calories }},
+                                    Protein: {{ item.protein }}g,
+                                    Carbs: {{ item.carbs }}g,
+                                    Fat: {{ item.fat }}g
+                                </p>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             {% endfor %}
         </div>
 
         {% if plan_id is not none %}
-    <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
-        <a href="{{ url_for('meals.update_meal_plan', plan_id=plan_id) }}" class="btn btn-outline-dark rounded-pill px-4">
-            Update Meal Plan
-        </a>
+            <div class="meal-actions">
+                <a href="{{ url_for('meals.update_meal_plan', plan_id=plan_id) }}" class="btn btn-outline-dark">
+                    Update Meal Plan
+                </a>
 
-        <a href="{{ url_for('meals.weekly_created_meal_plan', plan_id=plan_id) }}" class="btn btn-outline-dark rounded-pill px-4">
-            View 7 Day Meal Plan
-        </a>
+                <a href="{{ url_for('meals.weekly_created_meal_plan', plan_id=plan_id) }}" class="btn btn-outline-dark">
+                    View 7 Day Meal Plan
+                </a>
 
-        <form action="{{ url_for('meals.delete_meal_plan', plan_id=plan_id) }}" method="post" class="d-inline">
-            <button type="submit" class="btn btn-outline-danger rounded-pill px-4">
-                Delete Meal Plan
-            </button>
-        </form>
+                <form action="{{ url_for('meals.delete_meal_plan', plan_id=plan_id) }}" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-outline-danger">
+                        Delete Meal Plan
+                    </button>
+                </form>
+            </div>
+        {% endif %}
+
     </div>
-{% endif %}
-
 {% endblock %}
