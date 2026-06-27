@@ -176,7 +176,133 @@ This image below shows you an example of the exercise cards:
 
 ![sample-img](sample-img.png)
 
-### Create meal plans (Yosola)
+### Create Meal Plans (Yosola)
+
+The meal planning feature allows users to create a personalised meal plan based on their fitness goal. Users can choose between a weight loss goal and a muscle gain goal. Once a goal is selected, the application generates a suggested meal plan and displays the total calories, protein, carbohydrates and fat.
+
+The feature also includes a seven day meal plan view. This uses a recursive function to generate weekly meal plan variations from the selected base meal plan.
+
+### Files Implemented
+
+#### Backend
+
+`models/meal.py`  
+Contains the `Meal` and `MealPlan` classes, the recursive nutrition calculation function, the goal based meal suggestion function and the recursive weekly meal plan variation function.
+
+`routes/meal_routes.py`  
+Contains the Flask routes for viewing meal plans, creating a meal plan, updating a meal plan, deleting a meal plan and viewing the seven day meal plan.
+
+#### Frontend
+
+`templates/meals/list.html`  
+Displays the meal plan gallery and goal based meal suggestions.
+
+`templates/meals/create.html`  
+Displays the form used to create a new meal plan.
+
+`templates/meals/detail.html`  
+Displays the generated meal plan, nutrition totals and action buttons.
+
+`templates/meals/update.html`  
+Displays the form used to update an existing meal plan.
+
+`templates/meals/weekly.html`  
+Displays the seven day meal plan variations.
+
+#### Unit Test
+
+`tests/test_meal_models.py`  
+Contains unit tests for the meal planning models, recursive nutrition calculation, goal based suggestions and weekly meal plan variations.
+
+### Running the Meal Planning Feature
+
+Start the Flask application from the root project directory:
+
+```bash
+python app.py
+```
+
+The Flask server should display a local URL such as:
+
+```text
+http://127.0.0.1:5000
+```
+
+To open the meal planning page directly, go to:
+
+```text
+http://127.0.0.1:5000/meal-plans/
+```
+
+If the application is running on port `5001` instead, use:
+
+```text
+http://127.0.0.1:5001/meal-plans/
+```
+
+### Using the Meal Planning Feature
+
+From the meal plans page, users can view the available meal ideas and select goal based meal plan suggestions.
+
+To create a new meal plan:
+
+1. Click **Create Meal Plan**.
+2. Enter a meal plan title.
+3. Select either **Weight Loss** or **Muscle Gain**.
+4. Click **Generate Meal Plan**.
+5. The application will display the generated meal plan with nutrition totals.
+
+After creating a meal plan, users can:
+
+- View the generated meal plan
+- Update the meal plan title or goal
+- Delete the meal plan
+- View a seven day meal plan generated from the selected plan
+
+### Example Meal Plan Routes
+
+View all meal plans:
+
+```text
+http://127.0.0.1:5000/meal-plans/
+```
+
+Create a meal plan:
+
+```text
+http://127.0.0.1:5000/meal-plans/create
+```
+
+View a suggested weight loss plan:
+
+```text
+http://127.0.0.1:5000/meal-plans/suggest/weight_loss
+```
+
+View a suggested muscle gain plan:
+
+```text
+http://127.0.0.1:5000/meal-plans/suggest/muscle_gain
+```
+
+### Running Meal Planning Unit Tests
+
+To run the meal planning unit tests from the root project directory, use:
+
+```bash
+python -m unittest discover -s tests -p "test_meal_models.py" -v
+```
+
+If successful, the output should show:
+
+```text
+Ran 5 tests
+OK
+```
+
+### Notes
+
+The meal planning feature currently uses predefined meal suggestions to generate plans for weight loss and muscle gain. Created meal plans are managed through the Flask application routes and can be created, viewed, updated and deleted during the running session.
 
 ### Dashboard/ progress (Neha)
 
