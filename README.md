@@ -24,13 +24,13 @@ The application aims to provide a simple and organised way to manage health and 
 - Neha
 - Thelma
 
-## Featues
+## Features
 
 - Create and manage a user profile
 - Log workouts and track exercise activity
 - Search for exercises using ExerciseDB
-- St and moitor fitness goals
-  Track meals and calroie intake
+- Set and moitor fitness goals
+  Track meals and calories intake
 - View workout history
 - Store fitness data for future reference
 
@@ -60,16 +60,18 @@ Install the required Python packages:
 pip install -r requirements.txt
 ```
 
-If you don't already have python-dotenv is not installed, run:
+If you don't already have python-dotenv installed, run:
 
+```python
 pip install python-dotenv
+```
 
 ## Database Setup
 
 1. Install MySQL and DBeaver.
 2. Open DBeaver and connect to your local MySQL server.
 3. Open `goalgetter_schema.sql`.
-4. Excecute the script to create the GoalGetter database and tables.
+4. Execute the script to create the GoalGetter database and tables.
 5. Open `sample_data.sql`.
 6. Execute the script to populate the database with sample records.
 7. Refresh the database navigator to confirm that all tables have been created successfully
@@ -125,7 +127,7 @@ To use the API in this project, subscribe to the API through RapidAPI to obtain 
 From the project root directory, run:
 `python app.py`
 
-### Open the Flask URl
+### Open the Flask URL
 
 The Flask development server should start and display something similar to:
 
@@ -260,5 +262,5 @@ OK
 
 - Progress charts and analytics
 - Improved meal planning features
-- Additonal fitness APIs
+- Additional fitness APIs
 - Mobile application support
