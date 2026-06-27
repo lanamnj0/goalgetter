@@ -178,13 +178,15 @@ This image below shows you an example of the exercise cards:
 
 ### Create meal plans (Yosola)
 
-### Dashboard/ progress (Neha)
+### 📊 Dashboard/ progress (Neha)
 
 #### Frontend & Backend Setup
 
 This section covers the implementation of the dashboard and calendar components of the application.
 
-#### Files Implemented
+The image below shows a preview of the main user dashboard interface, featuring the weekly workout calendar and data analytics widgets:
+![frontend-UI-goalgetter-dashboard.png](static/frontend-UI-goalgetter-dashboard.png)
+#### 🗂️ Files Implemented
 
 ##### Frontend:
 
