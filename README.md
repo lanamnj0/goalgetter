@@ -75,18 +75,19 @@ The Exercise Search feature uses ExerciseDB API hosted on RapidAPI. A personal R
 
 ### 1. Create a RapidAPI Account. 
 
-Visit: https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb 
+Visit: https://rapidapi.com/ascendapi/api/edb-with-videos-and-images-by-ascendapi
 
 1. Create a free RapidAPI account or sign in if you already have an account.
-2. Subscribe to the Free plan (or another plan if you prefer another subscription). 
+2. Subscribe to the Free plan (or another plan if you prefer another subscription).
 
 ### 2. Obtain your API Key
 
-After subscribing;
+After subscribing: 
 
-1. Open the App section of the API page.
-2. Locate your X-RapidAPI-Key (this must be kept a secret). 
-3. Copy the key. 
+1. Click on MCP Playground to locate the API key 
+2. Open the App section of the API page.
+3. Locate your X-RapidAPI-Key (this must be kept a secret). 
+4. Copy the key. 
 
 ### 3. Create a `.env` File 
 
@@ -101,6 +102,10 @@ Example:
 `RAPIDAPI_KEY=1234567890abcdefghijklmnopqrstuvwxyz`
 
 The `.env` file should not be committed to GitHub and should be listed in `.gitignore`.  
+
+For more information on how to set up ExerciseAPI, use the link below: 
+
+`https://docs.ascendapi.com/quickstart/overview?utm_source=chatgpt.com`
 
 ## Running the application 
 
