@@ -347,7 +347,7 @@ View a suggested muscle gain plan:
 ```text
 http://127.0.0.1:5000/meal-plans/suggest/muscle_gain
 ```
-https://github.com/Tosino97/CFG-Group-Project/blob/main/README.md
+
 ### Running Meal Planning Unit Tests
 
 To run the meal planning unit tests from the root project directory, use:
@@ -367,8 +367,9 @@ OK
 
 The meal planning feature currently uses predefined meal suggestions to generate plans for weight loss and muscle gain. Created meal plans are managed through the Flask application routes and can be created, viewed, updated and deleted during the running session.
 
-### Screenshot
+### Screenshots
 ![Create Meal Plan Page](static/create_meal_plan_image.png)
+![Meal Plan Main Page](static/meal_plan_main_page.png)
 
 ### 📊 Dashboard/ progress (Neha)
 
