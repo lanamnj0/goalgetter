@@ -104,9 +104,13 @@ Example:
 
 The `.env` file should not be committed to GitHub and should be listed in `.gitignore`.
 
-For more information on how to set up ExerciseAPI, use the link below: 
+### API Documentation
 
-`https://docs.ascendapi.com/quickstart/overview?utm_source=chatgpt.com`
+For the most up-to-date API endpoints and documentation, refer to the official AscendAPI documentation:
+
+<https://docs.ascendapi.com/>
+
+To use the API in this project, subscribe to the API through RapidAPI to obtain your API key.
 
 ## Running the application 
 
