@@ -200,6 +200,8 @@ This image below shows you an example of the exercise cards:
 
 ### Dashboard/ progress (Neha)
 
+***Note*** *The dashboard currently uses sample data to demostrate the user interface. Integration with live backend data is planned for future development*
+
 #### Frontend & Backend Setup
 
 This section covers the implementation of the dashboard and calendar components of the application.
