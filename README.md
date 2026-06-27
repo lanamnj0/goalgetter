@@ -24,13 +24,13 @@ The application aims to provide a simple and organised way to manage health and 
 - Neha
 - Thelma
 
-## Featues
+## Features
 
 - Create and manage a user profile
 - Log workouts and track exercise activity
 - Search for exercises using ExerciseDB
-- St and moitor fitness goals
-  Track meals and calroie intake
+- Set and moitor fitness goals
+  Track meals and calories intake
 - View workout history
 - Store fitness data for future reference
 
@@ -60,12 +60,18 @@ Install the required Python packages:
 pip install -r requirements.txt
 ```
 
+If you don't already have python-dotenv installed, run:
+
+```python
+pip install python-dotenv
+```
+
 ## Database Setup
 
 1. Install MySQL and DBeaver.
 2. Open DBeaver and connect to your local MySQL server.
 3. Open `goalgetter_schema.sql`.
-4. Excecute the script to create the GoalGetter database and tables.
+4. Execute the script to create the GoalGetter database and tables.
 5. Open `sample_data.sql`.
 6. Execute the script to populate the database with sample records.
 7. Refresh the database navigator to confirm that all tables have been created successfully
@@ -102,11 +108,17 @@ Example:
 
 `RAPIDAPI_KEY=1234567890abcdefghijklmnopqrstuvwxyz`
 
+Required environment variable: `RAPIDAPI_KEY` (*store this in your .env file*)
+
 The `.env` file should not be committed to GitHub and should be listed in `.gitignore`.
 
-For more information on how to set up ExerciseAPI, use the link below: 
+### API Documentation
 
-`https://docs.ascendapi.com/quickstart/overview?utm_source=chatgpt.com`
+For the most up-to-date API endpoints and documentation, refer to the official AscendAPI documentation:
+
+<https://docs.ascendapi.com/>
+
+To use the API in this project, subscribe to the API through RapidAPI to obtain your API key.
 
 ## Running the application 
 
@@ -117,7 +129,7 @@ For more information on how to set up ExerciseAPI, use the link below:
 From the project root directory, run:
 `python app.py`
 
-### Open the Flask URl
+### Open the Flask URL
 
 The Flask development server should start and display something similar to:
 
@@ -129,8 +141,13 @@ Open the URL in your browser.
 
 ## Using the application
 
-### Register/ login (Shalesa)
+### API Endpoints
 
+- Search by body part
+- Search by equipment
+- Search by target muscle
+- Search by exercise name
+- Search by exercise type
 ### Manage workouts (Thelma)
 
 ## Workout Management (CRUD)
@@ -200,7 +217,7 @@ GET /workouts/user/past_workouts/1
 
 ![Workout History Endpoint](/example_workouts.pgn.png)
 
-### Search exercises
+### Search exercises
 
 The application integrates with ExerciseDB API to search for exercises.
 
@@ -234,6 +251,14 @@ The application displays exercise cards showing:
 - Target muscle
 - Equipment
 - Exercise image
+
+### Register/ login (Shalesa)
+
+### Manage workouts (Thelma)
+
+- This application manages workouts using the full CRUD flask routes.
+- Can create, read, update and delete workouts. These routes handle user requests, interact with the database and ensure workout data can be managed through this application.
+- The application has a workout history endpoint where users can receive all past workouts. This allows the user to see their fitness journey details and progress such as when the user worked out and burned the most calories.
 
 This image below shows you an example of the exercise cards:
 
@@ -373,6 +398,8 @@ The meal planning feature currently uses predefined meal suggestions to generate
 
 ### 📊 Dashboard/ progress (Neha)
 
+***Note*** *The dashboard currently uses sample data to demostrate the user interface. Integration with live backend data is planned for future development*
+
 #### Frontend & Backend Setup
 
 This section covers the implementation of the dashboard and calendar components of the application.
@@ -447,5 +474,5 @@ OK
 
 - Progress charts and analytics
 - Improved meal planning features
-- Additonal fitness APIs
+- Additional fitness APIs
 - Mobile application support
