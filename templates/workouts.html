@@ -1,0 +1,94 @@
+<!--WORKOUTS PAGE – Exercise Library & Filtering
+
+    PAGE STRUCTURE:
+    - Filter dropdowns (Body Part, Equipment, Category, Target Muscle)
+    - Filter/Get All buttons
+    - The frontend set to receive data from the backend route (based on previous data given)
+
+    TECHNICAL CONNECTION POINTS:
+    1. Flask Route: /exercises (GET method)
+    2. Query Parameters: body_part, equipment, category, muscle -->
+
+{% extends "layout.html" %}
+
+{% block title %}
+    Workouts
+{% endblock %}
+
+
+{% block main %}
+ <!-- Dropdown menu that links to the data list from api-->
+    <div class="card shadow-sm border-0 mx-auto" style="max-width: 600px;">
+        <div class="card-header p-3">
+            <h3 class="mb-0 fw-bold">Browse Exercises  🏋️‍♀️ </h3>
+        </div>
+        <div class="card-body p-4">
+
+            <!-- TO CHECK: Using GET so filters appear in URL, change '/exercises' for a get_all if CRUD is written this way-->
+            <form action="/exercises" method="GET"> <!-- Method currently set to GET-->
+
+                <!-- 1. BODY PART DROPDOWN -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-secondary small">Body Part:</label>
+                    <select class="form-select p-2" name="body_part">
+                        <option value="">All Body Parts</option>
+                        {% for body_part in body_parts %}
+                            <option value="{{ body_part }}">{{ body_part|title }}</option> <!-- the '|title' capitalises the variable data, '|' is a filter to pass through not 'and' for Jinja-->
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- 2. EQUIPMENT DROPDOWN -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-secondary small">Equipment:</label>
+                    <select class="form-select p-2" name="equipment">
+                        <option value="">All Equipment</option>
+                        {% for equipment in equipment %}
+                            <option value="{{ equipment }}">{{ equipment|title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- 3. EXERCISE TYPE DROPDOWN -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-secondary small">Exercise Type:</label>
+                    <select class="form-select p-2" name="category">
+                        <option value="">All Types</option>
+                        {% for category in categories %}
+                            <option value="{{ category }}">{{ category|title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- 4. TARGET MUSCLE DROPDOWN -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-secondary small">Target Muscle:</label>
+                    <select class="form-select p-2" name="muscle">
+                        <option value="">All Muscles</option>
+                        {% for muscle in muscles %}
+                            <option value="{{ muscle }}">{{ muscle|title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- BUTTONS: Filter and Get All -->
+                <button class="btn btn-primary w-100 fw-bold p-2" type="submit">Filter Exercises</button>
+
+                <!-- "Get All" redirects to the same page -->
+                <a href="/exercises" class="btn btn-outline-secondary w-100 fw-bold p-2 mt-2">Get All (Clear Filters)</a>
+
+            </form>
+
+            <!-- Show what filters are currently active -->
+            {% if request.args %}
+                <div class="mt-3 p-2 bg-light rounded small text-secondary">
+                    <strong>Active filters:</strong>
+                    {% for key, value in request.args.items() %}
+                        {% if value %}{{ key|replace('_', ' ')|title }} = {{ value|title }}{% if not loop.last %}, {% endif %}{% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}

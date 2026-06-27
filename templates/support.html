@@ -1,0 +1,66 @@
+<!--SUPPORT PAGE – Stakeholder Perspective:
+    - Provides a structured feedback channel for users to report bugs or issues.
+    - Facilitates continuous system improvement by capturing user issues.
+    - Enhances user retention by demonstrating that the platform is actively maintained.
+    - Allows the development team to prioritise fixes and feature updates based on real user data.
+
+    TECHNICAL NOTE:
+    - This form currently collects data via POST request but does NOT connect to MySQL yet.
+    - A support_tickets table needs to be created to store:
+        - name (VARCHAR)
+        - email (VARCHAR)
+        - message (TEXT)
+        - support_category (VARCHAR)
+        - timestamp (DATETIME)
+    - Future implementation should include:
+        - Server-side validation
+        - Email notification to support team
+        - Ticket tracking system -->
+
+{% extends "layout.html" %}
+
+{% block title %}
+    Settings
+{% endblock %}
+
+{% block main %}
+        <div class="card shadow-sm border-0 mx-auto" style="max-width: 600px;">
+                    <div class="card-header p-3">
+                        <h3 class="mb-0 fw-bold">Contact Support</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <form action="/support" method="POST">
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-secondary small">Full Name:</label>
+                                <input class="form-control p-2" type="text" name="name" placeholder="Enter Full Name..." required>
+                            </div>
+                            <br>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-secondary small">Email Address:</label>
+                                <input class="form-control p-2" type="email" name="email" placeholder="Enter Email..." required>
+                            </div>
+                            <br>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-secondary small">Your Message:</label>
+                                <textarea name="message" class="form-control p-2" rows="2" placeholder="Type your message here..." required></textarea>
+                            </div>
+                            <br>
+
+                            <div class="mb-4">
+                                <label for="ticket-type" class="form-label fw-bold text-secondary small"> Issue Type:</label>
+                                <select class="form-select p-2" id="ticket-type" name="support_category">
+                                    <option value="" disabled selected class="text-muted">Choose an issue type...</option>
+                                    <option value="bug">Report a Bug</option>
+                                    <option value="account">Account Issue</option>
+                                    <option value="other">Other Support</option>
+                                </select>
+                            </div>
+                            <br>
+                            <button class="btn btn-primary w-100 fw-bold p-2" type="Submit Ticket">Submit</button>
+                            </form>
+
+                    </div>
+        </div>
+
+{% endblock %}
