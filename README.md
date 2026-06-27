@@ -211,14 +211,14 @@ The image below shows a preview of the main user dashboard interface, featuring 
 - `test_dashboard_logic.py` - Unit tests for dashboard calculation logic
 - `test_calendar_logic.py` - Unit tests for calendar scheduling logic
 
-##### Running the frontend UI application
+##### Running the frontend UI application:
 
 - Install project dependencies
 - Run the Flask application (e.g. `python frontend.py`)
 - Open the application in a web browser
 - Navigate using the sidebar to access dashboard, calendar, workouts, meals, history, settings, and support pages
 
-##### Notes
+##### Notes:
 
 - The frontend demonstrates a Minimum Viable Product (MVP) using mocked data for demonstration purposes.
 - Dashboard widget values and calendar events are also powered by mock data to demonstrate frontend functionality.
