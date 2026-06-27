@@ -182,7 +182,7 @@ The meal planning feature allows users to create a personalised meal plan based 
 
 The feature also includes a seven day meal plan view. This uses a recursive function to generate weekly meal plan variations from the selected base meal plan.
 
-### Files Implemented
+### Files Used
 
 #### Backend
 
