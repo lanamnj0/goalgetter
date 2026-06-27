@@ -60,6 +60,10 @@ Install the required Python packages:
 pip install -r requirements.txt
 ```
 
+If you don't already have python-dotenv is not installed, run:
+
+pip install python-dotenv
+
 ## Database Setup
 
 1. Install MySQL and DBeaver.
