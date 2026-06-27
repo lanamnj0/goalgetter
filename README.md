@@ -145,31 +145,32 @@ This allows users to track their fitness journey, including workout dates, durat
 ```python
 @app.route("/workouts/user/past_workouts/<user_id>", methods=["GET"])
 def get_workout_user_api(user_id):
-    try:
-        user_id = int(user_id)
-    except ValueError:
-        return jsonify({"status": "Error", "message": "Invalid user ID"}), 400
+        try:
+            user_id = int(user_id)
+        except ValueError:
+            return jsonify({"status": "Error", "message": "Invalid user ID"}), 400
+        try:
+            workout = get_workouts_by_user_id(user_id)
 
-    try:
-        workout = get_workouts_by_user_id(user_id)
+            if not workout:
+                return jsonify({"status": "error", "message": "Workout not found"}), 404
 
-        if not workout:
-            return jsonify({"status": "error", "message": "Workout not found"}), 404
+            return jsonify({"status": "Workout found", "data": workout}), 200
 
-        return jsonify({
-            "id": workout.workout_id,
-            "user_id": workout.user_id,
-            "workout_date": str(workout.workout_date),
-            "duration_minutes": workout.duration_minutes,
-            "calories_burned": workout.calories_burned
-        }), 200
+        except Exception as e:
+                return jsonify({
+                "status": "error",
+                "message": "Failed to retrieve workout",
+                "error": str(e)
+                }), 500
 
-    except Exception as e:
-        return jsonify({
+        except Exception as e:
+            return jsonify({
             "status": "error",
             "message": "Failed to retrieve workout",
             "error": str(e)
-        }), 500
+            }), 500
+
 ```
 
 ### Example Request
