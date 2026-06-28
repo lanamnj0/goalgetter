@@ -148,6 +148,7 @@ Open the URL in your browser.
 - Search by target muscle
 - Search by exercise name
 - Search by exercise type
+
 ### Manage workouts (Thelma)
 
 ## Workout Management (CRUD)
