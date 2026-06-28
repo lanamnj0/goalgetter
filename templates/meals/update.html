@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+
+{% block title %}Update Meal Plan{% endblock %}
+
+{% block main %}
+<style>
+    body {
+        background: #fff7fb;
+    }
+
+    .update-wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .update-card {
+        background: #ffffff;
+        border-radius: 26px;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+        border: none;
+        overflow: hidden;
+    }
+
+    .update-hero {
+        background:
+            linear-gradient(135deg, rgba(190, 105, 145, 0.78), rgba(255, 198, 222, 0.68)),
+            url("https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1600&q=80");
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 3rem;
+    }
+
+    .form-section {
+        padding: 2.5rem;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 16px;
+        padding: 0.9rem 1rem;
+        border: 1px solid #f4bfd6;
+    }
+
+    .btn-pink {
+        background: #ff9ecb;
+        color: #2b1b24;
+        border: 1px solid #ff9ecb;
+        border-radius: 999px;
+        padding: 0.8rem 1.6rem;
+        font-weight: 700;
+    }
+
+    .btn-pink:hover {
+        background: #ff83bd;
+        color: #2b1b24;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="update-wrapper">
+
+        <a href="{{ url_for('meals.view_single_meal_plan', plan_id=plan_id) }}" class="btn btn-outline-secondary rounded-pill mb-4">
+            Back to Meal Plan
+        </a>
+
+        <div class="card update-card">
+            <div class="update-hero">
+                <span class="badge rounded-pill mb-3" style="background: #ff9ecb; color: #2b1b24;">
+                    GoalGetter Editor
+                </span>
+                <h1 class="fw-bold mb-3">Update Meal Plan</h1>
+                <p class="mb-0">
+                    Change the meal plan title or switch the fitness goal.
+                </p>
+            </div>
+
+            <div class="form-section">
+                <form method="post">
+                    <div class="mb-4">
+                        <label for="title" class="form-label fw-bold">Meal Plan Title</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="title"
+                            name="title"
+                            value="{{ meal_plan.title }}"
+                            required
+                        >
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="goal" class="form-label fw-bold">Fitness Goal</label>
+                        <select class="form-select" id="goal" name="goal" required>
+                            <option value="weight_loss" {% if meal_plan.goal == "weight_loss" %}selected{% endif %}>
+                                Weight Loss
+                            </option>
+                            <option value="muscle_gain" {% if meal_plan.goal == "muscle_gain" %}selected{% endif %}>
+                                Muscle Gain
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-pink">
+                            Save Changes
+                        </button>
+
+                        <a href="{{ url_for('meals.view_single_meal_plan', plan_id=plan_id) }}" class="btn btn-outline-secondary rounded-pill px-4">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

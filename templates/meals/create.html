@@ -1,0 +1,146 @@
+{% extends "layout.html" %}
+
+{% block title %}Create Meal Plan{% endblock %}
+
+{% block main %}
+<style>
+    body {
+        background: #fff7fb;
+    }
+    .create-page {
+       max-width: 950px;
+       margin: 0 auto;
+       width: 100%;
+
+    }
+
+    .create-hero-text {
+    color: #000000 !important;
+
+    }
+    .create-wrapper {
+        max-width: 720px;
+        margin: 0 auto;
+    }
+
+    .create-card {
+        background: #ffffff;
+        border-radius: 26px;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+        border: none;
+        overflow: hidden;
+    }
+
+    .create-hero {
+        background:
+            linear-gradient(135deg, rgba(190, 105, 145, 0.78), rgba(255, 198, 222, 0.68)),
+            url("https://substackcdn.com/image/fetch/$s_!1A_t!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F71cfb1e5-394c-4093-be45-d91e92102362_2049x1537.jpeg");
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 2.5rem;
+    }
+
+    .form-section {
+        padding: 2.5rem;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 16px;
+        padding: 0.9rem 1rem;
+        border: 1px solid #f4bfd6;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #ff9ecb;
+        box-shadow: 0 0 0 0.2rem rgba(255, 158, 203, 0.25);
+    }
+
+    .btn-pink {
+        background: #ff9ecb;
+        color: #2b1b24;
+        border: none;
+        border-radius: 999px;
+        padding: 0.8rem 1.6rem;
+        font-weight: 700;
+    }
+
+    .btn-pink:hover {
+        background: #ff83bd;
+        color: #2b1b24;
+    }
+
+    .helper-box {
+        background: #fff0f7;
+        border: 1px solid #ffd0e4;
+        border-radius: 18px;
+        padding: 1rem;
+        color: #5d4a52;
+    }
+</style>
+
+<div class="create-page py-4 px-3">
+    <div class="create-wrapper">
+
+        <a href="{{ url_for('meals.view_meal_plans') }}" class="btn btn-outline-secondary rounded-pill mb-4">
+            Back to Meal Plans
+        </a>
+
+        <div class="card create-card">
+            <div class="create-hero">
+                <span class="badge rounded-pill mb-3" style="background: #ff9ecb; color: #2b1b24;">
+                    GoalGetter Builder
+                </span>
+                <h1 class="fw-bold mb-3">Create Your Meal Plan</h1>
+                <p class="mb-0 create-hero-text">
+                    Choose your goal and GoalGetter will generate a suggested breakfast, lunch and dinner plan.
+                </p>
+            </div>
+
+            <div class="form-section">
+                <form method="post">
+                    <div class="mb-4">
+                        <label for="title" class="form-label fw-bold">Meal Plan Title</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="title"
+                            name="title"
+                            placeholder="Example: My Weight Loss Journey"
+                            required
+                        >
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="goal" class="form-label fw-bold">Fitness Goal</label>
+                        <select class="form-select" id="goal" name="goal" required>
+                            <option value="">Select A Goal</option>
+                            <option value="weight_loss">Weight Loss</option>
+                            <option value="muscle_gain">Muscle Gain</option>
+                        </select>
+                    </div>
+
+                    <div class="helper-box mb-4">
+                        <strong>How it works:</strong>
+                        The app uses your selected goal to generate a meal plan then calculates the total calories,
+                        protein, carbs and fat using the recursive nutrition function.
+                    </div>
+
+                    <div class="d-flex gap-3 flex-wrap align-items-center justify-content-center">
+                        <button type="submit" class="btn btn-pink">
+                            Generate Meal Plan
+                        </button>
+
+                        <a href="{{ url_for('meals.view_meal_plans') }}" class="btn btn-outline-secondary rounded-pill px-4 py-2">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -2,11 +2,14 @@ from flask import Flask, request, jsonify, render_template
 from config import Config
 from exercise_api import ExerciseAPI
 from db_utils_workouts import get_workouts_by_id, get_workouts_by_user_id, delete_workout, insert_workouts, update_workout
+from routes.meal_routes import meal_bp
 
 def create_app():
     # Create and configure the Flask aplication
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    app.register_blueprint(meal_bp)
 
     # Home route confirms the API is running
     @app.route("/")
@@ -304,4 +307,5 @@ app = create_app()
 
 # run the application in debug mode 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app = create_app()
+    app.run(debug=True, port=5001)

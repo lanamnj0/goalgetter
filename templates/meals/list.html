@@ -1,0 +1,273 @@
+<!--MEALS & RECIPES PAGE – Grid Gallery View (MVP)
+
+    PAGE STRUCTURE:
+    Responsive grid gallery displaying meal/recipe cards with images
+    Uses Bootstrap 5 grid system row + col
+    Each card shows an image, title, and description
+
+    TECHNICAL NOTE FOR TEAMMATE API Integration:
+    Currently using static mock images
+    When adding the meal builder API, please include an image_url field
+    in the API schema so that the frontend can display dynamic images
+
+    Expected data structure:
+        {
+            "id": 1,
+            "name": "Greek Salad",
+            "description": "Fresh vegetables with feta",
+            "image_url": "https://example.com/image.jpg",
+            "prep_time": 15,
+            "calories": 320
+        }
+
+    STAKEHOLDER VALUE:
+    Visually appealing display of meal options
+    Encourages user engagement with the nutrition feature
+    Grid layout is optimised for browsing and discovery
+-->
+
+{% extends "layout.html" %}
+
+{% block title %}
+    Meals & Recipes
+{% endblock %}
+
+{% block main %}
+    <style>
+        body {
+            background: #fff7fb;
+        }
+
+        .meals-page {
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .meals-hero {
+            background:
+                linear-gradient(135deg, rgba(190, 105, 145, 0.78), rgba(255, 198, 222, 0.68)),
+                url("https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1600&q=80");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            border-radius: 30px;
+            padding: 55px;
+            margin-bottom: 35px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+            position: relative;
+            min-height: 330px;
+        }
+
+        .hero-tag {
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            padding: 8px 16px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .meals-hero p.lead {
+            color: #000000 !important;
+            font-size: 0.95rem;
+            max-width: 470px;
+        }
+
+        .create-meal-hero-btn {
+            position: absolute;
+            right: 55px;
+            bottom: 35px;
+        }
+
+        .goal-btn {
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-weight: 600;
+        }
+
+        .meal-card {
+            border: none;
+            border-radius: 26px;
+            overflow: hidden;
+            transition: 0.25s ease;
+            background: white;
+            height: 100%;
+        }
+
+        .meal-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.16);
+        }
+
+        .meal-img {
+            height: 230px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .emoji-placeholder {
+            height: 230px;
+            background: linear-gradient(135deg, #f5f7fa, #d7eadc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .meal-card .card-body {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .meal-card .card-title {
+            color: #1f2a24;
+            font-size: 1.15rem;
+            font-weight: 800;
+
+        }
+
+        .meal-card .card-text {
+            min-height: 72px;
+        }
+
+        .meal-meta {
+            margin-top: auto;
+        }
+
+        .meal-badge {
+            border-radius: 50px;
+            padding: 8px 14px;
+            font-size: 0.85rem;
+        }
+
+        .section-title {
+            font-weight: 800;
+            color: #1f2a24;
+        }
+
+        .empty-box {
+            background: white;
+            border-radius: 28px;
+            padding: 45px;
+            text-align: center;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        @media (max-width: 900px) {
+            .meals-hero {
+                padding: 40px;
+                min-height: 360px;
+            }
+
+            .create-meal-hero-btn {
+                left: 40px;
+                right: auto;
+                bottom: 30px;
+            }
+        }
+    </style>
+
+    <div class="meals-page py-4 px-3">
+
+        <section class="meals-hero">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <span class="hero-tag">GoalGetter Nutrition</span>
+
+                    <h1 class="display-5 fw-bold mb-3">Meals & Recipes</h1>
+
+                    <p class="lead mb-0">
+                        Be a real GoalGetter: set your nutrition goals, build your meal plan and fuel every workout with purpose.
+                    </p>
+                </div>
+            </div>
+
+            <a href="{{ url_for('meals.create_meal_plan') }}" class="btn btn-light btn-lg rounded-pill px-4 fw-bold create-meal-hero-btn">
+                Create Meal Plan
+            </a>
+        </section>
+
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="section-title mb-1">Explore Meal Ideas</h2>
+                <p class="text-muted mb-0">Choose a suggestion based on your current goal.</p>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 mt-3 mt-md-0">
+                <a href="{{ url_for('meals.suggested_meal_plan', goal='weight_loss') }}" class="btn btn-outline-success goal-btn">
+                    Weight Loss
+                </a>
+
+                <a href="{{ url_for('meals.suggested_meal_plan', goal='muscle_gain') }}" class="btn btn-outline-primary goal-btn">
+                    Muscle Gain
+                </a>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            {% if meals %}
+                {% for meal in meals %}
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="card meal-card h-100 shadow-sm">
+
+                            {% if meal.image_url %}
+                                <img src="{{ meal.image_url }}"
+                                     class="card-img-top meal-img"
+                                     alt="{{ meal.name }}">
+                            {% else %}
+                                <div class="emoji-placeholder">
+                                    🍽️
+                                </div>
+                            {% endif %}
+
+                            <div class="card-body p-4">
+                                <h5 class="card-title fw-bold">{{ meal.name }}</h5>
+
+                                <p class="card-text text-muted">
+                                    {{ meal.description }}
+                                </p>
+
+                                <div class="meal-meta">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="badge bg-success meal-badge">
+                                            {{ meal.prep_time }} mins
+                                        </span>
+
+                                        <span class="badge meal-badge" style="background-color: #ff9ecb; color: #2b1b24;">
+                                            {{ meal.calories }} kcal
+                                        </span>
+                                    </div>
+
+                                    {% if meal.goal %}
+                                        <span class="badge bg-light text-dark border">
+                                            {{ meal.goal }}
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12">
+                    <div class="empty-box">
+                        <div style="font-size: 4rem;">🥗</div>
+
+                        <h3 class="fw-bold mt-3">No meal plans have been created yet</h3>
+
+                        <p class="text-muted">
+                            Start with a goal based suggestion or create your own meal plan.
+                        </p>
+
+                        <a href="{{ url_for('meals.create_meal_plan') }}" class="btn btn-success rounded-pill px-4">
+                            Create Your First Meal Plan
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
