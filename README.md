@@ -253,6 +253,10 @@ The application displays exercise cards showing:
 - Equipment
 - Exercise image
 
+This image below shows you an example of the exercise cards:
+
+![sample-img](sample-img.png)
+
 ### Register/ login (Shalesa)
 
 ### Manage workouts (Thelma)
@@ -260,10 +264,6 @@ The application displays exercise cards showing:
 - This application manages workouts using the full CRUD flask routes.
 - Can create, read, update and delete workouts. These routes handle user requests, interact with the database and ensure workout data can be managed through this application.
 - The application has a workout history endpoint where users can receive all past workouts. This allows the user to see their fitness journey details and progress such as when the user worked out and burned the most calories.
-
-This image below shows you an example of the exercise cards:
-
-![sample-img](sample-img.png)
 
 ## Create Meal Plans (Yosola)
 
