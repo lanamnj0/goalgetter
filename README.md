@@ -399,7 +399,7 @@ The meal planning feature currently uses predefined meal suggestions to generate
 
 ### 📊 Dashboard/ progress (Neha)
 
-***Note*** *The dashboard currently uses sample data to demostrate the user interface. Integration with live backend data is planned for future development*
+***Note*** *The dashboard currently uses sample data to demonstrate the user interface. Integration with live backend data is planned for future development*
 
 #### Frontend & Backend Setup
 
