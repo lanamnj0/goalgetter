@@ -50,29 +50,6 @@ def index():
 def dashboard():
     return render_template('dashboard.html')
 
-@frontend_bp.route('/exercises', methods=['GET', 'POST'])
-def exercises():
-    # Hardcoded data provided by teammate
-    body_parts = ['BACK', 'CALVES', 'CHEST', 'FOREARMS', 'HIPS', 'NECK', 'SHOULDERS', 'THIGHS', 'WAIST', 'HANDS', 'FEET', 'FACE', 'FULL BODY', 'BICEPS', 'UPPER ARMS', 'TRICEPS', 'HAMSTRINGS', 'QUADRICEPS']
-    equipment = ['ASSISTED', 'BAND', 'BARBELL', 'BATTLING ROPE', 'BODY WEIGHT', 'BOSU BALL', 'CABLE', 'DUMBBELL', 'EZ BARBELL', 'HAMMER', 'KETTLEBELL', 'LEVERAGE MACHINE', 'MEDICINE BALL', 'OLYMPIC BARBELL', 'POWER SLED', 'RESISTANCE BAND', 'ROLL', 'ROLLBALL', 'ROPE', 'SLED MACHINE', 'SMITH MACHINE', 'STABILITY BALL', 'STICK', 'SUSPENSION', 'TRAP BAR', 'VIBRATE PLATE', 'WEIGHTED', 'WHEEL ROLLER']
-    categories = ['STRENGTH', 'CARDIO', 'PLYOMETRICS', 'STRETCHING', 'WEIGHTLIFTING', 'YOGA', 'AEROBIC']
-    muscles = ['ADDUCTOR LONGUS', 'ADDUCTOR BREVIS', 'ADDUCTOR MAGNUS', 'BICEPS BRACHII', 'BRACHIALIS', 'BRACHIORADIALIS', 'DEEP HIP EXTERNAL ROTATORS', 'ANTERIOR DELTOID', 'LATERAL DELTOID', 'POSTERIOR DELTOID', 'ERECTOR SPINAE', 'GASTROCNEMIUS', 'GLUTEUS MAXIMUS', 'GLUTEUS MEDIUS', 'GLUTEUS MINIMUS', 'GRACILIS', 'HAMSTRINGS', 'ILIOPSOAS', 'INFRASPINATUS', 'LATISSIMUS DORSI', 'LEVATOR SCAPULAE', 'OBLIQUES', 'PECTINEUS', 'PECTORALIS MAJOR CLAVICULAR HEAD', 'PECTORALIS MAJOR STERNAL HEAD', 'POPLITEUS', 'QUADRICEPS', 'RECTUS ABDOMINIS', 'SARTORIUS', 'SERRATUS ANTE', 'SERRATUS ANTERIOR', 'SOLEUS', 'SPLENIUS', 'STERNOCLEIDOMASTOID', 'SUBSCAPULARIS', 'TENSOR FASCIAE LATAE', 'TERES MAJOR', 'TERES MINOR', 'TIBIALIS ANTERIOR', 'TRANSVERSUS ABDOMINIS', 'TRAPEZIUS LOWER FIBERS', 'TRAPEZIUS MIDDLE FIBERS', 'TRAPEZIUS UPPER FIBERS', 'TRICEPS BRACHII', 'WRIST EXTENSORS', 'WRIST FLEXORS']
-
-    # Just printing to terminal to see if it works. '.args' is for GET HTTP method only, '.form' is for POST method.
-    selected_body = request.args.get('body_part') # e.g.WHERE body_part = 'Shoulders'
-    selected_equipment = request.args.get('equipment') # e.g. WHERE equipment - 'Dumbells'
-    selected_category = request.args.get('categories') # e.g. WHERE category = 'Strength'
-    selected_muscle = request.args.get('muscles') # e.g. WHERE target_muscle = 'Biceps Brachii'
-
-    print(f" Filters applied: Body={selected_body}, Equipment={selected_equipment},Category={selected_category}, Muscle={selected_muscle}")
-
-    return render_template('workouts.html',
-                           body_parts=body_parts,
-                           equipment=equipment,
-                           categories=categories,
-                           muscles=muscles # Links variables names here to the template names
-                           )
-
 @frontend_bp.route('/meals_and_recipes')
 def meals_and_recipes():
     # Hardcoded mock data – like an API response

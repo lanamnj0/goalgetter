@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+<div class="card shadow-sm border-0 mx-auto" style="max-width: 600px;">
+    <div class="card-body p-4 text-center">
+        <img
+            src="{{ url_for('static', filename='tester-image-profile.jpeg') }}"
+            alt="Demo profile"
+            class="rounded-circle mb-3"
+            width="120"
+            height="120"
+            style="object-fit: cover;"
+        >
+
+        <h1 class="h3">Clare Smith</h1>
+        <p class="text-muted">GoalGetter demo member</p>
+
+        <dl class="row text-start mt-4">
+            <dt class="col-sm-6">Current weight</dt>
+            <dd class="col-sm-6">65 kg</dd>
+
+            <dt class="col-sm-6">Primary goal</dt>
+            <dd class="col-sm-6">General fitness</dd>
+
+            <dt class="col-sm-6">Membership</dt>
+            <dd class="col-sm-6">Member</dd>
+        </dl>
+
+        <a
+            class="btn btn-primary"
+            href="{{ url_for('edit_profile') }}"
+        >
+            Edit profile
+        </a>
+    </div>
+</div>
+{% endblock %}

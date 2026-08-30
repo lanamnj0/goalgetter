@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block main %}
+<div class="card shadow-sm border-0 mx-auto" style="max-width: 500px;">
+    <div class="card-body p-5 text-center">
+        <span class="material-symbols-outlined display-4 text-primary">
+            account_circle
+        </span>
+
+        <h1 class="h3 mt-3">Login</h1>
+
+        <p class="text-muted">
+            Authentication is not enabled in this demonstration version
+            of GoalGetter.
+        </p>
+
+        <a
+            class="btn btn-primary"
+            href="{{ url_for('frontend.dashboard') }}"
+        >
+            Continue to dashboard
+        </a>
+
+        <a
+            class="btn btn-outline-secondary"
+            href="{{ url_for('register') }}"
+        >
+            View registration
+        </a>
+    </div>
+</div>
+{% endblock %}
