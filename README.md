@@ -15,22 +15,13 @@ The application aims to provide a simple and organised way to manage health and 
 - Git/GitHub
 - ExerciseDB API
 
-### Contributers
-
-- Tosin
-- Shalesa
-- Lana
-- Adeyosola
-- Neha
-- Thelma
-
 ## Features
 
 - Create and manage a user profile
 - Log workouts and track exercise activity
 - Search for exercises using ExerciseDB
-- Set and moitor fitness goals
-  Track meals and calories intake
+- Set and monitor fitness goals
+- Track meals and calories intake
 - View workout history
 - Store fitness data for future reference
 
@@ -149,8 +140,6 @@ Open the URL in your browser.
 - Search by exercise name
 - Search by exercise type
 
-### Manage workouts (Thelma)
-
 ## Workout Management (CRUD)
 
 This application manages workouts using full CRUD Flask routes.
@@ -257,15 +246,13 @@ This image below shows you an example of the exercise cards:
 
 ![sample-img](sample-img.png)
 
-### Register/ login (Shalesa)
-
-### Manage workouts (Thelma)
+### Manage workouts 
 
 - This application manages workouts using the full CRUD flask routes.
 - Can create, read, update and delete workouts. These routes handle user requests, interact with the database and ensure workout data can be managed through this application.
 - The application has a workout history endpoint where users can receive all past workouts. This allows the user to see their fitness journey details and progress such as when the user worked out and burned the most calories.
 
-## Create Meal Plans (Yosola)
+## Create Meal Plans 
 
 The meal planning feature allows users to create a personalised meal plan based on their fitness goal. Users can choose between a weight loss goal and a muscle gain goal. Once a goal is selected, the application generates a suggested meal plan and displays the total calories, protein, carbohydrates and fat.
 
@@ -397,7 +384,7 @@ The meal planning feature currently uses predefined meal suggestions to generate
 ![Create Meal Plan Page](static/create_meal_plan_image.png)
 ![Meal Plan Main Page](static/meal_plan_main_page.png)
 
-### 📊 Dashboard/ progress (Neha)
+### 📊 Dashboard/ progress 
 
 ***Note*** *The dashboard currently uses sample data to demonstrate the user interface. Integration with live backend data is planned for future development*
 
@@ -407,7 +394,6 @@ This section covers the implementation of the dashboard and calendar components 
 
 The image below shows a preview of the main user dashboard interface, featuring the weekly workout calendar and data analytics widgets:
 ![frontend-UI-goalgetter-dashboard.png](static/frontend-UI-goalgetter-dashboard.png)
-#### 🗂️ Files Implemented
 
 ##### Frontend:
 
@@ -461,10 +447,6 @@ Ran X tests in 0.XXXs
 
 OK
 ```
-
-## Troubleshooting
-
-### Database connection fails
 
 ### Exercise API returns an authentication error
 
