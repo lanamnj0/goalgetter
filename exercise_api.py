@@ -20,7 +20,7 @@ class ExerciseAPI:
 
     # creating a skeleton structure of the different files.. 
     # first the initialising structure
-    def __init__(self): 
+    def __init__(self, api_key=None, timeout=10): 
         """
         Initialising function.
         This contains the API url with headers. 
@@ -28,11 +28,32 @@ class ExerciseAPI:
         but is retrieved using os.getenv. 
         """
         self.base_url = "https://edb-with-videos-and-images-by-ascendapi.p.rapidapi.com/api/v1"
+
+        self.api_key = api_key or os.getenv("RAPIDAPI_KEY")
+        self.timeout = timeout 
+
         self.headers = {
             'Content-Type': "application/json", 
             'X-RapidAPI-Host': "edb-with-videos-and-images-by-ascendapi.p.rapidapi.com", 
-            'X-RapidAPI-Key': os.getenv("RAPIDAPI_KEY"), 
+            'X-RapidAPI-Key': self.api_key or "", 
         }
+
+
+    def _get(self, url, params=None):
+        if not self.api_key:
+            raise RuntimeError(
+            "RAPIDAPI_KEY is not configured. Add it to your .env file."
+            )
+
+        response = requests.get(
+            url,
+            headers=self.headers,
+            params=params,
+            timeout=self.timeout,
+        )
+
+        response.raise_for_status()
+        return response
 
     def get_all_equipments(self):
         """
@@ -43,12 +64,7 @@ class ExerciseAPI:
         """
         url = f"{self.base_url}/equipments"
 
-        response = requests.get(
-            url, 
-            headers=self.headers
-            )
-
-        response.raise_for_status()
+        response = self._get(url)
 
         # the API filters the data
         # this will just return the data. 
@@ -66,12 +82,7 @@ class ExerciseAPI:
         """
         url = f"{self.base_url}/bodyparts"
 
-        response = requests.get(
-            url, 
-            headers=self.headers
-            )
-
-        response.raise_for_status()
+        response = self._get(url)
 
         # the API filters the data
         # this will just return the data. 
@@ -89,12 +100,7 @@ class ExerciseAPI:
         """
         url = f"{self.base_url}/exercisetypes"
 
-        response = requests.get(
-            url, 
-            headers=self.headers
-            )
-
-        response.raise_for_status()
+        response = self._get(url)
 
         # the API filters the data
         # this will just return the data. 
@@ -112,12 +118,7 @@ class ExerciseAPI:
         """
         url = f"{self.base_url}/muscles"
 
-        response = requests.get(
-            url, 
-            headers=self.headers
-            )
-
-        response.raise_for_status()
+        response = self._get(url)
 
         # the API filters the data
         # this will just return the data. 
@@ -144,13 +145,7 @@ class ExerciseAPI:
             "limit": limit 
         }
 
-        response = requests.get(
-            url, 
-            headers=self.headers, 
-            params=params
-            )
-
-        response.raise_for_status()
+        response = self._get(url, params)
 
         # the API filters the data
         # this will just return the data. 
@@ -178,13 +173,7 @@ class ExerciseAPI:
             "limit": limit 
         }
 
-        response = requests.get(
-            url, 
-            headers=self.headers, 
-            params=params
-            )
-
-        response.raise_for_status()
+        response = self._get(url, params)
 
         # the API filters the data
         # this will just return the data. 
@@ -210,13 +199,7 @@ class ExerciseAPI:
             "limit": limit 
         }
 
-        response = requests.get(
-            url, 
-            headers=self.headers, 
-            params=params
-            )
-
-        response.raise_for_status()
+        response = self._get(url, params)
 
         # the API filters the data
         # this will just return the data. 
@@ -242,13 +225,7 @@ class ExerciseAPI:
             "limit": limit 
         }
 
-        response = requests.get(
-            url, 
-            headers=self.headers, 
-            params=params
-            )
-
-        response.raise_for_status()
+        response = self._get(url, params)
 
         # the API filters the data
         # this will just return the data. 
@@ -274,13 +251,7 @@ class ExerciseAPI:
             "limit": limit 
         }
 
-        response = requests.get(
-            url, 
-            headers=self.headers, 
-            params=params
-            )
-
-        response.raise_for_status()
+        response = self._get(url, params)
 
         # the API filters the data
         # this will just return the data. 
@@ -296,12 +267,7 @@ class ExerciseAPI:
         """
         url = f"{self.base_url}/exercises/{exerciseId}"
 
-        response = requests.get(
-            url, 
-            headers=self.headers
-            )
-    
-        response.raise_for_status()
+        response = self._get(url)
 
         return self._format_exercise(response.json()["data"])
 
@@ -313,10 +279,10 @@ class ExerciseAPI:
             "name": exercise.get("name"),
             "exerciseType": exercise.get("exerciseType"),
             "imageUrl": exercise.get("imageUrl"),
-            "targetMuscles": exercise.get("targetMuscles"),
-            "bodyParts": exercise.get("bodyParts"),
-            "equipments": exercise.get("equipments"),
-            "secondaryMuscles": exercise.get("secondaryMuscles")
+            "targetMuscles": exercise.get("targetMuscles") or [],
+            "bodyParts": exercise.get("bodyParts") or [],
+            "equipments": exercise.get("equipments") or [],
+            "secondaryMuscles": exercise.get("secondaryMuscles") or [],
 
         }
         

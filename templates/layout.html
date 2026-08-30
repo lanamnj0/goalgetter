@@ -20,16 +20,23 @@ Reference: Sidebar and UI(profile, logo, support/setting page idea) layout learn
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- '../' means to go out of current file -->
 
-    {% block head %} {% endblock %} <!-- Essential codeblocks for calendar functionality -->
-    <!-- flash() can be used in Flask to show messages on screen to client-side-->
-    {% if get_flashed_messages() %}
-        <div class="alert alert-primary mb-0 text-center" role="alert">
-            {{ get_flashed_messages() | join(" " ) }}
-        </div>
-    {% endif %}
-
 </head>
 <body>
+
+    {% with messages = get_flashed_messages(with_categories=True) %} <!-- Essential codeblocks for calendar functionality -->
+    <!-- flash() can be used in Flask to show messages on screen to client-side-->
+    {% if messages() %}
+        {% for category, message in messages %}
+        <div 
+            class="alert alert-{{ category }} mb-0 text-center"
+            role="alert"
+            >
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+    
 
     <div class="container">
         <aside>
@@ -46,31 +53,31 @@ Reference: Sidebar and UI(profile, logo, support/setting page idea) layout learn
 
             <!-- Sidebar -->
             <div class="sidebar list-group">
-                <a href="/dashboard" class="nav-link text-decoration-none list-group-item list-group-item-action {% if '/dashboard' in request.path %}active{% endif %}">
+                <a href="{{ url_for('frontend.dashboard') }}" class="nav-link text-decoration-none list-group-item list-group-item-action {% if '/dashboard' in request.path %}active{% endif %}">
                     <span class="material-symbols-outlined">grid_view</span>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="/exercises" class="nav-link text-decoration-none list-group-item list-group-item-action {% if '/exercises' in request.path %}active{% endif %}">
+                <a href="{{ url_for('exercises') }}" class="nav-link text-decoration-none list-group-item list-group-item-action {% if '/exercises' in request.path %}active{% endif %}">
                     <span class="material-symbols-outlined">fitness_center</span>
                     <h3>Workouts</h3>
                 </a>
-                <a href="/meal-plans/" class="nav-link text-decoration-none list-group-item list-group-item-action {% if '/meal-plans' in request.path %}active{% endif %}">
+                <a href="{{ url_for('meals.view_meal_plans') }}" class="nav-link text-decoration-none list-group-item list-group-item-action {% if '/meal-plans' in request.path %}active{% endif %}">
                    <span class="material-symbols-outlined">chef_hat</span>
                    <h3>Meals & Recipes</h3>
                 </a>
-                <a href="/history" class="nav-link text-decoration-none list-group-item list-group-item-action {% if '/history' in request.path %}active{% endif %}">
+                <a href="{{ url_for('frontend.history') }}" class="nav-link text-decoration-none list-group-item list-group-item-action {% if '/history' in request.path %}active{% endif %}">
                     <span class="material-symbols-outlined">history</span>
                     <h3>History</h3>
                 </a>
-                 <a href="/support" class="nav-link text-decoration-none list-group-item list-group-item-action {% if '/support' in request.path %}active{% endif %}">
+                 <a href="{{ url_for('frontend.support') }}" class="nav-link text-decoration-none list-group-item list-group-item-action {% if '/support' in request.path %}active{% endif %}">
                     <span class="material-symbols-outlined">contact_support</span>
                     <h3>Support</h3>
                 </a>
-                <a href="/settings" class="nav-link text-decoration-none list-group-item list-group-item-action {% if '/settings' in request.path %}active{% endif %}">
+                <a href="{{ url_for('frontend.settings') }}" class="nav-link text-decoration-none list-group-item list-group-item-action {% if '/settings' in request.path %}active{% endif %}">
                     <span class="material-symbols-outlined">settings</span>
                     <h3>Settings</h3>
                 </a>
-                <a href="/logout" class="nav-link text-decoration-none list-group-item list-group-item-action {% if '/logout' in request.path %}active{% endif %}">
+                <a href="{{ url_for('frontend.logout') }}" class="nav-link text-decoration-none list-group-item list-group-item-action {% if '/logout' in request.path %}active{% endif %}">
                     <span class="material-symbols-outlined">logout</span>
                     <h3>Logout</h3>
                 </a>

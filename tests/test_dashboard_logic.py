@@ -1,6 +1,6 @@
 import unittest
 from dashboard_logic import calculate_total_time_of_all_workouts, count_total_workouts
-from workout_history import *
+from models.workout_history import WorkoutHistoryList
 
 """
 Tests widget functionality

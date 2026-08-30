@@ -7,7 +7,7 @@ def test_add_workout():
     history.add_workout("Glutes Day")
     history.add_workout("Arms Day")
 
-    assert history.get_workout()== [
+    assert history.get_workouts()== [
         "Leg Day",
         "Glutes Day",
         "Arms Day"

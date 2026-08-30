@@ -18,16 +18,19 @@ class WorkoutHistoryList:
         current = self.head
         
         while current.next:
-            
             current = current.next
             
-            current.next = new_node
+        current.next = new_node
             
     def get_workouts(self):
         workouts = []
         current = self.head
+
         while current:
             workouts.append(current.workout)
             current = current.next
 
-            return workouts
+        return workouts
+
+    def get_workout(self):
+        return self.get_workouts() 

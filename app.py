@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, render_template
+from frontend_blueprinting import frontend_bp
 from config import Config
 from exercise_api import ExerciseAPI
 from db_utils_workouts import get_workouts_by_id, get_workouts_by_user_id, delete_workout, insert_workouts, update_workout
@@ -9,14 +10,15 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
+    app.register_blueprint(frontend_bp)
     app.register_blueprint(meal_bp)
 
     # Home route confirms the API is running
-    @app.route("/")
-    def home():
+    @app.get("/api/health")
+    def health():
         # return a JSON response with application status
         return {
-            "message": "Welcome to GoalGetter - Track workouts, meals and fitness goals",
+            "message": "GoalGetter is ready",
             "status": "running"
         }, 200
 
@@ -37,19 +39,19 @@ def create_app():
         return {"message": "Goals endpoint ready"}, 200
 
     # Workouts endpoint
-    @app.route("/workouts")
+    @app.route("/workouts", methods=["GET", "POST"])
+    @app.post("/workouts/create") #endpoint for creating workouts
     def workouts():
-        return {"message": "Workouts endpoint ready"}, 200
-    
-    @app.route("/workouts/create", methods=["POST"]) #endpoint for creating workouts
-    def create_workout():
+
+        if request.method == "GET":
+            return {"message": "Workout API ready"}, 200 
 
         data = request.get_json()
 
         required_fields = ["user_id", "workout_date", "duration_minutes", "calories_burned"]
 
         if not data:
-            return jsonify({"status":"error", "message":"There's no JSON data received"}), 400
+            return jsonify({"status":"error", "message":"A JSON object is required"}), 400
         
         for field in required_fields:
             if field not in data:
@@ -66,18 +68,19 @@ def create_app():
             new_workout = insert_workouts("workouts", insert_data)
 
             if not new_workout:
-                return jsonify({"status": "error", "message": "Failed to create workout"}), 500
+                return jsonify({"status": "error", 
+                                "message": "Failed to create workout"}), 500
             
             return jsonify({
             "status": "success",
             "message": "Workout created successfully",
             "data": data
             }), 201
-        except Exception as e:
+        
+        except Exception:
             return jsonify({
             "status": "error",
             "message": "Failed to create workout",
-            "error": str(e)
             }), 500
 
     @app.route("/workouts/<workout_id>", methods=["GET"]) #endpoint for workout searched by workout id
@@ -100,9 +103,10 @@ def create_app():
                 "message": "Failed to retrieve workout",
                 "error": str(e)
                 }), 500
-        
-    @app.route("/workouts/user/past_workouts/<user_id>", methods=["GET"]) #endpoint for the users workouts
-    def get_workout_user_api(user_id):
+
+    @app.get("/workouts/user/<user_id>")
+    @app.get("/workouts/user/past_workouts/<user_id>") #endpoint for the users workouts
+    def get_user_workouts(user_id):
         try:
             user_id = int(user_id)
         except ValueError:
@@ -145,7 +149,7 @@ def create_app():
             if not existing:
                 return jsonify({"status": "error", "message": "Workout not found"}), 404
             
-            updated = update_workout(workout_id, data)
+            updated = update_workout(data, workout_id)
 
             if not updated:
                 return jsonify({"status": "error", "message": "No fields to update"}), 400
@@ -187,43 +191,41 @@ def create_app():
 
 
     # exercises endpoint
-    @app.route("/exercises")
+    @app.get("/exercises")
     def exercises():
+        equipment = request.args.get("equipment", "").strip() 
+        body_part = request.args.get("body_part", "").strip() 
+        exercise_type = request.args.get("exercise_type", "").strip() 
+        name = request.args.get("name", "").strip()
+        muscle = request.args.get("muscle", "").strip() 
+
+        if not any([body_part, equipment, exercise_type, muscle, name]):
+            return render_template(
+                "workouts.html", 
+                body_parts=BODY_PARTS,
+                equipment=EQUIPMENT,
+                categories=CATEGORIES,
+                muscles=MUSCLES,
+            )
 
         api = ExerciseAPI() 
 
-        equipment = request.args.get("equipment")
-        body_part = request.args.get("body_part")
-        exercise_type = request.args.get("exercise_type")
-        name = request.args.get("name")
-        muscle = request.args.get("muscle")
+        if equipment:
+            results = api.search_by_equipment(equipment)
+        elif body_part:
+            results = api.search_by_body_part(body_part)
+        elif exercise_type:
+            results = api.search_by_exercise_type(exercise_type)
+        elif name:
+            results = api.search_by_name(name)
+        else:
+            results = api.search_by_target_muscle(muscle)
 
-        try:
-
-            if equipment:
-                results = api.search_by_equipment(equipment)
-            elif body_part:
-                results = api.search_by_body_part(body_part)
-            elif exercise_type:
-                results = api.search_by_exercise_type(exercise_type)
-            elif name:
-                results = api.search_by_name(name)
-            elif muscle:
-                results = api.search_by_target_muscle(muscle)
-            else:
-                return {
-                    "error": "Please provide your chosen exercise_type, body_part, muscle, equipment or name"
-                }, 400 # 400 error - server didnt recognise the request
-             
             # returning the html exercise card
-            return render_template(
+        return render_template(
                 "exercise_cards.html",
                 exercises=results
             )
-        
-        except Exception as e:
-            return {"error": str(e)}, 500 # unexpected 
-
     
     # Equipment endpoint - getting all equipments 
     @app.route("/equipments")
@@ -289,11 +291,11 @@ def create_app():
     
     @app.route("/login")
     def login ():
-        return render_template("login.hmtl")
+        return render_template("login.html")
     
     @app.route("/register")
     def register():
-        return render_template("register.hmtl")
+        return render_template("register.html")
     
     @app.route("/profile/edit")
     def edit_profile():

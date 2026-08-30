@@ -1,5 +1,6 @@
 import unittest
 from models.user import User
+from werkzeug.security import check_password_hash
 
 class TestUser(unittest.TestCase):
     
@@ -27,7 +28,7 @@ class TestUser(unittest.TestCase):
         
         hashed = user.hash_password("password123")
         self.assertNotEqual(hashed, "password123")
-        self.assertEqual(len(hashed), 64)
+        self.assertTrue(check_password_hash(hashed, "password123"))
             
 if __name__ == "__main__":
      unittest.main()

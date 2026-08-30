@@ -2,18 +2,20 @@ from workout import run_select_queries, insert_data_queries
 
 # ---------------- INSERT ----------------
 def insert_workouts(table, data):
-    if table == "workouts": #validates the param table is the database workouts table
-        query = """INSERT INTO workouts (user_id, workout_date, duration_minutes, calories_burned) 
-        VALUES (%s, %s, %s, %s)""" 
-        insert_data_queries(query, data) #if table is valid then execution of the above query using the database connection function to insert data
-    
-    print("Executed") 
+    if table != "workouts": #validates the param table is the database workouts table
+        raise ValueError("Unsupported table")
+
+    query = """
+        INSERT INTO workouts
+        (user_id, workout_date, duration_minutes, calories_burned)
+        VALUES (%s, %s, %s, %s)
+        """
+        
+    return insert_data_queries(query, data) #if table is valid then execution of the above query using the database connection function to insert data
 
 # ---------------- GET ALL ----------------
 def get_all_workouts():
-    results = run_select_queries("""SELECT * workouts""") #gets all workouts
-
-    return results
+    return run_select_queries("SELECT * FROM workouts") #gets all workouts
 
 # ---------------- GET BY ID ----------------
 def get_workouts_by_id(workout_id,):
@@ -57,7 +59,7 @@ def update_workout(data, workout_id):
 
     insert_data_queries(query, values)
 
-    return get_workouts_by_id(workout_id,) #returning the updated workout
+    return get_workouts_by_id(workout_id) #returning the updated workout
 
 # ---------------- DELETE ----------------
 def delete_workout(workout_id):

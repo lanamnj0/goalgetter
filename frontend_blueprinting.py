@@ -16,6 +16,26 @@ NOTE:
 import time
 from flask import Blueprint, Flask, flash, redirect, render_template, request, url_for
 
+SAMPLE_WORKOUTS = [
+    {
+        "date": "2026-06-18",
+        "exercise": "Arm Day",
+        "duration": 35,
+        "calories": 240,
+    },
+    {
+        "date": "2026-06-20",
+        "exercise": "Upper Body",
+        "duration": 40,
+        "calories": 280,
+    },
+    {
+        "date": "2026-06-22",
+        "exercise": "Leg Day",
+        "duration": 45,
+        "calories": 320,
+    },
+]
 
 # 'frontend' is the internal name, __name__ helps Flask locate templates
 frontend_bp = Blueprint('frontend', __name__)
@@ -87,7 +107,10 @@ def meals_and_recipes():
 
 @frontend_bp.route('/history')
 def history():
-    return render_template('history.html')
+    return render_template(
+        'history.html',
+        workouts=reversed(SAMPLE_WORKOUTS),
+        )
 
 @frontend_bp.route('/support', methods=['GET', 'POST'])
 def support():
@@ -111,29 +134,10 @@ def support():
 
     return render_template('support.html')
 
-@frontend_bp.route('/settings', methods=['GET', 'POST'])
+@frontend_bp.get('/settings')
 def settings():
-    if request.method == 'POST':
-        new_password = request.form.get('new_password')
-        confirm_password = request.form.get('confirm_password')
-
-        # Mock validation (no hashing yet, just checking for functionality)
-        # if they are entered in the form and match
-        if new_password and confirm_password and new_password == confirm_password:
-            flash("Password updated successfully! (Mock result - hashing coming soon", "success")
-        # if they are entered in the form but do not match
-        elif new_password and confirm_password and new_password != confirm_password:
-            flash("Passwords do not match. Please try again")
-        else: # Error occurred, likely missing field
-            flash("Please fill in both password fields to proceed","info")
-
-        return redirect('/settings') # if incorrect/missing fields sends back to settings page
-
     return render_template('settings.html')
 
 @frontend_bp.route('/logout')
 def logout():
     return render_template('logout.html')
-
-if __name__ == '__main__':
-    frontend_bp.run(debug=True)

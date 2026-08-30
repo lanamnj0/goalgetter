@@ -2,6 +2,14 @@
 -- This script populates the database with mock data for testing and development 
 
 USE goalgetter;
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE workout_exercises;
+TRUNCATE TABLE goals;
+TRUNCATE TABLE meals;
+TRUNCATE TABLE exercises;
+TRUNCATE TABLE workouts;
+TRUNCATE TABLE users;
+SET FOREIGN_KEY_CHECKS = 1;
 
 -- USERS SAMPLE MOCK DATA
 INSERT INTO users (username, email, password_hash, current_weight_kg)
@@ -25,24 +33,12 @@ VALUES
 SELECT * FROM users;
 
 -- EXERCISES SAMPLE MOCK DATA
-INSERT INTO exercises (exercise_name, muscle_group, calories_burned)
+INSERT INTO exercises
+    (exercise_name, body_part, target_muscle, equipment, exercise_type)
 VALUES
-('Squat', 'Legs', 100),
-('Push Up', 'Chest', 50),
-('Plank', 'Core', 40),
-('Bench Press', 'Chest', 120),
-('Deadlift', 'Back', 150),
-('Lunges', 'Legs', 90),
-('Shoulder Press', 'Shoulders', 80),
-('Bicep Curl', 'Arms', 50),
-('Tricep Dip', 'Arms', 60),
-('Leg Press', 'Legs', 130),
-('Mountain Climbers', 'Core', 110),
-('Burpees', 'Full Body', 180),
-('Jump Rope', 'Cardio', 160),
-('Lat Pulldown', 'Back', 100),
-('Russian Twist', 'Core', 70),
-('Hip Thrust', 'Glutes', 140);
+    ('Squat', 'Thighs', 'Quadriceps', 'Barbell', 'Strength'),
+    ('Push Up', 'Chest', 'Pectoralis Major', 'Body Weight', 'Strength'),
+    ('Plank', 'Waist', 'Rectus Abdominis', 'Body Weight', 'Strength');
 
 SELECT * FROM exercises;
 
@@ -73,22 +69,22 @@ FROM users;
 -- WORKOUT_EXERCISES SAMPLE MOCK DATA
 INSERT INTO workout_exercises (workout_id, exercise_id, set_count, reps, weight_kg)
 VALUES
-(1, 1, 4, 12, 40),
-(1, 3, 3, 60, 0),
-(2, 2, 3, 15, 0),
-(3, 4, 4, 10, 50),
-(4, 5, 3, 12, 60),
-(5, 6, 4, 15, 20),
-(6, 7, 3, 12, 25),
-(7, 8, 4, 10, 15),
-(8, 9, 3, 12, 12),
-(9, 10, 4, 8, 100),
-(10, 11, 3, 20, 0),
-(11, 12, 5, 10, 0),
-(12, 13, 4, 12, 45),
-(13, 14, 3, 15, 35),
-(14, 15, 4, 20, 0),
-(15, 16, 4, 10, 80);
+    (1, 1, 4, 12, 40),
+    (1, 3, 3, 60, 0),
+    (2, 2, 3, 15, 0); 
+    (3, 4, 4, 10, 50),
+    (4, 5, 3, 12, 60),
+    (5, 6, 4, 15, 20),
+    (6, 7, 3, 12, 25),
+    (7, 8, 4, 10, 15),
+    (8, 9, 3, 12, 12),
+    (9, 10, 4, 8, 100),
+    (10, 11, 3, 20, 0),
+    (11, 12, 5, 10, 0),
+    (12, 13, 4, 12, 45),
+    (13, 14, 3, 15, 35),
+    (14, 15, 4, 20, 0),
+    (15, 16, 4, 10, 80);
 
 SELECT * FROM workout_exercises;
 

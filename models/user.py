@@ -1,5 +1,5 @@
 from db_connection import get_connection
-import hashlib
+from werkzeug.security import generate_password_hash
 
 class User:
     def __init__(
@@ -17,7 +17,7 @@ class User:
         self.current_weight_kg = current_weight_kg
     
     def hash_password(self, password):
-        return hashlib.sha256(password.encode()).hexdigest()
+        return generate_password_hash(password)
     
     # CREATE USER PROFILE - adding new user to database
 

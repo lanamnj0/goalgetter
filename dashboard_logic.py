@@ -9,42 +9,42 @@ Streak of back-to-back sessions done.
 (3)
 Total workout time from all sessions.
 """
-from workout_history import *
+from models.workout_history import WorkoutHistoryList
+from datetime import date, timedelta
 
-history_list = WorkoutHistoryList() # creating instance from Class WorkoutHistoryList
+def _workouts(history):
+    if history is None:
+        return [] 
 
-def count_total_workouts(history_list):
-    if history_list is None:
-        return 0 # True so returning 0
+    return history.get_workouts() or [] # creating instance from Class WorkoutHistoryList
 
-    workouts = history_list.get_workouts() # same function name as class method in WorkoutHistory
-
-    if workouts is None:
-        return 0
-
-    total_number_of_workouts_completed = len(workouts)
-    return total_number_of_workouts_completed
-
-
-def calculate_current_streak(history_list):
-    """
-    Streak function:
-    I'm leaving this as a placeholder for my teammate to help with.
-    """
-
-    return 0
+def count_total_workouts(history):
+    return len(_workouts(history))
 
 # workout.duration = one workout - how long it lasted
-def calculate_total_time_of_all_workouts(history_list):
-    if history_list is None:
-        return 0
+def calculate_total_time_of_all_workouts(history):
+    return sum(
+        workout.get("duration", 0)
+        for workout in _workouts(history)
+    )
 
-    workouts = history_list.get_workouts()
-    if workouts is None or len(workouts) == 0:
-        return 0
 
-    total_duration = 0
-    for workout in workouts:
-        total_duration += workout['duration']
+def calculate_current_streak(history, today=None):
+    workout_dates = {
+        date.fromisoformat(str(workout["date"]))
+        for workout in _workouts(history)
+        if workout.get("date")
+    }
 
-    return total_duration
+    if not workout_dates:
+        return 0 
+
+    current = today or max(workout_dates)
+    streak = 0 
+
+    while current in workout_dates:
+        streak += 1 
+        current -= timedelta(days=1)
+
+    return streak
+

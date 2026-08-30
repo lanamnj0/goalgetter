@@ -1,6 +1,6 @@
 # GoalGetter Fitness Tracker - ReadME (Setup and Run Guide)
 
-## Project Overview
+## GoalGetter
 
 GoalGetter is a fitness tracking application designed to help users monitor their fitness journey
 Users can log workouts, track exercises, record meals and set personal fitness goals
@@ -15,7 +15,7 @@ The application aims to provide a simple and organised way to manage health and 
 - Git/GitHub
 - ExerciseDB API
 
-### Group Members
+### Contributers
 
 - Tosin
 - Shalesa
@@ -49,7 +49,7 @@ Before running this project, ensure the following software is installed:
 Clone the repository and navigate into the project folder.
 
 ```python
-git clone https://github.com/Tosino97/CFG-Group-Project.git
+git clone https://github.com/lanamnj0/goalgetter.git
 ```
 
 ## Install Dependencies

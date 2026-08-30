@@ -1,30 +1,3 @@
-<!--HISTORY PAGE – Workout History MVP
-
-    This page serves as a placeholder/MVP for the workout history feature.
-    Full implementation is assigned to a teammate for backend integration.
-
-    MVP APPROACH:
-    - HTML template provided showing static data to demonstrate the UI
-    - Displays a table of past workout sessions
-    - Teammate should replace the hardcoded data with database queries
-    - The design uses the same card layout as other pages for consistency
-
-    STAKEHOLDER VALUE:
-    - Allows users to track their progress over time
-    - Data could be used for analytics and personalised recommendations
-
-    TECHNICAL NOTE FOR TEAMMATE:
-    - Replace the hardcoded table data with Flask/Jinja loops
-    - WorkoutHistory list could traverse through the column names data
-    - Consider adding pagination for large datasets
-    - Ensure dates are formatted consistently (DD/MM/YYYY or YYYY-MM-DD)
-
-    FUTURE ENHANCEMENTS:
-    - Pagination controls
-    - Date range filter
-    - Export to CSV/PDF
-    - Visual charts/graphs -->
-
 {% extends "layout.html" %}
 
 {% block title %}
@@ -52,24 +25,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>2026-06-22</td>
-                            <td>Leg Day</td>
-                            <td>45</td>
-                            <td>320</td>
-                        </tr>
-                        <tr>
-                            <td>2026-06-20</td>
-                            <td>Upper Body</td>
-                            <td>40</td>
-                            <td>280</td>
-                        </tr>
-                        <tr>
-                            <td>2026-06-18</td>
-                            <td>Arm Day</td>
-                            <td>35</td>
-                            <td>240</td>
-                        </tr>
+                        {% for workout in workouts %}
+                            <tr>
+                                <td>{{ workout.date }}</td>
+                                <td>{{ workout.exercise }}</td>
+                                <td>{{ workout.duration }}</td>
+                                <td>{{ workout.calories }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="text-center text-muted">
+                                    No workouts recorded yet.
+                                </td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

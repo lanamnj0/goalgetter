@@ -36,7 +36,7 @@ class TestExerciseAPI(unittest.TestCase):
 
         mock_get.return_value.raise_for_status.return_value = None 
 
-        api = ExerciseAPI()
+        api = ExerciseAPI(api_key="test-key")
         results = api.search_by_body_part("CHEST")
 
         self.assertEqual(len(results), 2)
