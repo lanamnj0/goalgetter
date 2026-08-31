@@ -6,6 +6,7 @@ Reference: Sidebar and UI(profile, logo, support/setting page idea) layout learn
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% block head %}{% endblock %}
     <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -80,14 +81,6 @@ Reference: Sidebar and UI(profile, logo, support/setting page idea) layout learn
                 <a href="{{ url_for('frontend.logout') }}" class="nav-link text-decoration-none list-group-item list-group-item-action {% if '/logout' in request.path %}active{% endif %}">
                     <span class="material-symbols-outlined">logout</span>
                     <h3>Logout</h3>
-                </a>
-
-                <a href="{{ url_for('profile') }}" aria-label="View profile">
-                    <img
-                        src="{{ url_for('static', filename='tester-image-profile.jpeg') }}"
-                        alt="Profile"
-                        style="object-fit: cover;"
-                    >
                 </a>
 
             </div>

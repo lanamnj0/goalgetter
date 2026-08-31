@@ -212,14 +212,6 @@ aside .sidebar a span{
     transition: all .1s ease-in;
 }
 
-
-/* the logout icon */
-aside .sidebar a:last-child{
-    position: absolute;
-    bottom: 1rem;
-    width: 100%;
-}
-
 /* when feature is active on sidebar */
 aside .sidebar a.active{
     background: var(--clr-light);
@@ -342,4 +334,19 @@ aside .sidebar a:hover span{
         flex-direction: column;
         gap: 0.6rem;
     }
+}
+
+#calendar {
+    width: 100%;
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1.25rem;
+    background: var(--clr-white);
+    color: var(--clr-dark);
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fc {
+    font-family: "Poppins", sans-serif;
 }

@@ -130,13 +130,6 @@ def create_app():
                 "message": "Failed to retrieve workout",
                 "error": str(e)
                 }), 500
-
-        except Exception as e:
-            return jsonify({
-            "status": "error",
-            "message": "Failed to retrieve workout",
-            "error": str(e)
-            }), 500
         
     @app.route("/workout/update/<workout_id>", methods=["PUT"]) #endpoint for updating workouts
     def update_workout_api(workout_id):
@@ -314,5 +307,4 @@ app = create_app()
 
 # run the application in debug mode 
 if __name__ == "__main__":
-    app = create_app()
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5000)

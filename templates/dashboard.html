@@ -58,7 +58,7 @@ Reference: Calendar template import/syntax from FullCalendar (Citation in report
 
     <!-- Calendar -->
     <!--<div class="content col-md-8 mb-4"> -->
-    <div id="calendar" style="max-width: 900px; margin: 40px auto; padding: 20px; background: white; border-radius: 8px; height: 450px;"></div>
+    <div id="calendar"></div>
         <!-- Scripts - switched to CDN for functionality -->
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.js"></script>
@@ -67,6 +67,7 @@ Reference: Calendar template import/syntax from FullCalendar (Citation in report
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
+                height: "auto",
                 initialView: 'dayGridMonth',
                 initialDate: '2026-06-12',
                 headerToolbar: {
