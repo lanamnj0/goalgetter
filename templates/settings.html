@@ -1,21 +1,4 @@
-<!--SETTINGS PAGE – User Preferences & Account Management
-
-    CURRENT FEATURES:
-    - Theme preference toggle (UI only – dark/light mode NOT yet implemented)
-    - Password update form (placeholder for teammate to integrate hashing logic)
-
-    TECHNICAL NOTES:
-    - Dark/Light mode toggle is currently non-functional. The 'active' class is permanently
-      applied to 'light_mode' icon. Future implementation should:
-        1. Store user preference in database (or localStorage)
-        2. Apply appropriate CSS class to <body> or container
-        3. Toggle between light/dark CSS variables
-
-    - Password update form is mocked and ready for backend integration.
-      Teammate should implement:
-        1. Werkzeug.security.generate_password_hash() for hashing
-        2. MySQL UPDATE query to store new hash
-        3. Flash messages for success/error feedback (using 'flash()' )-->
+<!-- The selected display theme is stored in localStorage. -->
 
 {% extends "layout.html" %}
 
@@ -30,9 +13,6 @@
     </div>
 
     <div class="card-body p-4">
-            <!-- THEME (Dark/Light Mode) PREFERENCE TOGGLE NOTE: Non-functional (UI placeholder only).
-            The 'active' class is hardcoded to 'light_mode' to show default state.
-            Future work required to implement actual dark/light mode switching. -->
         <p class="text-muted">
             Choose a theme. Your preference is stored in this browser.
         </p>

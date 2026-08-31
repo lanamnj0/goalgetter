@@ -14,6 +14,7 @@ def create_app():
     # Create and configure the Flask aplication
     app = Flask(__name__)
     app.config.from_object(Config)
+    app.json.sort_keys = False
 
     app.register_blueprint(frontend_bp)
     app.register_blueprint(meal_bp)

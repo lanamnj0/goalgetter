@@ -1,10 +1,11 @@
-# GoalGetter Fitness Tracker - ReadME (Setup and Run Guide)
+# GoalGetter Fitness Tracker
 
 ## GoalGetter
 
-GoalGetter is a fitness tracking application designed to help users monitor their fitness journey
-Users can log workouts, track exercises, record meals and set personal fitness goals
-The application aims to provide a simple and organised way to manage health and fitness progress
+GoalGetter is a Flask fitness-tracking application for browsing exercises,
+recording workouts, exploring goal-based meal plans and viewing workout history.
+The portfolio version combines working API and data-structure logic with a
+demonstration interface for features that are not yet database-backed.
 
 ## Technologies used
 
@@ -17,13 +18,23 @@ The application aims to provide a simple and organised way to manage health and 
 
 ## Features
 
-- Create and manage a user profile
-- Log workouts and track exercise activity
+- View a demonstration user profile
+- Create, read, update and delete workouts through the workout API
 - Search for exercises using ExerciseDB
-- Set and monitor fitness goals
-- Track meals and calories intake
-- View workout history
-- Store fitness data for future reference
+- Create and update in-memory, goal-based meal plans
+- Calculate meal calories and macronutrients
+- View demonstration workout history and dashboard data
+- Store users, workouts, exercises, goals and meals in MySQL
+
+## Demo limitations
+
+- Login, registration, logout and profile editing are demonstration interfaces;
+  authentication and database-backed profile updates are not enabled.
+- Dashboard events and workout history use sample data.
+- Meal plans created in the interface are stored in memory and reset when the
+  Flask server restarts.
+- The support form validates submissions and displays a ticket number, but it
+  does not send email or save tickets to MySQL.
 
 ## Prerequisites
 
@@ -39,22 +50,17 @@ Before running this project, ensure the following software is installed:
 
 Clone the repository and navigate into the project folder.
 
-```python
+```bash
 git clone https://github.com/lanamnj0/goalgetter.git
+cd goalgetter
 ```
 
 ## Install Dependencies
 
 Install the required Python packages:
 
-```python
-pip install -r requirements.txt
-```
-
-If you don't already have python-dotenv installed, run:
-
-```python
-pip install python-dotenv
+```bash
+python -m pip install -r requirements.txt
 ```
 
 ## Database Setup
@@ -91,13 +97,11 @@ After subscribing:
 
 Create a `.env` file in the root project directory.
 
-Add your RapidAPI key replacing the placeholder:
+Copy `.env.example` to `.env`, then replace the RapidAPI placeholder:
 
-`RAPIDAPI_KEY=your_rapidapi_key_here`
-
-Example:
-
-`RAPIDAPI_KEY=1234567890abcdefghijklmnopqrstuvwxyz`
+```dotenv
+RAPIDAPI_KEY=your_key_here
+```
 
 Required environment variable: `RAPIDAPI_KEY` (*store this in your .env file*)
 
@@ -115,16 +119,19 @@ To use the API in this project, subscribe to the API through RapidAPI to obtain 
 
 ### Start MySQL
 
-### Run `python app.py`
+### Run the portfolio interface
 
 From the project root directory, run:
-`python app.py`
+
+```bash
+python frontend.py
+```
 
 ### Open the Flask URL
 
 The Flask development server should start and display something similar to:
 
-```python
+```text
 Running on http://127.0.0.1:5000
 ```
 
@@ -142,9 +149,9 @@ Open the URL in your browser.
 
 ## Workout Management (CRUD)
 
-This application manages workouts using full CRUD Flask routes.
+The workout API provides CRUD Flask routes backed by MySQL.
 
-- Users can create, read, update, and delete workouts.
+- API clients can create, read, update and delete workouts.
 - These routes handle user requests, interact with the database, and ensure workout data is properly stored and managed.
 
 ## Workout History Endpoint
@@ -421,31 +428,28 @@ The image below shows a preview of the main user dashboard interface, featuring 
 ##### Running the frontend UI application:
 
 - Install project dependencies
-- Run the Flask application (e.g. `python frontend.py`)
+- Run the Flask application with `python frontend.py`
 - Open the application in a web browser
 - Navigate using the sidebar to access dashboard, calendar, workouts, meals, history, settings, and support pages
 
 ##### Notes:
 
-- The frontend demonstrates a Minimum Viable Product (MVP) using mocked data for demonstration purposes.
-- Dashboard widget values and calendar events are also powered by mock data to demonstrate frontend functionality.
+- The portfolio interface uses demonstration data where database integration is not enabled.
+- Dashboard widget values and calendar events use sample data.
 - Unit tests are provided for the dashboard and calendar backend modules to verify the isolated logic of both components.
 
 ## Running Unit Tests
 
 Run all project tests from the root project directory:
 
-```python
-python -m unittest discover -s tests
+```bash
+python -m pytest
 ```
 
 If successful, the output should look something like:
 
-```python
-
-Ran X tests in 0.XXXs
-
-OK
+```text
+============================== 29 passed ==============================
 ```
 
 ### Exercise API returns an authentication error
@@ -459,3 +463,9 @@ OK
 - Improved meal planning features
 - Additional fitness APIs
 - Mobile application support
+
+## Licence
+
+No open-source licence has been applied yet because GoalGetter began as a
+collaborative project. A licence should only be added after the original
+contributors agree on its terms and attribution.

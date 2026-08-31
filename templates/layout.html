@@ -1,8 +1,3 @@
-
-<!--
-Reference: Sidebar and UI(profile, logo, support/setting page idea) layout learnt from Tutorials by Creative Babar (Citation in report bibliography)
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,8 +19,7 @@ Reference: Sidebar and UI(profile, logo, support/setting page idea) layout learn
 </head>
 <body>
 
-    {% with messages = get_flashed_messages(with_categories=True) %} <!-- Essential codeblocks for calendar functionality -->
-    <!-- flash() can be used in Flask to show messages on screen to client-side-->
+    {% with messages = get_flashed_messages(with_categories=True) %}
     {% if messages %}
         {% for category, message in messages %}
         <div 
@@ -92,19 +86,7 @@ Reference: Sidebar and UI(profile, logo, support/setting page idea) layout learn
             {% block main %} {% endblock %}
         </main>
 
-        <!-- USER PROFILE & LOGOUT SECTION
-            CURRENTLY:
-            - Displays the currently (placeholder) logged-in user's name and profile photo
-            TODO:
-            - Uses the 'Users' model (or equivalent) to fetch user data
-            - Logout link terminates the user session and redirects to main/or a login page
-
-            TECHNICAL NOTE:
-            - Profile photo is currently a placeholder image
-            - User data (name, email, profile picture) should be passed to the template
-              via Flask's render_template() context
-            - The logout route should clear the session and redirect to /dashboard, or if /login is created the login route-->
-        <!-- Profile Picture and Name begins here-->
+        <!-- Demonstration member summary; database-backed authentication is not enabled. -->
         <div class="right">
             <div class="top">
                 <button id="menu_bar">
